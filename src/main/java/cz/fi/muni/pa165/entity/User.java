@@ -42,19 +42,8 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate;
 
-	@OneToMany(mappedBy="user")
-	private List<ProductComment> comments = new ArrayList<>();
-
 	public long getId() {
 		return id;
-	}
-
-	public List<ProductComment> getComments() {
-		return Collections.unmodifiableList(comments);
-	}
-	
-	protected void addComment(ProductComment c) {
-		comments.add(c);
 	}
 
 	public String getPasswordHash() {

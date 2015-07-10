@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import cz.fi.muni.pa165.entity.Order;
-import cz.fi.muni.pa165.entity.ProductComment;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {

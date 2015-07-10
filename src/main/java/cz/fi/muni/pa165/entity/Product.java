@@ -63,11 +63,6 @@ public class Product {
 	public enum Color{ BLACK, WHITE, RED}
 	
 	
-	
-	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
-	@OrderBy("created DESC")
-	private List<ProductComment> comments = new ArrayList<ProductComment>();
-
 	public byte[] getImage() {
 		return image;
 	}
@@ -132,13 +127,6 @@ public class Product {
 		this.color = color;
 	}
 
-	public List<ProductComment> getComments() {
-		return Collections.unmodifiableList(comments);
-	}
-
-	protected void addComment(ProductComment comment) {
-		comments.add(comment);
-	}
 
 	public Long getId() {
 		return id;

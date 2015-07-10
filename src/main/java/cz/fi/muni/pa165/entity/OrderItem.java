@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -29,6 +30,19 @@ public class OrderItem {
 	private Product product;
 		
 	private Integer amount;
+
+	@OneToOne
+	@JoinTable(name="CURRENT_PRICE")
+	private Price pricePerItem;
+	
+	
+	public Price getPricePerItem() {
+		return pricePerItem;
+	}
+
+	public void setPricePerItem(Price pricePerItem) {
+		this.pricePerItem = pricePerItem;
+	}
 
 	public Long getId() {
 		return id;
