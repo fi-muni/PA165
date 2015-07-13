@@ -47,7 +47,7 @@ public class OrderDaoTest  extends AbstractTransactionalTestNGSpringContextTests
 		userDao.create(user);
 		
 		Order order = new Order();
-		order.addOrderItem(p);
+		//order.addOrderItem(p);
 		order.setUser(user);
 		order.setCreated(Calendar.getInstance().getTime());
 		order.setState(OrderState.RECEIVED);

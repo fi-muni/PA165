@@ -34,4 +34,14 @@ public class ProductDaoImpl implements ProductDao{
 		return em.merge(p);
 	}
 
+	@Override public void remove(Long id) throws IllegalArgumentException
+	{
+		em.remove(findById(id));
+	}
+
+	@Override public Product findByName(String namePattern)
+	{
+		return em.createQuery("SELECT p FROM Product p WHERE p.name = :name", Product.class).getSingleResult();
+	}
+
 }

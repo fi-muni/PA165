@@ -17,14 +17,15 @@ public class OrderItemDaoImpl implements OrderItemDao {
 	private EntityManager em;
 	
 	@Override
-	public List<Order> findAll() {
-		return em.createQuery("select o from OrderItem o", Order.class).getResultList();
+	public List<OrderItem> findAll() {
+		return em.createQuery("select o from OrderItem o", OrderItem.class).getResultList();
 	}
 
 	@Override
 	public void create(OrderItem orderItem) {
 		em.persist(orderItem);
 	}
+
 
 	@Override
 	public void update(OrderItem orderItem) {
@@ -35,5 +36,15 @@ public class OrderItemDaoImpl implements OrderItemDao {
 	public void delete(OrderItem orderItem) {
 		em.remove(orderItem);
 	}
+
+	@Override public OrderItem findById(Long id)
+	{
+		return em.createQuery("select o from OrderItem o WHERE o.id = :id", OrderItem.class).setParameter("id",id).getSingleResult();
+	}
+
+	public void removeById(Long id) {
+		em.remove(findById(id));
+	}
+
 
 }
