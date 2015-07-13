@@ -31,7 +31,7 @@ public class Price {
 	@NotNull
 	private Currency currency;
 	
-	public enum Currency{
+	public enum Currency {
 		CZK, EUR, USD
 	}
 

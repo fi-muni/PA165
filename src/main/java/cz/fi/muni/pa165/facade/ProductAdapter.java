@@ -6,7 +6,7 @@ import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
 
-public interface ProductFacade {
+public interface ProductAdapter {
 	Long createProduct(ProductCreateDTO p);
 	void addCategory(Long productId, Long categoryId);
 	void changePrice(Long productId, PriceDTO newPrice);

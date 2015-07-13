@@ -2,6 +2,8 @@ package cz.fi.muni.pa165.service;
 
 import java.math.BigDecimal;
 
+import javax.inject.Inject;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,14 @@ import cz.fi.muni.pa165.entity.Product;
 @Service
 public class ProductServiceImpl implements ProductService
 {
-    @Autowired
+	@Inject
     private ProductDao productDao;
+    
+    
+    @Override 
+	public Product findById(Long id){ 
+    	return productDao.findById(id);
+    }
     
     @Override
     public Product createProduct(Product p) {
@@ -35,8 +43,6 @@ public class ProductServiceImpl implements ProductService
 
 	@Override
 	public void changePrice(Product p, Price newPrice) {
-		p = productDao.findById(p.getId());
-		
 		BigDecimal difference = p.getCurrentPrice().getValue().subtract(newPrice.getValue());
 		if (difference.abs().divide(p.getCurrentPrice().getValue()).compareTo(new BigDecimal("0.1")) > 0){
 			throw new  ProductServiceException("It is not allowed to change the price by more than 10%");
@@ -47,7 +53,6 @@ public class ProductServiceImpl implements ProductService
 	
 	@Override
 	public void addCategory(Product product, Category category) {
-		product =  productDao.findById(product.getId());
 		product.addCategory(category);
 	}
 }

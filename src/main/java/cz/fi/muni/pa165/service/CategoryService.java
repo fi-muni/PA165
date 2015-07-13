@@ -11,10 +11,6 @@ import cz.fi.muni.pa165.entity.Product;
  */
 
 @Service
-public interface ProductService {
-	Product findById(Long id);
-	Product createProduct(Product p);
-	void addCategory(Product product, Category category);
-	void changePrice(Product product, Price newPrice);
-	void deleteProduct(Product p);
+public interface CategoryService {
+	Category findById(Long id);
 }
