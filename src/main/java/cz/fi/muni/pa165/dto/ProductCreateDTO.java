@@ -7,20 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
-public class ProductDTO
+public class ProductCreateDTO
 {
-    private Long id;
-
     private byte[] image;
 
     private String imageMimeType;
 
     private String name;
 
-    private Set<CategoryDTO> categories = new HashSet<CategoryDTO>();
-
-    private List<PriceDTO> priceHistory = new ArrayList<PriceDTO>();
-    
     private PriceDTO currentPrice;
 
     private Color color;
@@ -31,15 +25,7 @@ public class ProductDTO
     public byte[] getImage() {
         return image;
     }
-    
-    public Set<CategoryDTO> getCategories() {
-        return Collections.unmodifiableSet(categories);
-    }
 
-    public void addCategory(CategoryDTO c) {
-        categories.add(c);
-        c.addProduct(this);
-    }
 
     public String getImageMimeType() {
         return imageMimeType;
@@ -59,17 +45,9 @@ public class ProductDTO
 
 
     public void setCurrentPrice(PriceDTO currentPrice) {
-        if (currentPrice != null)
-        	priceHistory.add(currentPrice);
-
+ 
         this.currentPrice = currentPrice;
     }
-
-
-    public List<PriceDTO> getPriceHistory() {
-        return Collections.unmodifiableList(priceHistory);
-    }
-
 
     public void setImage(byte[] image) {
         this.image = image;
@@ -92,15 +70,6 @@ public class ProductDTO
         this.color = color;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     
     @Override
     public int hashCode() {
@@ -118,7 +87,7 @@ public class ProductDTO
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ProductDTO other = (ProductDTO) obj;
+        ProductCreateDTO other = (ProductCreateDTO) obj;
         if (name == null) {
             if (other.name != null)
                 return false;

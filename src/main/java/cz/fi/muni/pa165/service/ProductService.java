@@ -2,7 +2,7 @@ package cz.fi.muni.pa165.service;
 
 import org.springframework.stereotype.Service;
 
-import cz.fi.muni.pa165.dto.ProductDTO;
+import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
 
@@ -12,22 +12,8 @@ import cz.fi.muni.pa165.entity.Product;
 
 @Service
 public interface ProductService {
-	/**
-	 * Create a new {@link Product}
-	 * @param p
-	 */
-	ProductDTO createProduct(ProductDTO p);
-
-	/**
-	 * Delete a mirror of the given ProductDTO from the database.
-	 * @param p
-	 */
-	void deleteProduct(ProductDTO p);
-
-	/**
-	 * Get a single product with the given name
-	 */
-	ProductDTO getProductByName(String namePattern);
-	
-	ProductDTO changePrice(Long id, Price newPrice);
+	Product createProduct(Product p);
+	void addCategory(Product product, Category category);
+	void changePrice(Product product, Price newPrice);
+	void deleteProduct(Product p);
 }

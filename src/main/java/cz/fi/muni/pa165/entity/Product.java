@@ -63,6 +63,11 @@ public class Product {
 	public enum Color{ BLACK, WHITE, RED}
 	
 	
+	public Product(Long productId) {
+		this.id = productId;
+	}
+	public Product() {
+	}
 	public byte[] getImage() {
 		return image;
 	}

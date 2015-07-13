@@ -26,8 +26,9 @@ public interface OrderService {
 	 */
 	List<OrderDTO> getAllOrders(OrderState state);
 
-	/**
-	 * Change the order state of a saved {@Order} for the provided {@link OrderDTO}
-	 */
-	void changeOrderState(Long id, OrderState newState) throws IllegalArgumentException;
+
+	void shipOrder(Long id);
+	void finishOrder(Long id);
+	void cancelOrder(Long id);
+	
 }

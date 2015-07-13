@@ -26,6 +26,12 @@ public class Category {
 	@ManyToMany(mappedBy="categories")
 	private Set<Product> products = new HashSet<Product>();
 
+	public Category(Long categoryId) {
+		this.id = id; 
+	}
+	public Category() {
+	}
+
 	public String getName() {
 		return name;
 	}

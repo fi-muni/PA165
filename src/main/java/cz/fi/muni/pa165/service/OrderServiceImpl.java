@@ -65,31 +65,38 @@ public class OrderServiceImpl implements OrderService
         return mapToDTO(orderDao.getOrdersCreatedBetween(lastWeek,now));
     }
     
+    
+  /**
+  * The only allowed changes of state are:
+  *   RECIEVED - CANCELED
+  *   RECEIVED - SHIPPED
+  *   SHIPPED - DONE
+  */
     Set<Transition> allowedTransitions = new HashSet<Transition>();
     {
     	allowedTransitions.add(new Transition(OrderState.RECEIVED, OrderState.SHIPPED));
     	allowedTransitions.add(new Transition(OrderState.RECEIVED, OrderState.CANCELED));
     	allowedTransitions.add(new Transition(OrderState.SHIPPED, OrderState.DONE));
     }
-    /**
-     * The only allowed changes of state are:
-     *   RECIEVED - CANCELED
-     *   RECEIVED - SHIPPED
-     *   SHIPPED - DONE
-     */
-    @Override
-    public void changeOrderState(Long id, OrderState newState){
-    	Order foundOrder = orderDao.findById(id);
-    	
-        if(foundOrder != null) {
-        	if (!allowedTransitions.contains(new Transition(foundOrder.getState(), newState)))
-        		throw new OrderServiceException("The transition from: "+ foundOrder.getState()+ " to "+ newState+" is not allowed!");
-        	foundOrder.setState(newState);
-        } else {
-            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
-        }
-
-    }
+//    /**
+//     * The only allowed changes of state are:
+//     *   RECIEVED - CANCELED
+//     *   RECEIVED - SHIPPED
+//     *   SHIPPED - DONE
+//     */
+//    @Override
+//    public void changeOrderState(Long id, OrderState newState){
+//    	Order foundOrder = orderDao.findById(id);
+//    	
+//        if(foundOrder != null) {
+//        	if (!allowedTransitions.contains(new Transition(foundOrder.getState(), newState)))
+//        		throw new OrderServiceException("The transition from: "+ foundOrder.getState()+ " to "+ newState+" is not allowed!");
+//        	foundOrder.setState(newState);
+//        } else {
+//            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
+//        }
+//
+//    }
 
     private List<OrderDTO> mapToDTO(List<Order> orders) {
         List<OrderDTO> mappedCollection = new ArrayList<>();
@@ -99,5 +106,45 @@ public class OrderServiceImpl implements OrderService
         return mappedCollection;
     }
 
+	@Override
+	public void shipOrder(Long id) {
+		Order foundOrder = orderDao.findById(id);
+    	
+        if(foundOrder != null) {
+        	checkTransition(foundOrder.getState(), OrderState.SHIPPED);
+        	foundOrder.setState(OrderState.SHIPPED);
+        } else {
+            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
+        }
+	}
+	
+	@Override
+	public void finishOrder(Long id) {
+		Order foundOrder = orderDao.findById(id);
+    	
+        if(foundOrder != null) {
+        	checkTransition(foundOrder.getState(), OrderState.DONE);
+        	foundOrder.setState(OrderState.DONE);
+        } else {
+            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
+        }
+	}
+	
+	@Override
+	public void cancelOrder(Long id) {
+		Order foundOrder = orderDao.findById(id);
+    	
+        if(foundOrder != null) {
+        	checkTransition(foundOrder.getState(), OrderState.CANCELED);
+        	foundOrder.setState(OrderState.CANCELED);
+        } else {
+            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
+        }
+	}
 
+	private void checkTransition(OrderState oldState, OrderState newState) {
+		if (!allowedTransitions.contains(new Transition(oldState, newState)))
+    		throw new OrderServiceException("The transition from: "+ oldState+ " to "+ newState+" is not allowed!");
+		
+	}
 }

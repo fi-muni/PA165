@@ -1,11 +1,13 @@
 package cz.fi.muni.pa165.service;
 
+import java.math.BigDecimal;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cz.fi.muni.pa165.dao.ProductDao;
-import cz.fi.muni.pa165.dto.ProductDTO;
+import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
 
@@ -20,29 +22,32 @@ public class ProductServiceImpl implements ProductService
     @Autowired
     private ProductDao productDao;
     
-    @Autowired
-    private DozerBeanMapper doozer;
-
-    
-    public ProductDTO createProduct(ProductDTO p) {
-    	Product entity = doozer.map(p, Product.class);
-        productDao.create(entity);
-        return doozer.map(entity, ProductDTO.class);
+    @Override
+    public Product createProduct(Product p) {
+        productDao.create(p);
+        return p;
     }
 
-    public void deleteProduct(ProductDTO p){
+    @Override
+    public void deleteProduct(Product p){
         productDao.remove(p.getId());
     }
 
-    public ProductDTO getProductByName(String namePattern){
-        return doozer.map(productDao.findByName(namePattern), ProductDTO.class);
-    }
-
 	@Override
-	public ProductDTO changePrice(Long id, Price newPrice) {
-		Product p = productDao.findById(id);
+	public void changePrice(Product p, Price newPrice) {
+		p = productDao.findById(p.getId());
+		
+		BigDecimal difference = p.getCurrentPrice().getValue().subtract(newPrice.getValue());
+		if (difference.abs().divide(p.getCurrentPrice().getValue()).compareTo(new BigDecimal("0.1")) > 0){
+			throw new  ProductServiceException("It is not allowed to change the price by more than 10%");
+		}
+		
 		p.setCurrentPrice(newPrice);
-		return doozer.map(p, ProductDTO.class);
 	}
-    
+	
+	@Override
+	public void addCategory(Product product, Category category) {
+		product =  productDao.findById(product.getId());
+		product.addCategory(category);
+	}
 }

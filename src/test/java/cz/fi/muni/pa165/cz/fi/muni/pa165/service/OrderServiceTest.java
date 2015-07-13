@@ -83,19 +83,20 @@ public class OrderServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void changeOrderState() {
+	public void shipOrder() {
 		Order o = new Order();
 		o.setState(OrderState.RECEIVED);
 		doReturn(o).when(orderDao).findById(4l);
-		orderService.changeOrderState(4l, OrderState.SHIPPED);
+		orderService.shipOrder(4l);
 		Assert.assertEquals(o.getState(), OrderState.SHIPPED);
 	}
 
+	
 	@Test(expectedExceptions = OrderServiceException.class)
 	public void stateChangeNotAllowed() {
 		Order o = new Order();
 		o.setState(OrderState.SHIPPED);
 		doReturn(o).when(orderDao).findById(4l);
-		orderService.changeOrderState(4l, OrderState.RECEIVED);
+		orderService.cancelOrder(4l);
 	}
 }

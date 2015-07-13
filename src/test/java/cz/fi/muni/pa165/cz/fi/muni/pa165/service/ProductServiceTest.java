@@ -55,8 +55,8 @@ public class ProductServiceTest  extends AbstractTestNGSpringContextTests
 
 		doAnswer( new FieldSetAnswer(0, "id", 1l)).when(productDao).create(new Product());
 
-		productService.createProduct(validProduct);
-		
+//		productService.createProduct(validProduct);
+////		
 		Assert.assertEquals(validProduct.getId(), new Long(1l));
 	}
 
