@@ -6,10 +6,10 @@ import cz.fi.muni.pa165.entity.Order;
 import cz.fi.muni.pa165.entity.OrderItem;
 
 public interface OrderItemDao {
-	public void create(OrderItem orderItem);
+//	public void create(OrderItem orderItem);
 	OrderItem findById(Long id);
 	void removeById(Long id);
-	public void update(OrderItem order);
+//	public void update(OrderItem order);
 	public void delete(OrderItem order);
-	public List<OrderItem> findAll();
+//	public List<OrderItem> findAll();
 }

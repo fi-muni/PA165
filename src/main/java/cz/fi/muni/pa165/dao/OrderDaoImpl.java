@@ -25,21 +25,21 @@ public class OrderDaoImpl implements OrderDao {
 		em.persist(order);
 	}
 
-	@Override
-	public void update(Order order) {
-		em.merge(order);
-	}
+//	@Override
+//	public void update(Order order) {
+//		em.merge(order);
+//	}
+//
+//	@Override
+//	public List<Order> findAll() {
+//		return em.createQuery("select o from Order o", Order.class).getResultList();
+//	}
 
 	@Override
-	public List<Order> findAll() {
-		return em.createQuery("select o from Order o", Order.class).getResultList();
-	}
-
-	@Override
-	public List<Order> findByUser(User u)
+	public List<Order> findByUser(Long userId)
 	{
 		Query query = em.createQuery( "Select Order from Order o where o.user.id = ?1" );
-		query.setParameter( 1, u.getId());
+		query.setParameter( 1, userId);
 		return query.getResultList();
 	}
 

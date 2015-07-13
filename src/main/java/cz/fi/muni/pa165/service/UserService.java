@@ -1,21 +1,17 @@
 package cz.fi.muni.pa165.service;
 
 import java.util.Collection;
-import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import cz.fi.muni.pa165.dto.UserDTO;
-import cz.fi.muni.pa165.entity.Product;
 import cz.fi.muni.pa165.entity.User;
 
 /**
  * An interface that defines a service access to the {@link User} entity.
  */
+@Service
 public interface UserService {
-	/**
-	 * Register the given user that has provided hash password.
-	 * @param u
-	 */
-	void registerUser(UserDTO u);
 
 	/**
 	 * Register the given user with the given unencrypted password.

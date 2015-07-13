@@ -2,10 +2,12 @@ package cz.fi.muni.pa165;
 
 import javax.sql.DataSource;
 
+import org.dozer.DozerBeanMapper;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -17,16 +19,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import cz.fi.muni.pa165.dao.UserDao;
+import cz.fi.muni.pa165.service.OrderService;
 
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackageClasses=UserDao.class)
+@EnableJpaRepositories
+@ComponentScan(basePackageClasses={UserDao.class,OrderService.class})
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 
 	public JpaTransactionManager transactionManager(){
-		return  new JpaTransactionManager(jpaFactoryBean().getObject());
+		return  new JpaTransactionManager(entityManagerFactory().getObject());
 	}
 	
 	/**
@@ -34,7 +38,7 @@ public class PersistenceSampleApplicationContext {
 	 * @return
 	 */
 	@Bean
-	public LocalContainerEntityManagerFactoryBean  jpaFactoryBean(){
+	public LocalContainerEntityManagerFactoryBean  entityManagerFactory(){
 		LocalContainerEntityManagerFactoryBean jpaFactoryBean = new LocalContainerEntityManagerFactoryBean ();
 		jpaFactoryBean.setDataSource(db());
 		jpaFactoryBean.setLoadTimeWeaver(instrumentationLoadTimeWeaver());
@@ -50,7 +54,12 @@ public class PersistenceSampleApplicationContext {
 	public LoadTimeWeaver instrumentationLoadTimeWeaver() {
 		return new InstrumentationLoadTimeWeaver();
 	}
-
+	
+	@Bean
+	public 	DozerBeanMapper doozerMapperBean(){
+		return new DozerBeanMapper();
+	}
+	
 	@Bean
 	public DataSource db(){
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();

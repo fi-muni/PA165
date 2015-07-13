@@ -31,6 +31,8 @@ public class ProductDTO
     public byte[] getImage() {
         return image;
     }
+    
+    
 
     public Set<CategoryDTO> getCategories() {
         return Collections.unmodifiableSet(categories);
@@ -60,7 +62,7 @@ public class ProductDTO
 
     public void setCurrentPrice(PriceDTO currentPrice) {
         if (currentPrice != null)
-            getPriceHistory().add(currentPrice);
+        	priceHistory.add(currentPrice);
 
         this.currentPrice = currentPrice;
     }
@@ -97,6 +99,11 @@ public class ProductDTO
         return id;
     }
 
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;

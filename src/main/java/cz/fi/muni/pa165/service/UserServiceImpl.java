@@ -1,37 +1,36 @@
 package cz.fi.muni.pa165.service;
 
-import cz.fi.muni.pa165.dao.UserDao;
-import cz.fi.muni.pa165.dto.UserDTO;
-import cz.fi.muni.pa165.entity.User;
-import org.dozer.DozerBeanMapper;
-
-import javax.inject.Inject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.dozer.DozerBeanMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cz.fi.muni.pa165.dao.UserDao;
+import cz.fi.muni.pa165.dto.UserDTO;
+import cz.fi.muni.pa165.entity.User;
+
 /**
  * Implementation of the {@link UserService}. This class is part of the service module of the application that provides the implementation of the
  * business logic (main logic of the application).
  */
+@Service
 public class UserServiceImpl implements UserService
 {
-    @Inject
+	@Autowired
     private UserDao userDao;
+	
+    @Autowired
     private DozerBeanMapper dozerBeanMapper;
 
     @Override
     public void registerUser(UserDTO u, String unencryptedPassword)
     {
         u.setPasswordHash(makeSHA1Hash(unencryptedPassword));
-        registerUser(u);
-    }
-
-    @Override
-    public void registerUser(UserDTO u)
-    {
         userDao.create(dozerBeanMapper.map(u, User.class));
     }
 
@@ -77,12 +76,6 @@ public class UserServiceImpl implements UserService
         }
         return null;
     }
-
-    @Inject
-    public void setDozerBeanMapper(DozerBeanMapper dozerBeanMapper) {
-        this.dozerBeanMapper = dozerBeanMapper;
-    }
-
 
     private List<UserDTO> mapToDTO(List<User> users) {
         List<UserDTO> mappedCollection = new ArrayList<>();

@@ -16,21 +16,21 @@ public class OrderItemDaoImpl implements OrderItemDao {
 	@PersistenceContext 
 	private EntityManager em;
 	
-	@Override
-	public List<OrderItem> findAll() {
-		return em.createQuery("select o from OrderItem o", OrderItem.class).getResultList();
-	}
+//	@Override
+//	public List<OrderItem> findAll() {
+//		return em.createQuery("select o from OrderItem o", OrderItem.class).getResultList();
+//	}
 
-	@Override
-	public void create(OrderItem orderItem) {
-		em.persist(orderItem);
-	}
-
-
-	@Override
-	public void update(OrderItem orderItem) {
-		em.merge(orderItem);
-	}
+//	@Override
+//	public void create(OrderItem orderItem) {
+//		em.persist(orderItem);
+//	}
+//
+//
+//	@Override
+//	public void update(OrderItem orderItem) {
+//		em.merge(orderItem);
+//	}
 
 	@Override
 	public void delete(OrderItem orderItem) {

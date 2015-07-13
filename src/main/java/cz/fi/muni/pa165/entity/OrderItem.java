@@ -32,7 +32,7 @@ public class OrderItem {
 	private Integer amount;
 
 	@OneToOne
-	@JoinTable(name="CURRENT_PRICE")
+	@JoinTable(name="ORDER_ITEM_PRICE")
 	private Price pricePerItem;
 	
 	

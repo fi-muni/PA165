@@ -95,7 +95,7 @@ public class Product {
 
 	public void setCurrentPrice(Price currentPrice) {
 		if (currentPrice != null)
-			getPriceHistory().add(currentPrice);
+			priceHistory.add(currentPrice);
 		
 		this.currentPrice = currentPrice;
 	}

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165;
+package cz.fi.muni.pa165.dao;
 
 import java.util.Date;
 
@@ -7,6 +7,7 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 
+import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.entity.User;
 
 

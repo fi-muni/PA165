@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165;
+package cz.fi.muni.pa165.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +13,7 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.dao.CategoryDao;
 import cz.fi.muni.pa165.dao.ProductDao;
 import cz.fi.muni.pa165.entity.Category;

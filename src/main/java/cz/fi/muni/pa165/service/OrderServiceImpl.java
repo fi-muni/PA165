@@ -1,41 +1,52 @@
 package cz.fi.muni.pa165.service;
 
-import cz.fi.muni.pa165.dao.OrderDao;
-import cz.fi.muni.pa165.dao.OrderItemDao;
-import cz.fi.muni.pa165.dto.OrderDTO;
-import cz.fi.muni.pa165.dto.OrderItemDTO;
-import cz.fi.muni.pa165.entity.*;
-import org.dozer.DozerBeanMapper;
-
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.dozer.DozerBeanMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cz.fi.muni.pa165.dao.OrderDao;
+import cz.fi.muni.pa165.dao.OrderItemDao;
+import cz.fi.muni.pa165.dto.OrderDTO;
+import cz.fi.muni.pa165.entity.Order;
+import cz.fi.muni.pa165.entity.OrderState;
 
 /**
  * Implementation of the {@link OrderService}. This class is part of the service module of the application that provides the implementation of the
  * business logic (main logic of the application).
  */
+@Service
 public class OrderServiceImpl implements OrderService
 {
-    @Inject
+    @Autowired
     private OrderDao orderDao;
-    @Inject
+    
+    @Autowired
     private OrderItemDao orderItemDao;
+    
+    @Autowired
     private DozerBeanMapper dozerBeanMapper;
 
-    public Iterable<OrderDTO> getAllOrders() {
-        return mapToDTO(orderDao.findAll());
-    }
+	@Override
+	public List<OrderDTO> getAllOrders(OrderState state) {
+		return mapToDTO(orderDao.findAllWithState(state));
+	}
 
     public void createOrder(OrderDTO order) {
          orderDao.create(dozerBeanMapper.map(order, Order.class));
     }
-    public Iterable<OrderDTO> getOrdersByUser(User u){
-            return mapToDTO(orderDao.findByUser(u));
+    
+    public List<OrderDTO> getOrdersByUser(Long userId){
+            return mapToDTO(orderDao.findByUser(userId));
     }
-    public Iterable<OrderDTO> getAllOrdersLastWeek(OrderState state){
+    
+    public List<OrderDTO> getAllOrdersLastWeek(OrderState state){
         List<OrderDTO> orders = new ArrayList<OrderDTO>();
         for (OrderDTO order : this.getAllOrdersLastWeek())
         {
@@ -43,8 +54,8 @@ public class OrderServiceImpl implements OrderService
                 orders.add(order);
         }
         return orders;
-
     }
+    
     public Iterable<OrderDTO> getAllOrdersLastWeek(){
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -53,34 +64,29 @@ public class OrderServiceImpl implements OrderService
         Date lastWeek = calendar.getTime();
         return mapToDTO(orderDao.getOrdersCreatedBetween(lastWeek,now));
     }
-    public Iterable<OrderDTO> getAllOrders(OrderState state){
-        return mapToDTO(orderDao.findAllWithState(state));
+    
+    Set<Transition> allowedTransitions = new HashSet<Transition>();
+    {
+    	allowedTransitions.add(new Transition(OrderState.RECEIVED, OrderState.SHIPPED));
+    	allowedTransitions.add(new Transition(OrderState.RECEIVED, OrderState.CANCELED));
+    	allowedTransitions.add(new Transition(OrderState.SHIPPED, OrderState.DONE));
     }
-    public void changeOrderState(OrderDTO o, OrderState state){
-        Order foundOrder = orderDao.findById(o.getId());
+    /**
+     * The only allowed changes of state are:
+     *   RECIEVED - CANCELED
+     *   RECEIVED - SHIPPED
+     *   SHIPPED - DONE
+     */
+    @Override
+    public void changeOrderState(Long id, OrderState newState){
+    	Order foundOrder = orderDao.findById(id);
+    	
         if(foundOrder != null) {
-            orderDao.removeById(o.getId());
-            foundOrder.setState(state);
-            orderDao.create(foundOrder);
+        	if (!allowedTransitions.contains(new Transition(foundOrder.getState(), newState)))
+        		throw new OrderServiceException("The transition from: "+ foundOrder.getState()+ " to "+ newState+" is not allowed!");
+        	foundOrder.setState(newState);
         } else {
-            throw new IllegalArgumentException("Order with ID " + o.getId() + " is not saved in the database. It's state cannot be changed.");
-        }
-
-    }
-
-    @Inject
-    public void setDozerBeanMapper(DozerBeanMapper dozerBeanMapper) {
-        this.dozerBeanMapper = dozerBeanMapper;
-    }
-
-    public void changeOrderItemPrice(OrderItemDTO item, Price newPrice){
-        OrderItem foundOrder = orderItemDao.findById(item.getId());
-        if(foundOrder != null) {
-            orderItemDao.removeById(item.getId());
-            foundOrder.setPricePerItem(newPrice);
-            orderItemDao.create(foundOrder);
-        } else {
-            throw new IllegalArgumentException("OrderItem with ID " + item.getId() + " is not saved in the database. It's price cannot be changed.");
+            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
         }
 
     }
@@ -92,5 +98,6 @@ public class OrderServiceImpl implements OrderService
         }
         return mappedCollection;
     }
+
 
 }
