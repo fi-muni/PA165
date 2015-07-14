@@ -19,13 +19,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import cz.fi.muni.pa165.dao.UserDao;
+import cz.fi.muni.pa165.facade.ProductFacade;
 import cz.fi.muni.pa165.service.OrderService;
 
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses={UserDao.class,OrderService.class})
+@ComponentScan(basePackageClasses={UserDao.class,OrderService.class, ProductFacade.class})
 public class PersistenceSampleApplicationContext {
 	
 	@Bean 

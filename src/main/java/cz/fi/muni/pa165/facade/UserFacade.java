@@ -1,18 +1,14 @@
-package cz.fi.muni.pa165.service;
+package cz.fi.muni.pa165.facade;
 
 import java.util.Collection;
-
-import org.springframework.stereotype.Service;
 
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.entity.User;
 
-/**
- * An interface that defines a service access to the {@link User} entity.
- */
-@Service
-public interface UserService {
-
+public interface UserFacade {
+	
+	User findUserById(Long userId);
+	
 	/**
 	 * Register the given user with the given unencrypted password.
 	 */
@@ -33,5 +29,4 @@ public interface UserService {
 	 */
 	boolean isAdmin(UserDTO u);
 
-	User findUserById(Long userId);
 }

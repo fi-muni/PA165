@@ -16,7 +16,6 @@ public class UserDTO
     private String email;
     private String givenName;
     private String surname;
-
     private String phone;
 
     private Date joinedDate;

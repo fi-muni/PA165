@@ -25,16 +25,6 @@ public class OrderDaoImpl implements OrderDao {
 		em.persist(order);
 	}
 
-//	@Override
-//	public void update(Order order) {
-//		em.merge(order);
-//	}
-//
-//	@Override
-//	public List<Order> findAll() {
-//		return em.createQuery("select o from Order o", Order.class).getResultList();
-//	}
-
 	@Override
 	public List<Order> findByUser(Long userId)
 	{
@@ -56,7 +46,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<Order> findAllWithState(OrderState state)
+	public List<Order> getOrdersWithState(OrderState state)
 	{
 		Query query = em.createQuery( "SELECT q FROM Order o WHERE o.state = :state", Order.class );
 		query.setParameter("state", state);
@@ -64,11 +54,12 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<Order> getOrdersCreatedBetween(Date start, Date end)
+	public List<Order> getOrdersCreatedBetween(Date start, Date end, OrderState state)
 	{
-		Query query = em.createQuery( "SELECT o FROM Order e WHERE o.created BETWEEN :startDate AND :endDate", Order.class );
+		Query query = em.createQuery( "SELECT o FROM Order e WHERE o.state = :state AND o.created BETWEEN :startDate AND :endDate ", Order.class );
 		query.setParameter("startDate", start);
 		query.setParameter("end", end);
+		query.setParameter("state", state);
 		return query.getResultList();
 	}
 

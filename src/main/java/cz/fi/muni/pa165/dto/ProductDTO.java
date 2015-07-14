@@ -19,9 +19,9 @@ public class ProductDTO
 
     private Set<CategoryDTO> categories = new HashSet<CategoryDTO>();
 
-    private List<PriceDTO> priceHistory = new ArrayList<PriceDTO>();
+    private List<NewPriceDTO> priceHistory = new ArrayList<NewPriceDTO>();
     
-    private PriceDTO currentPrice;
+    private NewPriceDTO currentPrice;
 
     private Color color;
 
@@ -53,12 +53,12 @@ public class ProductDTO
 
 
 
-    public PriceDTO getCurrentPrice() {
+    public NewPriceDTO getCurrentPrice() {
         return currentPrice;
     }
 
 
-    public void setCurrentPrice(PriceDTO currentPrice) {
+    public void setCurrentPrice(NewPriceDTO currentPrice) {
         if (currentPrice != null)
         	priceHistory.add(currentPrice);
 
@@ -66,7 +66,7 @@ public class ProductDTO
     }
 
 
-    public List<PriceDTO> getPriceHistory() {
+    public List<NewPriceDTO> getPriceHistory() {
         return Collections.unmodifiableList(priceHistory);
     }
 

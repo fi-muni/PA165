@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.entity.Price.Currency;
 import cz.fi.muni.pa165.entity.Product;
 
 /**
@@ -17,4 +18,5 @@ public interface ProductService {
 	void addCategory(Product product, Category category);
 	void changePrice(Product product, Price newPrice);
 	void deleteProduct(Product p);
+	Price convertToCurrency(Price price, Currency currency);
 }

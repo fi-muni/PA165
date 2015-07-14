@@ -1,11 +1,7 @@
 package cz.fi.muni.pa165.dto;
 
-import cz.fi.muni.pa165.entity.Category;
-import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.dto.ProductDTO.Color;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.*;
 
 public class ProductCreateDTO
 {
@@ -15,11 +11,9 @@ public class ProductCreateDTO
 
     private String name;
 
-    private PriceDTO currentPrice;
+    private NewPriceDTO currentPrice;
 
     private Color color;
-
-    public enum Color{ BLACK, WHITE, RED}
 
 
     public byte[] getImage() {
@@ -39,12 +33,12 @@ public class ProductCreateDTO
 
 
 
-    public PriceDTO getCurrentPrice() {
+    public NewPriceDTO getCurrentPrice() {
         return currentPrice;
     }
 
 
-    public void setCurrentPrice(PriceDTO currentPrice) {
+    public void setCurrentPrice(NewPriceDTO currentPrice) {
  
         this.currentPrice = currentPrice;
     }

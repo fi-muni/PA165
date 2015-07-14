@@ -84,4 +84,9 @@ public class UserServiceImpl implements UserService
         }
         return mappedCollection;
     }
+
+	@Override
+	public User findUserById(Long userId) {
+		return userDao.findById(userId);
+	}
 }

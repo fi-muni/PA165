@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,135 +15,84 @@ import cz.fi.muni.pa165.dao.OrderItemDao;
 import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.entity.Order;
 import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.entity.User;
 
 /**
- * Implementation of the {@link OrderService}. This class is part of the service module of the application that provides the implementation of the
- * business logic (main logic of the application).
+ * Implementation of the {@link OrderService}. This class is part of the service
+ * module of the application that provides the implementation of the business
+ * logic (main logic of the application).
  */
 @Service
-public class OrderServiceImpl implements OrderService
-{
-    @Autowired
-    private OrderDao orderDao;
-    
-    @Autowired
-    private OrderItemDao orderItemDao;
-    
-    @Autowired
-    private DozerBeanMapper dozerBeanMapper;
+public class OrderServiceImpl implements OrderService {
+	@Autowired
+	private OrderDao orderDao;
+
 
 	@Override
-	public List<OrderDTO> getAllOrders(OrderState state) {
-		return mapToDTO(orderDao.findAllWithState(state));
-	}
-
-    public void createOrder(OrderDTO order) {
-         orderDao.create(dozerBeanMapper.map(order, Order.class));
-    }
-    
-    public List<OrderDTO> getOrdersByUser(Long userId){
-            return mapToDTO(orderDao.findByUser(userId));
-    }
-    
-    public List<OrderDTO> getAllOrdersLastWeek(OrderState state){
-        List<OrderDTO> orders = new ArrayList<OrderDTO>();
-        for (OrderDTO order : this.getAllOrdersLastWeek())
-        {
-            if(order.getState().equals(state))
-                orders.add(order);
-        }
-        return orders;
-    }
-    
-    public Iterable<OrderDTO> getAllOrdersLastWeek(){
-        Date now = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
-        calendar.add(Calendar.DAY_OF_YEAR, -7);
-        Date lastWeek = calendar.getTime();
-        return mapToDTO(orderDao.getOrdersCreatedBetween(lastWeek,now));
-    }
-    
-    
-  /**
-  * The only allowed changes of state are:
-  *   RECIEVED - CANCELED
-  *   RECEIVED - SHIPPED
-  *   SHIPPED - DONE
-  */
-    Set<Transition> allowedTransitions = new HashSet<Transition>();
-    {
-    	allowedTransitions.add(new Transition(OrderState.RECEIVED, OrderState.SHIPPED));
-    	allowedTransitions.add(new Transition(OrderState.RECEIVED, OrderState.CANCELED));
-    	allowedTransitions.add(new Transition(OrderState.SHIPPED, OrderState.DONE));
-    }
-//    /**
-//     * The only allowed changes of state are:
-//     *   RECIEVED - CANCELED
-//     *   RECEIVED - SHIPPED
-//     *   SHIPPED - DONE
-//     */
-//    @Override
-//    public void changeOrderState(Long id, OrderState newState){
-//    	Order foundOrder = orderDao.findById(id);
-//    	
-//        if(foundOrder != null) {
-//        	if (!allowedTransitions.contains(new Transition(foundOrder.getState(), newState)))
-//        		throw new OrderServiceException("The transition from: "+ foundOrder.getState()+ " to "+ newState+" is not allowed!");
-//        	foundOrder.setState(newState);
-//        } else {
-//            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
-//        }
-//
-//    }
-
-    private List<OrderDTO> mapToDTO(List<Order> orders) {
-        List<OrderDTO> mappedCollection = new ArrayList<>();
-        for (Order order : orders) {
-            mappedCollection.add(dozerBeanMapper.map(order, OrderDTO.class));
-        }
-        return mappedCollection;
-    }
-
-	@Override
-	public void shipOrder(Long id) {
-		Order foundOrder = orderDao.findById(id);
-    	
-        if(foundOrder != null) {
-        	checkTransition(foundOrder.getState(), OrderState.SHIPPED);
-        	foundOrder.setState(OrderState.SHIPPED);
-        } else {
-            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
-        }
+	public Order findOrderById(Long id) {
+		return orderDao.findById(id);
 	}
 	
 	@Override
-	public void finishOrder(Long id) {
-		Order foundOrder = orderDao.findById(id);
-    	
-        if(foundOrder != null) {
-        	checkTransition(foundOrder.getState(), OrderState.DONE);
-        	foundOrder.setState(OrderState.DONE);
-        } else {
-            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
-        }
+	public List<Order> getAllOrders(OrderState state) {
+		return orderDao.getOrdersWithState(state);
 	}
-	
+
 	@Override
-	public void cancelOrder(Long id) {
-		Order foundOrder = orderDao.findById(id);
-    	
-        if(foundOrder != null) {
-        	checkTransition(foundOrder.getState(), OrderState.CANCELED);
-        	foundOrder.setState(OrderState.CANCELED);
-        } else {
-            throw new IllegalArgumentException("Order with ID " + id  + " is not saved in the database. It's state cannot be changed.");
-        }
+	public List<Order> getOrdersByUser(User user) {
+		return orderDao.findByUser(user.getId());
+	}
+
+
+	@Override
+	public List<Order> getAllOrdersLastWeek(OrderState state) {
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		calendar.add(Calendar.DAY_OF_YEAR, -7);
+		Date lastWeek = calendar.getTime();
+		return orderDao.getOrdersCreatedBetween(lastWeek, now,state);
+	}
+
+	/**
+	 * The only allowed changes of state are: RECIEVED - CANCELED RECEIVED -
+	 * SHIPPED SHIPPED - DONE
+	 */
+	private Set<Transition> allowedTransitions = new HashSet<Transition>();
+	{
+		allowedTransitions.add(new Transition(OrderState.RECEIVED,
+				OrderState.SHIPPED));
+		allowedTransitions.add(new Transition(OrderState.RECEIVED,
+				OrderState.CANCELED));
+		allowedTransitions.add(new Transition(OrderState.SHIPPED,
+				OrderState.DONE));
+	}
+
+	@Override
+	public void shipOrder(Order order) {
+		checkTransition(order.getState(), OrderState.SHIPPED);
+		order.setState(OrderState.SHIPPED);
+	}
+
+	@Override
+	public void finishOrder(Order order) {
+
+		checkTransition(order.getState(), OrderState.DONE);
+		order.setState(OrderState.DONE);
+
+	}
+
+	@Override
+	public void cancelOrder(Order order) {
+		checkTransition(order.getState(), OrderState.CANCELED);
+		order.setState(OrderState.CANCELED);
 	}
 
 	private void checkTransition(OrderState oldState, OrderState newState) {
 		if (!allowedTransitions.contains(new Transition(oldState, newState)))
-    		throw new OrderServiceException("The transition from: "+ oldState+ " to "+ newState+" is not allowed!");
-		
+			throw new OrderServiceException("The transition from: " + oldState
+					+ " to " + newState + " is not allowed!");
+
 	}
+
 }

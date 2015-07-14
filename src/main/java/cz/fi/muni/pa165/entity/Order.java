@@ -40,6 +40,13 @@ public class Order {
 	@NotNull
 	private OrderState state;
 
+	public Order(Long id) {
+		this.id=id;
+	}
+
+	public Order() {
+	}
+	
 	public User getUser() {
 		return user;
 	}

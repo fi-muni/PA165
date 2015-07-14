@@ -12,6 +12,7 @@ public interface OrderDao  {
 	public List<Order> findByUser(Long id);
 	public Order findById(Long id);
 	public void removeById(Long id)  throws IllegalArgumentException;
-	public List<Order> findAllWithState(OrderState state);
-	List<Order> getOrdersCreatedBetween(Date start, Date end);
+	List<Order> getOrdersWithState(OrderState state);
+	List<Order> getOrdersCreatedBetween(Date start, Date end, OrderState state);
+	
 }

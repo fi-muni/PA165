@@ -13,14 +13,14 @@ public class OrderItemDTO
 
     private Integer amount;
 
-    private PriceDTO pricePerItem;
+    private NewPriceDTO pricePerItem;
 
 
-    public PriceDTO getPricePerItem() {
+    public NewPriceDTO getPricePerItem() {
         return pricePerItem;
     }
 
-    public void setPricePerItem(PriceDTO pricePerItem) {
+    public void setPricePerItem(NewPriceDTO pricePerItem) {
         this.pricePerItem = pricePerItem;
     }
 
