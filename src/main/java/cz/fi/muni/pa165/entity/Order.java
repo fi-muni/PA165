@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.entity;
 
+import cz.fi.muni.pa165.enums.OrderState;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;

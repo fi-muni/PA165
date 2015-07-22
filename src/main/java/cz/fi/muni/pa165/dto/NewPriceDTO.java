@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.dto;
 
+import cz.fi.muni.pa165.enums.Currency;
+
 import java.math.BigDecimal;
 
-import cz.fi.muni.pa165.entity.Price.Currency;
 
 /**
  * Created by mbriskar on 7/12/15.

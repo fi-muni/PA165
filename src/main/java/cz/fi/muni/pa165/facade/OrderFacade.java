@@ -3,7 +3,7 @@ package cz.fi.muni.pa165.facade;
 import java.util.List;
 
 import cz.fi.muni.pa165.dto.OrderDTO;
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 
 public interface OrderFacade {
 	List<OrderDTO> getOrdersByUser(Long userId);

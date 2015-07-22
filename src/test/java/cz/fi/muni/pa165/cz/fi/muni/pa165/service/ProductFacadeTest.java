@@ -1,32 +1,27 @@
 package cz.fi.muni.pa165.cz.fi.muni.pa165.service;
 
-import static org.mockito.BDDMockito.*;
-
-import java.math.BigDecimal;
-
+import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
+import cz.fi.muni.pa165.dao.PriceRepository;
+import cz.fi.muni.pa165.dao.ProductDao;
+import cz.fi.muni.pa165.dto.NewPriceDTO;
+import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.entity.Product;
+import cz.fi.muni.pa165.enums.Currency;
+import cz.fi.muni.pa165.facade.ProductFacade;
+import cz.fi.muni.pa165.service.ProductService;
+import cz.fi.muni.pa165.service.ProductServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
-import cz.fi.muni.pa165.dao.PriceRepository;
-import cz.fi.muni.pa165.dao.ProductDao;
-import cz.fi.muni.pa165.dto.NewPriceDTO;
-import cz.fi.muni.pa165.dto.ProductCreateDTO;
-import cz.fi.muni.pa165.dto.ProductDTO.Color;
-import cz.fi.muni.pa165.entity.Price;
-import cz.fi.muni.pa165.entity.Price.Currency;
-import cz.fi.muni.pa165.entity.Product;
-import cz.fi.muni.pa165.facade.ProductFacade;
-import cz.fi.muni.pa165.service.ProductService;
-import cz.fi.muni.pa165.service.ProductServiceException;
-import cz.fi.muni.pa165.testutils.FieldSetAnswer;
+import java.math.BigDecimal;
+
+import static org.mockito.BDDMockito.doReturn;
 
 @ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
 public class ProductFacadeTest  extends AbstractTestNGSpringContextTests 

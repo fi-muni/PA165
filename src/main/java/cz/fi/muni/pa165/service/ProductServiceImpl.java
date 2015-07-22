@@ -1,19 +1,17 @@
 package cz.fi.muni.pa165.service;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
-
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Service;
-
 import cz.fi.muni.pa165.dao.PriceRepository;
 import cz.fi.muni.pa165.dao.ProductDao;
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
-import cz.fi.muni.pa165.entity.Price.Currency;
 import cz.fi.muni.pa165.entity.Product;
+import cz.fi.muni.pa165.enums.Currency;
+import cz.fi.muni.pa165.utils.CurrencyRateUtils;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Implementation of the {@link ProductService}. This class is part of the service module of the application that provides the implementation of the
@@ -46,20 +44,32 @@ public class ProductServiceImpl implements ProductService
     }
 
 	/**
-	 * TODO implement this to convert between currencies with static currency exchange rate.
 	 * Later we should explain that in reality, the service would call external service through a new DAO
+     * Currency rate cache should be filled through that DAO in application startup.
+     * TODO: write a test
 	 */
 	@Override
 	public Price convertToCurrency(Price price, Currency currency) {
-		// TODO Auto-generated method stub
-		return null;
+        if (price == null || currency == null) {
+            throw new IllegalArgumentException("Price or currency is null");
+        }
+
+		BigDecimal convertRate = CurrencyRateUtils.getCurrencyRate(price.getCurrency(), currency);
+        if (convertRate == null) {
+            // TODO : log this state with WARN level
+            convertRate = BigDecimal.ONE;
+        }
+
+        BigDecimal newPrice = price.getValue().multiply(convertRate).setScale(2, RoundingMode.HALF_UP);
+        price.setValue(newPrice);
+
+        return price;
 	}
-	
-	/**
-	 * TODO implement change price that would use the convertToCurrency above
-	 */
+
 	@Override
 	public void changePrice(Product p, Price newPrice) {
+        newPrice = convertToCurrency(newPrice, p.getCurrentPrice().getCurrency());
+
 		BigDecimal difference = p.getCurrentPrice().getValue().subtract(newPrice.getValue());
 		BigDecimal percents = difference.abs().divide(p.getCurrentPrice().getValue(),5,RoundingMode.HALF_UP); 
 		if (percents.compareTo(new BigDecimal("0.1")) > 0){
@@ -70,11 +80,11 @@ public class ProductServiceImpl implements ProductService
 		p.setCurrentPrice(newPrice);
 	}
 	
-	/**
-	 * TODO implement logic that will disallow to add the same category twice
-	 */
 	@Override
 	public void addCategory(Product product, Category category) {
+        if (product.getCategories().contains(category)) {
+            throw new ProductServiceException("Product already contais this category. Product: " + product.getId() + ", category: " + category.getId());
+        }
 		product.addCategory(category);
 	}
 

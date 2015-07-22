@@ -2,9 +2,8 @@ package cz.fi.muni.pa165.service;
 
 import java.util.List;
 
-import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.entity.Order;
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.entity.User;
 
 /**

@@ -7,8 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import cz.fi.muni.pa165.entity.OrderState;
-import cz.fi.muni.pa165.entity.User;
+import cz.fi.muni.pa165.enums.OrderState;
 import org.springframework.stereotype.Repository;
 
 import cz.fi.muni.pa165.entity.Order;

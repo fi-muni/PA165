@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cz.fi.muni.pa165.dao.OrderDao;
-import cz.fi.muni.pa165.dao.OrderItemDao;
-import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.entity.Order;
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.entity.User;
 
 /**

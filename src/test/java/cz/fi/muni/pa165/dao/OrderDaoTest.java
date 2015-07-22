@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.dao;
 
 import java.util.Calendar;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,14 +10,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
-import cz.fi.muni.pa165.dao.ProductDao;
-import cz.fi.muni.pa165.dao.UserDao;
 import cz.fi.muni.pa165.entity.Order;
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.entity.Product;
 import cz.fi.muni.pa165.entity.User;
 

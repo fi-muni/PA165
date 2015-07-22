@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.entity;
 
+import cz.fi.muni.pa165.enums.Currency;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -30,10 +32,6 @@ public class Price {
 	@Enumerated
 	@NotNull
 	private Currency currency;
-	
-	public enum Currency {
-		CZK, EUR, USD
-	}
 
 	public BigDecimal getValue() {
 		return value;

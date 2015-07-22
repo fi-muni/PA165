@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.entity.Order;
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.entity.User;
 import cz.fi.muni.pa165.service.OrderService;
 import cz.fi.muni.pa165.service.UserService;

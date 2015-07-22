@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.service;
 
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 
 public class Transition {
 	private OrderState startState;

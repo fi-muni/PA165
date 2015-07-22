@@ -1,12 +1,7 @@
 package cz.fi.muni.pa165.cz.fi.muni.pa165.service;
 
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
@@ -22,9 +17,8 @@ import org.testng.annotations.Test;
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.dao.OrderDao;
 import cz.fi.muni.pa165.dao.OrderItemDao;
-import cz.fi.muni.pa165.dao.PriceRepository;
 import cz.fi.muni.pa165.entity.Order;
-import cz.fi.muni.pa165.entity.OrderState;
+import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.facade.OrderFacade;
 import cz.fi.muni.pa165.service.OrderService;
 import cz.fi.muni.pa165.service.OrderServiceException;

@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.dto;
 
-import cz.fi.muni.pa165.entity.OrderState;
-import cz.fi.muni.pa165.entity.User;
+import cz.fi.muni.pa165.enums.OrderState;
 
 import java.util.ArrayList;
 import java.util.Collections;

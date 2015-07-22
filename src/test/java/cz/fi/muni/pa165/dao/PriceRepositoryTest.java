@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import cz.fi.muni.pa165.enums.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -16,7 +17,6 @@ import org.testng.annotations.Test;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.entity.Price;
-import cz.fi.muni.pa165.entity.Price.Currency;
 
 @ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
