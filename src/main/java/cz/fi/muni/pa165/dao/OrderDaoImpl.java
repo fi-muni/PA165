@@ -24,6 +24,12 @@ public class OrderDaoImpl implements OrderDao {
 		em.persist(order);
 	}
 
+	@Override public List<Order> findAll()
+	{
+		Query query = em.createQuery( "SELECT q FROM Order q", Order.class );
+		return query.getResultList();
+	}
+
 	@Override
 	public List<Order> findByUser(Long userId)
 	{
@@ -47,7 +53,7 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public List<Order> getOrdersWithState(OrderState state)
 	{
-		Query query = em.createQuery( "SELECT q FROM Order o WHERE o.state = :state", Order.class );
+		Query query = em.createQuery( "SELECT o FROM Order o WHERE o.state = :state", Order.class );
 		query.setParameter("state", state);
 		return query.getResultList();
 	}

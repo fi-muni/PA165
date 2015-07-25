@@ -1,40 +1,49 @@
 package cz.fi.muni.pa165.facade;
 
-import java.util.Collection;
-
+import cz.fi.muni.pa165.dto.UserAuthenticateDTO;
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.entity.User;
+import cz.fi.muni.pa165.service.UserService;
+import org.dozer.DozerBeanMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
+import java.util.Collection;
+
+@Service
+@Transactional
 public class UserFacadeImpl implements UserFacade{
 
+
+	@Inject
+	private UserService userService;
+
 	@Override
-	public User findUserById(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDTO findUserById(Long userId) {
+	 	return FacadeUtils.mapTo(userService.findUserById(userId), UserDTO.class);
 	}
 
 	@Override
 	public void registerUser(UserDTO u, String unencryptedPassword) {
-		// TODO Auto-generated method stub
-		
+		userService.registerUser(FacadeUtils.mapTo(u, User.class),unencryptedPassword);
 	}
 
 	@Override
 	public Collection<UserDTO> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return FacadeUtils.mapTo(userService.getAllUsers(), UserDTO.class);
 	}
 
 	@Override
-	public boolean authenticate(UserDTO u, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean authenticate(UserAuthenticateDTO u) {
+		return userService.authenticate(userService.findUserById(u.getUserId()),u.getPassword());
 	}
 
 	@Override
 	public boolean isAdmin(UserDTO u) {
-		// TODO Auto-generated method stub
-		return false;
+		return userService.isAdmin(FacadeUtils.mapTo(u, User.class));
 	}
+
+
 
 }

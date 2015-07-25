@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.cz.fi.muni.pa165.service;
+package cz.fi.muni.pa165.cz.fi.muni.pa165.facade;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.dao.PriceRepository;
@@ -20,13 +20,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import static org.mockito.BDDMockito.doReturn;
 
 @ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
 public class ProductFacadeTest  extends AbstractTestNGSpringContextTests 
 {
-	@Mock
+	@Autowired
     private PriceRepository priceRepository;
 	
     @Mock
@@ -45,12 +46,21 @@ public class ProductFacadeTest  extends AbstractTestNGSpringContextTests
         MockitoAnnotations.initMocks(this);
     }
     
-    /**
-     * TODO implement this test to test changes of price between different currencies
-     */
     @Test
     public void changePriceCurrencyTest(){
-    	
+		Product product = new Product();
+		Price currentPrice = new Price();
+		currentPrice.setCurrency(Currency.CZK);
+		currentPrice.setValue(new BigDecimal("1001"));
+		currentPrice.setPriceStart(new Date());
+		product.setCurrentPrice(currentPrice);
+
+		doReturn(product).when(productDao).findById(3l);
+
+		NewPriceDTO priceDto = new NewPriceDTO();
+		priceDto.setCurrency(Currency.CZK);
+		priceDto.setValue(new BigDecimal("1100"));
+		productFacade.changePrice(3l, priceDto);
     }
     
 	@Test(expectedExceptions=ProductServiceException.class)
@@ -59,22 +69,7 @@ public class ProductFacadeTest  extends AbstractTestNGSpringContextTests
 		Price currentPrice = new Price();
 		currentPrice.setCurrency(Currency.CZK);
 		currentPrice.setValue(new BigDecimal("999"));
-		product.setCurrentPrice(currentPrice);
-		
-		doReturn(product).when(productDao).findById(3l);
-		
-		NewPriceDTO priceDto = new NewPriceDTO();
-		priceDto.setCurrency(Currency.CZK);
-		priceDto.setValue(new BigDecimal("1100"));
-		productFacade.changePrice(3l, priceDto);
-	}
-	
-	@Test()
-	public void changePriceTest(){
-		Product product = new Product();
-		Price currentPrice = new Price();
-		currentPrice.setCurrency(Currency.CZK);
-		currentPrice.setValue(new BigDecimal("1001"));
+		currentPrice.setPriceStart(new Date());
 		product.setCurrentPrice(currentPrice);
 		
 		doReturn(product).when(productDao).findById(3l);

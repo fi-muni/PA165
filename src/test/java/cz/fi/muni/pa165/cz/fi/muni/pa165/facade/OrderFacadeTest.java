@@ -1,7 +1,10 @@
-package cz.fi.muni.pa165.cz.fi.muni.pa165.service;
+package cz.fi.muni.pa165.cz.fi.muni.pa165.facade;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
@@ -22,6 +25,11 @@ import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.facade.OrderFacade;
 import cz.fi.muni.pa165.service.OrderService;
 import cz.fi.muni.pa165.service.OrderServiceException;
+
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 public class OrderFacadeTest extends AbstractTestNGSpringContextTests {
@@ -46,11 +54,14 @@ public class OrderFacadeTest extends AbstractTestNGSpringContextTests {
 	}
 
 
-
-
-	//TODO implement this test
 	@Test
 	public void getAllOrdersLastWeekTest() {
+		Order o = new Order(4l);
+		o.setState(OrderState.CANCELED);
+		o.setCreated(new Date());
+		when(orderDao.getOrdersCreatedBetween(any(Date.class), any(Date.class), eq(OrderState.CANCELED))).thenReturn(Collections.singletonList(o));
+		Assert.assertEquals(1, orderFacade.getAllOrdersLastWeek(OrderState.CANCELED).size());
+		Assert.assertTrue(orderFacade.getAllOrdersLastWeek(OrderState.CANCELED).get(0).getId().equals(4l));
 	}
 	
 	@Test

@@ -5,9 +5,6 @@ import cz.fi.muni.pa165.enums.Currency;
 import java.math.BigDecimal;
 
 
-/**
- * Created by mbriskar on 7/12/15.
- */
 public class NewPriceDTO
 {
     private Long id;

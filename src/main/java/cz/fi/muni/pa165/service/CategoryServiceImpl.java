@@ -25,5 +25,11 @@ public class CategoryServiceImpl implements CategoryService
     @Override 
 	public Category findById(Long id){ 
     	return categoryDao.findById(id);
-    }    
+    }
+
+    @Override
+    public void create(Category category) {categoryDao.create(category);}
+
+    @Override
+    public void remove(Category c) {categoryDao.delete(c);}
 }

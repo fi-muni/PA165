@@ -8,6 +8,7 @@ import cz.fi.muni.pa165.enums.OrderState;
 
 public interface OrderDao  {
 	public void create(Order order);
+	public List<Order> findAll();
 	public List<Order> findByUser(Long id);
 	public Order findById(Long id);
 	public void removeById(Long id)  throws IllegalArgumentException;

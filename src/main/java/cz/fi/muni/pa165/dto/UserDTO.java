@@ -5,9 +5,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
-/**
- * Created by mbriskar on 7/12/15.
- */
 public class UserDTO
 {
     private long id;

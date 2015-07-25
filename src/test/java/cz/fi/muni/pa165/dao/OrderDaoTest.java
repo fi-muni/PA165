@@ -1,15 +1,18 @@
 package cz.fi.muni.pa165.dao;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import cz.fi.muni.pa165.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
@@ -41,17 +44,17 @@ public class OrderDaoTest  extends AbstractTransactionalTestNGSpringContextTests
 		
 		User user =UserDaoTest.getSimpleUser();
 		userDao.create(user);
-		
+		OrderItem item = new OrderItem();
+		item.setProduct(p);
 		Order order = new Order();
-		//order.addOrderItem(p);
+		order.addOrderItem(item);
 		order.setUser(user);
 		order.setCreated(Calendar.getInstance().getTime());
 		order.setState(OrderState.RECEIVED);
 		orderDao.create(order);
-//		
-//		List<Order> orders = orderDao.findAll();
-		//TODO
-//		Assert.assertEquals(orders.get(0).getState(), OrderState.RECEIVED);
+		List<Order> orders = orderDao.findAll();
+		Assert.assertEquals(orders.get(0).getState(), OrderState.RECEIVED);
+		Assert.assertTrue(orders.get(0).getOrderItems().get(0).getProduct().getName().equals("LCD TV"));
 		
 	}
 }

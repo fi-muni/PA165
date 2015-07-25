@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.facade;
 
 import javax.inject.Inject;
 
+import cz.fi.muni.pa165.entity.User;
 import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,12 +25,9 @@ public class ProductFacadeImpl implements ProductFacade {
 	@Inject
 	private CategoryService categoryService; 
 
-	@Inject
-    private DozerBeanMapper dozer;
-    
 	@Override
 	public Long createProduct(ProductCreateDTO p) {
-		Product newProduct  = productService.createProduct(dozer.map(p, Product.class));
+		Product newProduct  = productService.createProduct(FacadeUtils.mapTo(p, Product.class));
 		return newProduct.getId();
 	}
 
@@ -41,7 +39,7 @@ public class ProductFacadeImpl implements ProductFacade {
 	@Override
 	public void changePrice(Long productId, NewPriceDTO newPrice) {
 		
-		productService.changePrice(productService.findById(productId), dozer.map(newPrice, Price.class));
+		productService.changePrice(productService.findById(productId), FacadeUtils.mapTo(newPrice, Price.class));
 	}
 
 	@Override

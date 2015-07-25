@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.fi.muni.pa165.dto.UserDTO;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,40 +21,29 @@ import cz.fi.muni.pa165.service.UserService;
 public class OrderFacadeImpl implements OrderFacade{
     
     @Autowired
-    private DozerBeanMapper dozerBeanMapper;
-
-    @Autowired
     private OrderService orderService;
     
-
     @Autowired
     private UserService userService;
-    
-    
-    private List<OrderDTO> mapToDTO(List<Order> orders) {
-        List<OrderDTO> mappedCollection = new ArrayList<>();
-        for (Order order : orders) {
-            mappedCollection.add(dozerBeanMapper.map(order, OrderDTO.class));
-        }
-        return mappedCollection;
-    }
 
 	@Override
 	public List<OrderDTO> getOrdersByUser(Long userId) {
 		User user = userService.findUserById(userId);
 		List<Order> orders = orderService.getOrdersByUser(user);
 		
-		return mapToDTO(orders);
+		return FacadeUtils.mapTo(orders, OrderDTO.class);
 	}
 
 	@Override
 	public List<OrderDTO> getAllOrdersLastWeek(OrderState state) {
-		return mapToDTO(orderService.getAllOrdersLastWeek(state));
+		final List<Order> allOrdersLastWeek = orderService.getAllOrdersLastWeek(state);
+		final List<OrderDTO> dtos= FacadeUtils.mapTo(allOrdersLastWeek, OrderDTO.class);
+		return dtos;
 	}
 
 	@Override
 	public List<OrderDTO> getAllOrders(OrderState state) {
-		return mapToDTO(orderService.getAllOrders(state));
+		return FacadeUtils.mapTo(orderService.getAllOrders(state), OrderDTO.class);
 	}
 
 	@Override
