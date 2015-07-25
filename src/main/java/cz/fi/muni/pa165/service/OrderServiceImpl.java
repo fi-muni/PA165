@@ -48,7 +48,8 @@ public class OrderServiceImpl implements OrderService {
 		calendar.setTime(now);
 		calendar.add(Calendar.DAY_OF_YEAR, -7);
 		Date lastWeek = calendar.getTime();
-		return orderDao.getOrdersCreatedBetween(lastWeek, now,state);
+		List<Order> orders = orderDao.getOrdersCreatedBetween(lastWeek, now,state);
+		return orders;
 	}
 
 	/**

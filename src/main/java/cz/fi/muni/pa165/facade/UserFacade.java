@@ -2,12 +2,12 @@ package cz.fi.muni.pa165.facade;
 
 import java.util.Collection;
 
+import cz.fi.muni.pa165.dto.UserAuthenticateDTO;
 import cz.fi.muni.pa165.dto.UserDTO;
-import cz.fi.muni.pa165.entity.User;
 
 public interface UserFacade {
 	
-	User findUserById(Long userId);
+	UserDTO findUserById(Long userId);
 	
 	/**
 	 * Register the given user with the given unencrypted password.
@@ -22,7 +22,7 @@ public interface UserFacade {
 	/**
 	 * Try to authenticate a user. Return true only if the hashed password matches the records.
 	 */
-	boolean authenticate(UserDTO u, String password);
+	boolean authenticate(UserAuthenticateDTO u);
 
 	/**
 	 * Check if the given user is admin.

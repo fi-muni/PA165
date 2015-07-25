@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import cz.fi.muni.pa165.facade.FacadeUtils;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,30 +25,27 @@ public class UserServiceImpl implements UserService
 	@Autowired
     private UserDao userDao;
 	
-    @Autowired
-    private DozerBeanMapper dozerBeanMapper;
-
     @Override
-    public void registerUser(UserDTO u, String unencryptedPassword)
+    public void registerUser(User u, String unencryptedPassword)
     {
         u.setPasswordHash(makeSHA1Hash(unencryptedPassword));
-        userDao.create(dozerBeanMapper.map(u, User.class));
+        userDao.create(u);
     }
 
     @Override
-    public Collection<UserDTO> getAllUsers()
+    public List<User> getAllUsers()
     {
-        return mapToDTO(userDao.findAll());
+        return userDao.findAll();
     }
 
     @Override
-    public boolean authenticate(UserDTO u, String password)
+    public boolean authenticate(User u, String password)
     {
         return u.getPasswordHash().equals(makeSHA1Hash(password));
     }
 
     @Override
-    public boolean isAdmin(UserDTO u)
+    public boolean isAdmin(User u)
     {
         return u.getGivenName().equals("admin");
     }
@@ -75,14 +73,6 @@ public class UserServiceImpl implements UserService
             e.printStackTrace();
         }
         return null;
-    }
-
-    private List<UserDTO> mapToDTO(List<User> users) {
-        List<UserDTO> mappedCollection = new ArrayList<>();
-        for (User user : users) {
-            mappedCollection.add(dozerBeanMapper.map(user, UserDTO.class));
-        }
-        return mappedCollection;
     }
 
 	@Override

@@ -13,4 +13,6 @@ import cz.fi.muni.pa165.entity.Product;
 @Service
 public interface CategoryService {
 	Category findById(Long id);
+	void create(Category category);
+	void remove(Category c);
 }

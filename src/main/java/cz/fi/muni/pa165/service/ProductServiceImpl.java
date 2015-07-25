@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Implementation of the {@link ProductService}. This class is part of the service module of the application that provides the implementation of the
@@ -21,17 +23,18 @@ import java.math.RoundingMode;
 @Service
 public class ProductServiceImpl implements ProductService
 {
+
 	@Inject
     private ProductDao productDao;
-    
+
 	@Inject
     private PriceRepository priceRepository;
-    
-    @Override 
-	public Product findById(Long id){ 
+
+    @Override
+	public Product findById(Long id){
     	return productDao.findById(id);
     }
-    
+
     @Override
     public Product createProduct(Product p) {
         productDao.create(p);
@@ -46,7 +49,6 @@ public class ProductServiceImpl implements ProductService
 	/**
 	 * Later we should explain that in reality, the service would call external service through a new DAO
      * Currency rate cache should be filled through that DAO in application startup.
-     * TODO: write a test
 	 */
 	@Override
 	public Price convertToCurrency(Price price, Currency currency) {
@@ -56,7 +58,6 @@ public class ProductServiceImpl implements ProductService
 
 		BigDecimal convertRate = CurrencyRateUtils.getCurrencyRate(price.getCurrency(), currency);
         if (convertRate == null) {
-            // TODO : log this state with WARN level
             convertRate = BigDecimal.ONE;
         }
 
@@ -71,15 +72,15 @@ public class ProductServiceImpl implements ProductService
         newPrice = convertToCurrency(newPrice, p.getCurrentPrice().getCurrency());
 
 		BigDecimal difference = p.getCurrentPrice().getValue().subtract(newPrice.getValue());
-		BigDecimal percents = difference.abs().divide(p.getCurrentPrice().getValue(),5,RoundingMode.HALF_UP); 
+		BigDecimal percents = difference.abs().divide(p.getCurrentPrice().getValue(),5,RoundingMode.HALF_UP);
 		if (percents.compareTo(new BigDecimal("0.1")) > 0){
 			throw new  ProductServiceException("It is not allowed to change the price by more than 10%");
 		}
-		
+        newPrice.setPriceStart(new Date());
 		priceRepository.save(newPrice);
 		p.setCurrentPrice(newPrice);
 	}
-	
+
 	@Override
 	public void addCategory(Product product, Category category) {
         if (product.getCategories().contains(category)) {
@@ -88,6 +89,6 @@ public class ProductServiceImpl implements ProductService
 		product.addCategory(category);
 	}
 
-	
-	
+
+
 }

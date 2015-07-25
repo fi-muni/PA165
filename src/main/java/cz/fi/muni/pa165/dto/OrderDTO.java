@@ -66,6 +66,11 @@ public class OrderDTO
         return result;
     }
 
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -84,6 +89,7 @@ public class OrderDTO
             return false;
         if (user == null) {
             if (other.user != null)
+
                 return false;
         } else if (!user.equals(other.user))
             return false;
