@@ -28,6 +28,8 @@ public interface OrderService {
 	List<Order> getAllOrders(OrderState state);
 
 
+	List<Order> findAllOrders();
+
 	void shipOrder(Order order);
 	void finishOrder(Order order);
 	void cancelOrder(Order order);

@@ -2,6 +2,8 @@ package cz.fi.muni.pa165.facade;
 
 import javax.inject.Inject;
 
+import cz.fi.muni.pa165.dto.ProductChangeImageDTO;
+import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.entity.User;
 import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
 import cz.fi.muni.pa165.service.CategoryService;
 import cz.fi.muni.pa165.service.ProductService;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -36,6 +40,11 @@ public class ProductFacadeImpl implements ProductFacade {
 		productService.addCategory(productService.findById(productId), categoryService.findById(categoryId));
 	}
 
+	@Override public void removeCategory(Long productId, Long categoryId)
+	{
+		productService.removeCategory(productService.findById(productId), categoryService.findById(categoryId));
+	}
+
 	@Override
 	public void changePrice(Long productId, NewPriceDTO newPrice) {
 		
@@ -45,6 +54,21 @@ public class ProductFacadeImpl implements ProductFacade {
 	@Override
 	public void deleteProduct(Long productId) {
 		productService.deleteProduct(new Product(productId));
+	}
+
+	@Override public List<ProductDTO> getAllProducts()
+	{
+		return FacadeUtils.mapTo(productService.findAll(), ProductDTO.class);
+	}
+
+	@Override public ProductDTO getProductWithId(Long id)
+	{
+		return FacadeUtils.mapTo(productService.findById(id), ProductDTO.class);
+	}
+
+	@Override public void changeImage(ProductChangeImageDTO dto)
+	{
+		productService.changeImage(productService.findById(dto.getProductId()), dto.getImage());
 	}
 
 }

@@ -6,6 +6,8 @@ import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
 
+import java.util.List;
+
 /**
  * An interface that defines a service access to the {@link Product} entity.
  */
@@ -13,6 +15,7 @@ import cz.fi.muni.pa165.entity.Product;
 @Service
 public interface CategoryService {
 	Category findById(Long id);
+	List<Category> findAll();
 	void create(Category category);
 	void remove(Category c);
 }

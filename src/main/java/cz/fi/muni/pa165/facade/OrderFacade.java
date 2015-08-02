@@ -9,6 +9,8 @@ public interface OrderFacade {
 	List<OrderDTO> getOrdersByUser(Long userId);
 	List<OrderDTO> getAllOrdersLastWeek(OrderState state);
 	List<OrderDTO> getAllOrders(OrderState state);
+	List<OrderDTO> getAllOrders();
+	OrderDTO getOrderById(Long id);
 	void shipOrder(Long id);
 	void finishOrder(Long id);
 	void cancelOrder(Long id);

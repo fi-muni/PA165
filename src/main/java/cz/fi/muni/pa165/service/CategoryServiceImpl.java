@@ -10,6 +10,8 @@ import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
 
+import java.util.List;
+
 /**
  * Implementation of the {@link ProductService}. This class is part of the service module of the application that provides the implementation of the
  * business logic (main logic of the application).
@@ -25,6 +27,11 @@ public class CategoryServiceImpl implements CategoryService
     @Override 
 	public Category findById(Long id){ 
     	return categoryDao.findById(id);
+    }
+
+    @Override public List<Category> findAll()
+    {
+        return categoryDao.findAll();
     }
 
     @Override

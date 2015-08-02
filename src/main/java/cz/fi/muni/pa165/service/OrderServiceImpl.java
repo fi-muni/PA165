@@ -35,6 +35,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getOrdersWithState(state);
 	}
 
+	@Override public List<Order> findAllOrders()
+	{
+		return orderDao.findAll();
+	}
+
 	@Override
 	public List<Order> getOrdersByUser(User user) {
 		return orderDao.findByUser(user.getId());
@@ -48,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
 		calendar.setTime(now);
 		calendar.add(Calendar.DAY_OF_YEAR, -7);
 		Date lastWeek = calendar.getTime();
-		List<Order> orders = orderDao.getOrdersCreatedBetween(lastWeek, now,state);
+		List<Order> orders = orderDao.getOrdersCreatedBetween(lastWeek, now, state);
 		return orders;
 	}
 

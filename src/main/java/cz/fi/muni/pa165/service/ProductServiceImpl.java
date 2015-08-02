@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +34,11 @@ public class ProductServiceImpl implements ProductService
     @Override
 	public Product findById(Long id){
     	return productDao.findById(id);
+    }
+
+    @Override public List<Product> findAll()
+    {
+        return productDao.findAll();
     }
 
     @Override
@@ -67,7 +73,12 @@ public class ProductServiceImpl implements ProductService
         return price;
 	}
 
-	@Override
+    @Override public void changeImage(Product product, byte[] image)
+    {
+        product.setImage(image);
+    }
+
+    @Override
 	public void changePrice(Product p, Price newPrice) {
         newPrice = convertToCurrency(newPrice, p.getCurrentPrice().getCurrency());
 
@@ -89,6 +100,9 @@ public class ProductServiceImpl implements ProductService
 		product.addCategory(category);
 	}
 
-
+    @Override public void removeCategory(Product product, Category category)
+    {
+        product.removeCategory(category);
+    }
 
 }

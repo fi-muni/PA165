@@ -1,10 +1,7 @@
 package cz.fi.muni.pa165.facade;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import cz.fi.muni.pa165.dto.UserDTO;
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +41,16 @@ public class OrderFacadeImpl implements OrderFacade{
 	@Override
 	public List<OrderDTO> getAllOrders(OrderState state) {
 		return FacadeUtils.mapTo(orderService.getAllOrders(state), OrderDTO.class);
+	}
+
+	@Override public List<OrderDTO> getAllOrders()
+	{
+		return FacadeUtils.mapTo(orderService.findAllOrders(), OrderDTO.class);
+	}
+
+	@Override public OrderDTO getOrderById(Long id)
+	{
+		return FacadeUtils.mapTo(orderService.findOrderById(id), OrderDTO.class);
 	}
 
 	@Override
