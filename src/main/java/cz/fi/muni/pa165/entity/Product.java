@@ -59,7 +59,12 @@ public class Product {
 	
 	@Enumerated
 	private Color color;
-	
+
+	public void removeCategory(Category category)
+	{
+		this.categories.remove(category);
+	}
+
 	public enum Color{ BLACK, WHITE, RED}
 	
 	
