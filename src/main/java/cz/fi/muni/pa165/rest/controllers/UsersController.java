@@ -4,7 +4,6 @@ import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.UserFacade;
 import cz.fi.muni.pa165.rest.ResourceNotFoundException;
 import java.util.Collection;
-import java.util.List;
 import javax.inject.Inject;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
