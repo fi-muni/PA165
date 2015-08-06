@@ -35,11 +35,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
-import cz.fi.muni.pa165.facade.ProductFacadeImpl;
 import java.io.IOException;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
