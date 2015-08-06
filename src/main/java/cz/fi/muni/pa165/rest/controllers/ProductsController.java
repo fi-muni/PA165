@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.rest.controllers;
 
+import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.facade.ProductFacade;
@@ -54,4 +55,9 @@ public class ProductsController {
        productFacade.changePrice(product.getId(), product.getCurrentPrice());            
     }
     
+    @RequestMapping(value = "/{id}/categories", method = RequestMethod.POST, consumes = "application/json")
+    public final ProductDTO addCategory(@PathVariable("id") long id, @RequestBody CategoryDTO category) throws Exception {
+       productFacade.addCategory(id, category.getId());     
+       return productFacade.getProductWithId(id);
+    }
 }

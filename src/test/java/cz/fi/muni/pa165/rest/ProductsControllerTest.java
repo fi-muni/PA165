@@ -33,10 +33,13 @@ import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
+import cz.fi.muni.pa165.facade.ProductFacadeImpl;
 import java.io.IOException;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
@@ -159,15 +162,31 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests  {
         
         ProductDTO product = new ProductDTO();
         product.setName("test");
-        
         doNothing().when(productFacade).changePrice(anyLong(), any(NewPriceDTO.class));
-    
         
         String json = this.convertObjectToJsonBytes(product);
         
         mockMvc.perform(put("/products/10").contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print())  
            .andExpect(status().isOk());
         
+    }
+    
+    @Test
+    public void addCategory() throws Exception {
+        List <ProductDTO> products = this.createProducts();
+        
+        doReturn(products.get(0)).when(productFacade).getProductWithId(10l);
+        doReturn(products.get(1)).when(productFacade).getProductWithId(20l);
+        
+        CategoryDTO category = new CategoryDTO();
+        category.setId(1l);
+        
+        String json = this.convertObjectToJsonBytes(category);
+        
+        mockMvc.perform(post("/products/10/categories").contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print())  
+           .andExpect(status().isOk());
+        
+        // TODO: need to check JSON response
     }
     
     private List<ProductDTO> createProducts(){
