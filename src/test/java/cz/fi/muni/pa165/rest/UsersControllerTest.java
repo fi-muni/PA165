@@ -2,9 +2,9 @@ package cz.fi.muni.pa165.rest;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.SpringMVCConfig;
-import cz.fi.muni.pa165.dto.CategoryDTO;
-import cz.fi.muni.pa165.facade.CategoryFacade;
-import cz.fi.muni.pa165.rest.controllers.CategoriesController;
+import cz.fi.muni.pa165.dto.UserDTO;
+import cz.fi.muni.pa165.facade.UserFacade;
+import cz.fi.muni.pa165.rest.controllers.UsersController;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -28,77 +28,79 @@ import org.testng.annotations.Test;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {PersistenceSampleApplicationContext.class, SpringMVCConfig.class})
-public class CategoriesControllerTest {
+public class UsersControllerTest {
 
     @Mock
-    private CategoryFacade categoryFacade;
+    private UserFacade userFacade;
 
     @Autowired
     @InjectMocks
-    private CategoriesController categoriesController;
+    private UsersController usersController;
 
     private MockMvc mockMvc;
 
     @BeforeClass
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = standaloneSetup(categoriesController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+        mockMvc = standaloneSetup(usersController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
     }
 
     @Test
-    public void getAllCategories() throws Exception {
+    public void getAllUsers() throws Exception {
 
-        doReturn(Collections.unmodifiableList(this.createCategories())).when(categoryFacade).getAllCategories();
+        doReturn(Collections.unmodifiableList(this.createUsers())).when(userFacade).getAllUsers();
 
-        mockMvc.perform(get("/categories"))
+        mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
                 .andExpect(
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.[?(@.id==1)].name").value("Electronics"))
-                .andExpect(jsonPath("$.[?(@.id==2)].name").value("Home Appliances"));
-
-    }
-
-    @Test
-    public void getValidCategory() throws Exception {
-
-        List<CategoryDTO> categories = this.createCategories();
-
-        doReturn(categories.get(0)).when(categoryFacade).getCategoryById(1l);
-        doReturn(categories.get(1)).when(categoryFacade).getCategoryById(2l);
-
-        mockMvc.perform(get("/categories/1"))
-                .andExpect(status().isOk())
-                .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.name").value("Electronics"));
-
-        mockMvc.perform(get("/categories/2"))
-                .andExpect(status().isOk())
-                .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.name").value("Home Appliances"));
+                .andExpect(jsonPath("$.[?(@.id==1)].surname").value("Smith"))
+                .andExpect(jsonPath("$.[?(@.id==2)].surname").value("Williams"));
 
     }
 
     @Test
-    public void getInvalidCategory() throws Exception {
-        doReturn(null).when(categoryFacade).getCategoryById(1l);
+    public void getValidUser() throws Exception {
 
-        mockMvc.perform(get("/categories/1"))
+        List<UserDTO> users = this.createUsers();
+
+        doReturn(users.get(0)).when(userFacade).findUserById(1l);
+        doReturn(users.get(1)).when(userFacade).findUserById(2l);
+
+        mockMvc.perform(get("/users/1"))
+                .andExpect(status().isOk())
+                .andExpect(
+                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.surname").value("Smith"));
+
+        mockMvc.perform(get("/users/2"))
+                .andExpect(status().isOk())
+                .andExpect(
+                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.surname").value("Williams"));
+
+    }
+
+    @Test
+    public void getInvalidUser() throws Exception {
+        doReturn(null).when(userFacade).findUserById(1l);
+
+        mockMvc.perform(get("/users/1"))
                 .andExpect(status().is4xxClientError());
 
     }
 
-    private List<CategoryDTO> createCategories() {
-        CategoryDTO catOne = new CategoryDTO();
-        catOne.setId(1l);
-        catOne.setName("Electronics");
-
-        CategoryDTO catTwo = new CategoryDTO();
-        catTwo.setId(2l);
-        catTwo.setName("Home Appliances");
-
-        return Arrays.asList(catOne, catTwo);
+    private List<UserDTO> createUsers() {
+        UserDTO userOne = new UserDTO();
+        userOne.setId(1l);
+        userOne.setGivenName("John");
+        userOne.setSurname("Smith");
+        
+        UserDTO userTwo = new UserDTO();
+        userTwo.setId(2l);
+        userTwo.setGivenName("Mary");
+        userTwo.setSurname("Williams");
+        
+        return Arrays.asList(userOne, userTwo);
     }
 }

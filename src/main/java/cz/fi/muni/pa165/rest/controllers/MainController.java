@@ -19,6 +19,7 @@ public class MainController {
         resourcesMap.put("products_url", "/products");
         resourcesMap.put("orders_url", "/orders");
         resourcesMap.put("users_url", "/users");
+        resourcesMap.put("categories_url", "/categories");
         
         return Collections.unmodifiableMap(resourcesMap);
         
