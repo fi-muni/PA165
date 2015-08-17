@@ -1,9 +1,8 @@
 ## Seminar 02 30.9.2014
-In this seminar you will reuse your knowledge of mapping and you will extend it a bit. 
-Most of the seminar is dedicated to gain more confidence with JPQL and Entity States.
-Everything that you will do in the second seminar is related container managed EntityManager.
+In this seminar you will mostly work with unit tests. These three tests are the most importatnt for you: 
+AppManagedEntityManagerTest, ContainerManagedEntityManagerTest, ProductDaoTest. The tests are documented, read through the comments before you begin your tasks.
 
-**Task 01** All the assignements of this seminar will require you to work with unit tests. You need to know how to run a unit test from IDE and also from the command line. First run the following single test method from the IDE:  JpqlTest.findPets()
+**Task 01** First run the following single test method from the IDE:  AppManagedEntityManagerTest.persistAndFindProduct()
 
 It should pass 
 ```
@@ -13,7 +12,7 @@ Total tests run: 1, Failures: 0, Skips: 0
 
 **Task 02** Try to run the test from **Task 01** through Maven from command line. To do this you should use "mvn test" command with a correct parameter. Find the parameter in maven documentation http://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html   
 
-Obviously you should get the same result as in **Task 01**
+Obviously you should get the same result as in **Task 01** . 
 
 **Task 03** There is a new entity in the project PetStore. Map it as an entity and check that it can be stored in the database by running test PetStoreMappingTest.testSimplePersist 
 

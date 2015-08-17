@@ -24,13 +24,12 @@ public class Category {
 	@Column(nullable=false,unique=true)
 	private String name;
 	
-//	@ManyToMany(mappedBy="categories")
-//	private Set<Product> products = new HashSet<Product>();
-	
-	@OneToMany(mappedBy="category")
+	@ManyToMany(mappedBy="categories")
 	private Set<Product> products = new HashSet<Product>();
 	
-	
+	public void addProduct(Product product) {
+		this.products.add(product);
+	}
 
 	public Category(Long categoryId) {
 		this.id = categoryId; 
@@ -42,9 +41,6 @@ public class Category {
 		return name;
 	}
 
-	protected void addProduct(Product p){
-		products.add(p);
-	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -81,6 +77,7 @@ public class Category {
 			return false;
 		return true;
 	}
+	
 	
 	
 }

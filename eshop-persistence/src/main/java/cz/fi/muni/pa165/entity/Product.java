@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import cz.fi.muni.pa165.validation.AllOrNothing;
@@ -46,14 +48,12 @@ public class Product {
 	/*
 	 * The day this item has been added to the eshop
 	 */
+	@Temporal(TemporalType.DATE)
 	private java.util.Date addedDate;
 	
 	@ManyToMany
 	private Set<Category> categories = new HashSet<Category>();
 
-
-
-	
 
 	@ManyToOne
 	private Category category = null;
@@ -71,7 +71,9 @@ public class Product {
 	private Color color;
 
 	
-	
+	public void setId(Long id){
+		this.id = id;
+	}
 	
 	public void removeCategory(Category category)
 	{
@@ -96,8 +98,6 @@ public class Product {
 	}
 
 	public enum Color{ BLACK, WHITE, RED}
-	
-	
 	
 	public java.util.Date getAddedDate() {
 		return addedDate;
@@ -189,12 +189,14 @@ public class Product {
 			return false;
 		Product other = (Product) obj;
 		if (name == null) {
-			if (other.getName() != null)
+			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.getName()))
 			return false;
 		return true;
 	}
+
+
 	
 	
 	
