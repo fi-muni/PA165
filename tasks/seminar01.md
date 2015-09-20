@@ -15,7 +15,7 @@
 
 **Task 06** Create a hello world web application from IDE. Then deploy it to your Tomcat in IDE.
 
-**Task 07** Clone git branch TODO. This branch contains 2 projects. hello-java7 and hello-tom-web. The first one is not buildable (mvn compile should fail) because it contains  code compliant only with Java 7. Your task is to modify pom.xml so that compiler plugin uses target version of Java 1.7. 
+**Task 07** Clone git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). This branch contains 2 projects. hello-java7 and hello-tom-web. The first one is not buildable (mvn compile should fail) because it contains  code compliant only with Java 7. Your task is to modify pom.xml so that compiler plugin uses target version of Java 1.7. 
 
 **Task 08** Now your task is to use embedded (through tomcat7 maven plugin. It has goal run) to run web Java application from Task 07 using command line and maven. Firstly you must package the app using Maven and then use tomcat7 plugin. After the web app is started you can use web browser to test it works. Hints: Use documentation of tomcat7 plugin. Also make sure some other Tomcat is not running e.g. the one in IDE or from some other process "ps -ef | grep tomcat". If you find out there is running tomcat of some other user logged into the machine the only solution is hard restart (which is not allowed in B130) or you have to switch computers. Please always report such Tomcats to CVT: send an e-mail to unix@fi.muni.cz with your machine name and ask them to kill the tomcat on the machine.
 
