@@ -17,18 +17,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+<!-- TODO you should configure the compiler plugin! 
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
+				
 			</plugin>
 		</plugins>
 	</build>
+	-->
 	<dependencies>
 	</dependencies>
 </project>
