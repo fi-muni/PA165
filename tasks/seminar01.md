@@ -19,7 +19,7 @@ Note: its a good idea to put the module add command into your ~/.bashrc
   INFO: Server startup in 393 ms
 ```
 
-**Task 06** Create a hello world web application from IDE. Then deploy it to your Tomcat in IDE.
+**Task 06** Create a new hello world web application from IDE (not related to the previous console application that you have created). Then deploy it to your Tomcat in IDE.
 
 **Task 07** Clone git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java7 and hello-tom-web. Do not forget to checkout the branch seminar01 !
 ```
