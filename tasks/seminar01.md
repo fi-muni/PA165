@@ -8,7 +8,7 @@ Note: its a good idea to put the module add command into your ~/.bashrc
 
 **Task 02** Find out which version of Maven is installed on your machine. You MUST use terminal where you added the module from Task 01. Notes: Maven was covered on the lecture. The module from Task 01 adds the Maven on your system path. This means that you must add module from Task 01 in EVERY terminal that you will be using for running netbeans or for running any Maven commands. Other notes: your local maven repo is in /tmp/maven-repo-$LOGIN.
 
-**Task 03** Create hello world Java application using Maven from command line. Use "archetype" plugin and goal "generate". Then modify the printed text (from command line) to Hello PA165. Run this application from commandline using Maven exec plugin goal java. Note that you must firstly compile the source codes for 'java' goal to work.
+**Task 03** Create hello world Java application using Maven from command line. Use "archetype" plugin and goal "generate". Run this application and it will print 'Hello World!'. Then modify the application by using only the command line to print text 'Hello PA165'. Run this application from commandline using Maven exec plugin goal java. Note that you must firstly compile the source codes for 'java' goal to work.
 
 **Task 04** Create an acount on https://github.com/. Create a repository there. Import the hello world application from Task 03 to this repository. Hints: http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
 
