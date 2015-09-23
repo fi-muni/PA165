@@ -21,7 +21,13 @@ Note: its a good idea to put the module add command into your ~/.bashrc
 
 **Task 06** Create a hello world web application from IDE. Then deploy it to your Tomcat in IDE.
 
-**Task 07** Clone git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java7 and hello-tom-web. 
+**Task 07** Clone git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java7 and hello-tom-web. Do not forget to checkout the branch seminar01 !
+```
+cd
+git clone https://github.com/fi-muni/PA165
+cd PA165
+git checkout seminar01
+```
 
 **Task 08** Open a new terminal and put Java 1.7 on your classpath using 'module add jdk-1.7.0_67 ' now try to compile hello-java7. It will fail, why? After you find out why it is failing fix it by changing configuration of pom.xml. You must configure compiler plugin to compile with target and source version 1.7
 
