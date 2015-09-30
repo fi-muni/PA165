@@ -1,3 +1,5 @@
+**Prerequisites:** Knowledge of JUnit unit testing framework and SLF4J+Log4J logging frameworks
+
 ## Seminar 02 Tasks
 **Task 01** Checkout branch seminar02 from https://github.com/fi-muni/PA165 and
 open project currency-convertor. Look at the interfaces ExchangeRateTable and
@@ -14,8 +16,9 @@ CurrencyConvertor in the package cz.fi.muni.pa165.currency and read their contra
 ```
 
 **Task 03** Implement `testConvert()` method in `CurrencyConvertorImplTest`.
-Use Mockito for creating mocks and don't forget to test border values and proper
+Use Mockito for creating mocks and do not forget to test border values and proper
 rounding. Ask your teacher to check if the test is well written.
+(Hint: use [Mockito tutorial](http://www.vogella.com/tutorials/Mockito/article.html).)
 Tip: It is better to use `new BigDecimal("15.29")` than `new BigDecimal(15.29)`
 for creating BigDecimal values in the test. Do you know, why?
 
@@ -37,7 +40,7 @@ and modify `CurrencyConvertorImpl` class to log:
 * Each conversion failure due missing exchange rate for given currencies as a warning
 * Each conversion failure due `ExternalServiceFailureException` as an error
 
-Don't forget to log all useful context information, but avoid unnecessary string
+Do not forget to log all useful context information, but avoid unnecessary string
 concatenations.
 
 **Task 07** Add log4j and slf4j-log4j12 as the maven dependency:
