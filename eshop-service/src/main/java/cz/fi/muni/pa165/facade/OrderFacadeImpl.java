@@ -40,7 +40,7 @@ public class OrderFacadeImpl implements OrderFacade{
 
 	@Override
 	public List<OrderDTO> getAllOrders(OrderState state) {
-		return FacadeUtils.mapTo(orderService.getAllOrders(state), OrderDTO.class);
+		return FacadeUtils.mapTo(orderService.getOrdersByState(state), OrderDTO.class);
 	}
 
 	@Override public List<OrderDTO> getAllOrders()

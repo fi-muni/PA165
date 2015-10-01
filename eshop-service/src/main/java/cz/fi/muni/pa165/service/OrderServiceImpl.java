@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public List<Order> getAllOrders(OrderState state) {
+	public List<Order> getOrdersByState(OrderState state) {
 		return orderDao.getOrdersWithState(state);
 	}
 

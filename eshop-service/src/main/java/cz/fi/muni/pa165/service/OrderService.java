@@ -25,7 +25,7 @@ public interface OrderService {
 	/**
 	 * Get all orders with the given state.
 	 */
-	List<Order> getAllOrders(OrderState state);
+	List<Order> getOrdersByState(OrderState state);
 
 
 	List<Order> findAllOrders();
