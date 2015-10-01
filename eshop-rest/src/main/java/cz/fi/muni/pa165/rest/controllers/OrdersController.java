@@ -29,7 +29,7 @@ public class OrdersController {
         }else if(lastWeek ){
             return orderFacade.getAllOrdersLastWeek(OrderState.valueOf(status));
         }else{
-            return orderFacade.getAllOrders(OrderState.valueOf(status));
+            return orderFacade.getOrdersByState(OrderState.valueOf(status));
         }    
     }
     

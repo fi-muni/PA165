@@ -71,7 +71,7 @@ public class OrdersControllerTest {
         List<OrderDTO> orders = this.createOrders().stream()
            .filter(o -> o.getState().equals("DONE")).collect(Collectors.toList());
 
-        doReturn(Collections.unmodifiableList(orders)).when(orderFacade).getAllOrders(OrderState.DONE);
+        doReturn(Collections.unmodifiableList(orders)).when(orderFacade).getOrdersByState(OrderState.DONE);
 
         mockMvc.perform(get("/orders").param("status", "ALL")).andDo(print())
                 .andExpect(status().isOk())
