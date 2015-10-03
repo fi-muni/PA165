@@ -23,7 +23,7 @@ public class MainJavaSe {
 		new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class);
 
 		System.out.println(" ****** STARTING PET STORE APPLICATOIN ****** ");
-		emf = Persistence.createEntityManagerFactory("javaSeUnit");
+		emf = Persistence.createEntityManagerFactory("default");
 
 		// BEGIN YOUR CODE
 		task08();

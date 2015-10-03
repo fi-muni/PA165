@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import cz.fi.muni.pa165.entity.Product;
 
 @Repository
-public class ProductDaoImpl implements ProductDao{
-	
+public class ProductDaoImpl implements ProductDao {
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
 	public void create(Product p) {
 		em.persist(p);
@@ -22,7 +22,8 @@ public class ProductDaoImpl implements ProductDao{
 
 	@Override
 	public List<Product> findAll() {
-		return em.createQuery("select p from Product p", Product.class).getResultList();
+		return em.createQuery("select p from Product p", Product.class)
+				.getResultList();
 	}
 
 	@Override
@@ -34,14 +35,16 @@ public class ProductDaoImpl implements ProductDao{
 		return em.merge(p);
 	}
 
-	@Override public void remove(Long id) throws IllegalArgumentException
-	{
-		em.remove(findById(id));
+	@Override
+	public void remove(Product p) throws IllegalArgumentException {
+		
+		em.remove(findById(p.getId()));
 	}
 
-	@Override public Product findByName(String namePattern)
-	{
-		return em.createQuery("SELECT p FROM Product p WHERE p.name = :name", Product.class).getSingleResult();
+	@Override
+	public List<Product> findByName(String name) {
+		return em.createQuery("SELECT p FROM Product p WHERE p.name like :name ",
+				Product.class).setParameter("name", "%"+name+"%").getResultList();
 	}
 
 }

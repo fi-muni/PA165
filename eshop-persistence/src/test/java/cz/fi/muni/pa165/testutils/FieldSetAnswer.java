@@ -6,7 +6,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 /**
- * Mockito Answer for tests. This answer will change field value of a specific argumento f the tested method 
+ * Mockito Answer for tests. This answer will change field value of a specific argument of the tested method 
  * @author fnguyen
  *
  */

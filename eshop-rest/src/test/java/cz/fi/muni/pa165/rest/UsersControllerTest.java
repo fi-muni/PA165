@@ -4,13 +4,17 @@ import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.SpringMVCConfig;
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.UserFacade;
-import cz.fi.muni.pa165.rest.controllers.UsersController;
+import cz.fi.muni.pa165.utils.UsersController;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.doReturn;
+
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,11 +22,13 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

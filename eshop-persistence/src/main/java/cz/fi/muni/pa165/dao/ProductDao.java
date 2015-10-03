@@ -8,7 +8,6 @@ public interface ProductDao {
 	public void create(Product p);
 	public Product findById(Long id);
 	public List<Product> findAll();
-	public Product update(Product p);
-	void remove(Long id) throws IllegalArgumentException;
-	Product findByName(String namePattern);
+	public void remove(Product p) throws IllegalArgumentException;
+	public List<Product> findByName(String namePattern);
 }

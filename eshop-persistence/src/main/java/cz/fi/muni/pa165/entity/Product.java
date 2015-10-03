@@ -132,10 +132,11 @@ public class Product {
 	}
 
 
+	public void addHistoricalPrice(Price p){
+		priceHistory.add(p);
+	}
+	
 	public void setCurrentPrice(Price currentPrice) {
-		if (currentPrice != null)
-			priceHistory.add(currentPrice);
-		
 		this.currentPrice = currentPrice;
 	}
 

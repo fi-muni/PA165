@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import cz.fi.muni.pa165.facade.FacadeUtils;
+import cz.fi.muni.pa165.service.facade.FacadeUtils;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,11 +69,9 @@ public class UserServiceImpl implements UserService
             }
             return hexStr;
         }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 	@Override

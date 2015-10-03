@@ -3,18 +3,25 @@ package cz.fi.muni.pa165;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import cz.fi.muni.pa165.rest.controllers.CategoriesController;
+import cz.fi.muni.pa165.service.OrderServiceImpl;
+import cz.fi.muni.pa165.service.config.ServiceConfiguration;
+import cz.fi.muni.pa165.service.facade.CategoryFacadeImpl;
+
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
  
-@EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "cz.fi.muni.pa165.rest.controllers" }) 
-public class SpringMVCConfig extends WebMvcConfigurationSupport { // extends WebMvcConfigurerAdapter {
+@ComponentScan(basePackageClasses={CategoriesController.class})
+public class SpringMVCConfig extends WebMvcConfigurationSupport {
  
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -25,8 +32,6 @@ public class SpringMVCConfig extends WebMvcConfigurationSupport { // extends Web
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-    
-    
     
     @Bean
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {

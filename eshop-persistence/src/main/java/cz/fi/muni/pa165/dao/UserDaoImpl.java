@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -15,7 +16,7 @@ public class UserDaoImpl implements UserDao {
 
 	@PersistenceContext
 	private EntityManager em;
-		
+
 	@Override
 	public void create(User u) {
 		em.persist(u);
@@ -24,11 +25,16 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findUserByEmail(String email) {
 		if (email == null || email.isEmpty())
-			throw new IllegalArgumentException("Cannot search for null e-mail");			
-			
-		return 
-				em.createQuery("select u from User u where email=:email", User.class)
-				.setParameter("email", email).getSingleResult();
+			throw new IllegalArgumentException("Cannot search for null e-mail");
+
+		try {
+			return em
+					.createQuery("select u from User u where email=:email",
+							User.class).setParameter("email", email)
+					.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
 	}
 
 	@Override
@@ -38,9 +44,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> findAll() {
-		TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u",
+				User.class);
 		return (List<User>) query.getResultList();
 	}
-
 
 }

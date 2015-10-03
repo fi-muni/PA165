@@ -5,16 +5,20 @@ import cz.fi.muni.pa165.SpringMVCConfig;
 import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.facade.OrderFacade;
-import cz.fi.muni.pa165.rest.controllers.OrdersController;
+import cz.fi.muni.pa165.utils.OrdersController;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,12 +26,14 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -71,7 +77,8 @@ public class OrdersControllerTest {
         List<OrderDTO> orders = this.createOrders().stream()
            .filter(o -> o.getState().equals("DONE")).collect(Collectors.toList());
 
-        doReturn(Collections.unmodifiableList(orders)).when(orderFacade).getOrdersByState(OrderState.DONE);
+        //TODO this 
+//        doReturn(Collections.unmodifiableList(orders)).when(orderFacade).getOrdersByState(OrderState.DONE);
 
         mockMvc.perform(get("/orders").param("status", "ALL")).andDo(print())
                 .andExpect(status().isOk())

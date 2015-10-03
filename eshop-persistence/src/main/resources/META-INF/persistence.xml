@@ -2,16 +2,9 @@
 
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	version="1.0">
-	<persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-		</properties>
-	</persistence-unit>
+
 	
-	<persistence-unit name="javaSeUnit" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>		
 			<property name="hibernate.connection.url" value="jdbc:derby:memory:testdb" />

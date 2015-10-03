@@ -13,30 +13,33 @@ import cz.fi.muni.pa165.entity.Product;
 import java.util.List;
 
 /**
- * Implementation of the {@link ProductService}. This class is part of the service module of the application that provides the implementation of the
+ * Implementation of the {@link ProductService}. This class is part of the
+ * service module of the application that provides the implementation of the
  * business logic (main logic of the application).
  */
 
 @Service
-public class CategoryServiceImpl implements CategoryService
-{
+public class CategoryServiceImpl implements CategoryService {
 	@Inject
-    private CategoryDao categoryDao;
-    
-    
-    @Override 
-	public Category findById(Long id){ 
-    	return categoryDao.findById(id);
-    }
+	private CategoryDao categoryDao;
 
-    @Override public List<Category> findAll()
-    {
-        return categoryDao.findAll();
-    }
+	@Override
+	public Category findById(Long id) {
+		return categoryDao.findById(id);
+	}
 
-    @Override
-    public void create(Category category) {categoryDao.create(category);}
+	@Override
+	public List<Category> findAll() {
+		return categoryDao.findAll();
+	}
 
-    @Override
-    public void remove(Category c) {categoryDao.delete(c);}
+	@Override
+	public void create(Category category) {
+		categoryDao.create(category);
+	}
+
+	@Override
+	public void remove(Category c) {
+		categoryDao.delete(c);
+	}
 }

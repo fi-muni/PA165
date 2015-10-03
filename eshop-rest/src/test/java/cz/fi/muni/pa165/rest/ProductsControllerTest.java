@@ -6,14 +6,18 @@ import cz.fi.muni.pa165.dto.NewPriceDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.facade.ProductFacade;
-import cz.fi.muni.pa165.rest.controllers.ProductsController;
+import cz.fi.muni.pa165.utils.ProductsController;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.doReturn;
+
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,24 +25,31 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import org.testng.annotations.BeforeClass;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
+
 import java.io.IOException;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doNothing;
+
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 

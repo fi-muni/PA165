@@ -13,6 +13,7 @@ import cz.fi.muni.pa165.dao.OrderDao;
 import cz.fi.muni.pa165.entity.Order;
 import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.entity.User;
+import cz.fi.muni.pa165.exceptions.EshopServiceException;
 
 /**
  * Implementation of the {@link OrderService}. This class is part of the service
@@ -23,37 +24,37 @@ import cz.fi.muni.pa165.entity.User;
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDao orderDao;
-
+	@Autowired
+	private TimeService timeService;
 
 	@Override
 	public Order findOrderById(Long id) {
 		return orderDao.findById(id);
 	}
-	
+
 	@Override
 	public List<Order> getOrdersByState(OrderState state) {
 		return orderDao.getOrdersWithState(state);
 	}
 
-	@Override public List<Order> findAllOrders()
-	{
+	@Override
+	public List<Order> findAllOrders() {
 		return orderDao.findAll();
 	}
 
 	@Override
 	public List<Order> getOrdersByUser(User user) {
-		return orderDao.findByUser(user.getId());
+		return orderDao.findByUser(user);
 	}
-
 
 	@Override
 	public List<Order> getAllOrdersLastWeek(OrderState state) {
-		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(now);
+		calendar.setTime(timeService.getCurrentTime());
 		calendar.add(Calendar.DAY_OF_YEAR, -7);
 		Date lastWeek = calendar.getTime();
-		List<Order> orders = orderDao.getOrdersCreatedBetween(lastWeek, now, state);
+		List<Order> orders = orderDao.getOrdersCreatedBetween(lastWeek, timeService.getCurrentTime(),
+				state);
 		return orders;
 	}
 
@@ -79,7 +80,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void finishOrder(Order order) {
-
 		checkTransition(order.getState(), OrderState.DONE);
 		order.setState(OrderState.DONE);
 
@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
 
 	private void checkTransition(OrderState oldState, OrderState newState) {
 		if (!allowedTransitions.contains(new Transition(oldState, newState)))
-			throw new OrderServiceException("The transition from: " + oldState
+			throw new EshopServiceException("The transition from: " + oldState
 					+ " to " + newState + " is not allowed!");
 
 	}

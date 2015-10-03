@@ -39,7 +39,6 @@
         <module>eshop-service</module>
         <module>eshop-api</module>
         <module>eshop-fe</module>
-    <module>hello-java7</module>
   </modules>
 
     <dependencies>

@@ -21,9 +21,11 @@ import javax.validation.constraints.Pattern;
 //In Derby, its forbiden to 'USER' is reserved keyword, we need to rename table 
 @Table(name="Users")
 public class User {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
+	
 	private String passwordHash;
 	
 	@Column(nullable=false,unique=true)
@@ -42,7 +44,7 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -107,8 +109,6 @@ public class User {
 		return result;
 	}
 
-	
-	//TODO explain this on lecture
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
