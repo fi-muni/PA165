@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.utils;
+package cz.fi.muni.pa165.rest.controllers;
 
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;

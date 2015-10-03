@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.utils;
+package cz.fi.muni.pa165.rest.controllers;
 
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.UserFacade;

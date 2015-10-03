@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.utils;
+package cz.fi.muni.pa165.rest.controllers;
 
 import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.enums.OrderState;
@@ -28,10 +28,8 @@ public class OrdersController {
             return orderFacade.getAllOrders();       
         }else if(lastWeek ){
             return orderFacade.getAllOrdersLastWeek(OrderState.valueOf(status));
-        }else{
-        	//TODO this
-        	return orderFacade.getAllOrders();        
-//            return orderFacade.getOrdersByState(OrderState.valueOf(status));
+        }else{     
+            return orderFacade.getOrdersByState(OrderState.valueOf(status));
         }    
     }
     

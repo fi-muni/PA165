@@ -6,12 +6,13 @@ import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.enums.OrderState;
 
 public interface OrderFacade {
-	List<OrderDTO> getOrdersByUser(Long userId);
-	List<OrderDTO> getAllOrdersLastWeek(OrderState state);
-	List<OrderDTO> getAllOrders(OrderState state);
-	List<OrderDTO> getAllOrders();
-	OrderDTO getOrderById(Long id);
-	void shipOrder(Long id);
-	void finishOrder(Long id);
-	void cancelOrder(Long id);
+	public List<OrderDTO> getOrdersByUser(Long userId);
+	public List<OrderDTO> getAllOrdersLastWeek(OrderState state);
+	public List<OrderDTO> getAllOrders(OrderState state);
+	public List<OrderDTO> getAllOrders();
+	public OrderDTO getOrderById(Long id);
+	public void shipOrder(Long id);
+	public void finishOrder(Long id);
+	public void cancelOrder(Long id);
+	public List<OrderDTO> getOrdersByState(OrderState valueOf);
 }

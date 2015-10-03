@@ -23,14 +23,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
-import cz.fi.muni.pa165.SpringMVCConfig;
+import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.facade.CategoryFacade;
 import cz.fi.muni.pa165.rest.controllers.CategoriesController;
 
 @WebAppConfiguration
-@ContextConfiguration(classes = {PersistenceSampleApplicationContext.class, SpringMVCConfig.class})
+@ContextConfiguration(classes = {RootWebContext.class})
 public class CategoriesControllerTest {
 
     @Mock

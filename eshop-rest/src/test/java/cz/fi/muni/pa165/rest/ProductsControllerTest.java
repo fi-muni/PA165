@@ -1,12 +1,13 @@
 package cz.fi.muni.pa165.rest;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
+import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.SpringMVCConfig;
 import cz.fi.muni.pa165.dto.NewPriceDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.facade.ProductFacade;
-import cz.fi.muni.pa165.utils.ProductsController;
+import cz.fi.muni.pa165.rest.controllers.ProductsController;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -54,7 +55,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 
 @WebAppConfiguration
-@ContextConfiguration(classes = {PersistenceSampleApplicationContext.class, SpringMVCConfig.class})
+@ContextConfiguration(classes = {RootWebContext.class})
 public class ProductsControllerTest extends AbstractTestNGSpringContextTests  {
     
     @Mock
