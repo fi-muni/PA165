@@ -29,11 +29,11 @@ public class OrderDTO
     }
 
     public List<OrderItemDTO> getOrderItems() {
-        return Collections.unmodifiableList(orderItems);
+        return orderItems;
     }
 
-    public void addOrderItem(OrderItemDTO p) {
-        orderItems.add(p);
+    public void setOrderItems(List<OrderItemDTO> orderItems) {
+        this.orderItems=orderItems;
     }
 
     public Date getCreated() {

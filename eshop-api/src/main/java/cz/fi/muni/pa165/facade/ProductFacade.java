@@ -9,13 +9,14 @@ import cz.fi.muni.pa165.dto.ProductDTO;
 import java.util.List;
 
 public interface ProductFacade {
-	Long createProduct(ProductCreateDTO p);
-	void addCategory(Long productId, Long categoryId);
-	void removeCategory(Long productId, Long categoryId);
-	void changePrice(Long productId, NewPriceDTO newPrice);
-	void deleteProduct(Long productId);
-	List<ProductDTO> getAllProducts();
-	ProductDTO getProductWithId(Long id);
-	void changeImage(ProductChangeImageDTO productChange);
+	public Long createProduct(ProductCreateDTO p);
+	public void addCategory(Long productId, Long categoryId);
+	public void removeCategory(Long productId, Long categoryId);
+	public void changePrice(NewPriceDTO newPrice);
+	public void deleteProduct(Long productId);
+	public List<ProductDTO> getAllProducts();
+	public List<ProductDTO> getProductsByCategory(String categoryName);
+	public ProductDTO getProductWithId(Long id);
+	public void changeImage(ProductChangeImageDTO productChange);
 
 }

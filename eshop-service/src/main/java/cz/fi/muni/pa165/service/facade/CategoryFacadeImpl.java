@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.dozer.loader.api.BeanMappingBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.facade.CategoryFacade;
+import cz.fi.muni.pa165.service.BeanMappingService;
 import cz.fi.muni.pa165.service.CategoryService;
 
 //TODO create Facade annotation
@@ -17,18 +20,21 @@ import cz.fi.muni.pa165.service.CategoryService;
 @Transactional
 public class CategoryFacadeImpl implements CategoryFacade
 {
-    @Inject
+	@Autowired
     private CategoryService categoryService;
 
-    @Override 
+	@Autowired
+    private BeanMappingService beanMappingService;
+    
+	 
     public List<CategoryDTO> getAllCategories()
     {
-        return FacadeUtils.mapTo(categoryService.findAll(),CategoryDTO.class);
+        return beanMappingService.mapTo(categoryService.findAll(),CategoryDTO.class);
     }
 
     @Override 
     public CategoryDTO getCategoryById(Long id)
     {
-        return FacadeUtils.mapTo(categoryService.findById(id),CategoryDTO.class);
+        return beanMappingService.mapTo(categoryService.findById(id),CategoryDTO.class);
     }
 }

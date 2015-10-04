@@ -77,10 +77,10 @@ public class ProductDaoTest extends AbstractTestNGSpringContextTests {
 		p4.setName("p4");
 		p5.setName("p5");
 
-		p1.setCategory(cat);
+		p1.addCategory(cat);
 		p1.setColor(Color.RED);
 		p1.setCurrentPrice(priceLow);
-		p2.setCategory(cat);
+		p2.addCategory(cat);
 
 		productDao.create(p1);
 		productDao.create(p2);
@@ -95,6 +95,15 @@ public class ProductDaoTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(found.size(), 5);
 	}
 
+
+	@Test
+	public void findCategory() {
+		Product found = productDao.findById(p1.getId());
+		Assert.assertEquals(found.getCategories().size(), 1);
+		Assert.assertEquals(found.getCategories().iterator().next().getName(), "cat");
+	}
+
+	
 	@Test
 	public void remove() {
 		Assert.assertNotNull(productDao.findById(p3.getId()));

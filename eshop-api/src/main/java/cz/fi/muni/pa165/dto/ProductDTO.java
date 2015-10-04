@@ -14,9 +14,9 @@ public class ProductDTO
 
     private Set<CategoryDTO> categories = new HashSet<CategoryDTO>();
 
-    private List<NewPriceDTO> priceHistory = new ArrayList<NewPriceDTO>();
+    private List<PriceDTO> priceHistory = new ArrayList<PriceDTO>();
     
-    private NewPriceDTO currentPrice;
+    private PriceDTO currentPrice;
 
     private Color color;
 
@@ -28,19 +28,20 @@ public class ProductDTO
     }
     
     public Set<CategoryDTO> getCategories() {
-        return Collections.unmodifiableSet(categories);
+        return categories;
     }
-
-    public void addCategory(CategoryDTO c) {
-        categories.add(c);
-        c.addProduct(this);
+    public void setCategories(Set<CategoryDTO> categories) {
+        this.categories = categories;
     }
-
+    
     public String getImageMimeType() {
         return imageMimeType;
     }
 
 
+	public void setCurrentPrice(PriceDTO currentPrice) {
+		this.currentPrice = currentPrice;		
+	}
 
     public void setImageMimeType(String imageMimeType) {
         this.imageMimeType = imageMimeType;
@@ -48,21 +49,18 @@ public class ProductDTO
 
 
 
-    public NewPriceDTO getCurrentPrice() {
+    public PriceDTO getCurrentPrice() {
         return currentPrice;
     }
 
 
-    public void setCurrentPrice(NewPriceDTO currentPrice) {
-        if (currentPrice != null)
-        	priceHistory.add(currentPrice);
 
-        this.currentPrice = currentPrice;
+    public List<PriceDTO> getPriceHistory() {
+        return priceHistory;
     }
 
-
-    public List<NewPriceDTO> getPriceHistory() {
-        return Collections.unmodifiableList(priceHistory);
+    public void setPriceHistory( List<PriceDTO> priceHistory) {
+        this.priceHistory=priceHistory;
     }
 
 
@@ -121,4 +119,5 @@ public class ProductDTO
             return false;
         return true;
     }
+
 }

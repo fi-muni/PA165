@@ -42,4 +42,11 @@ public class CategoryServiceImpl implements CategoryService {
 	public void remove(Category c) {
 		categoryDao.delete(c);
 	}
+
+	@Override
+	public Category findByName(String categoryName) {
+		return categoryDao.findByName(categoryName);
+	}
+
+
 }

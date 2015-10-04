@@ -26,9 +26,9 @@ import cz.fi.muni.pa165.entity.Order;
 import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.service.OrderService;
 import cz.fi.muni.pa165.service.TimeService;
-import cz.fi.muni.pa165.service.config.ServiceTestConfiguration;
+import cz.fi.muni.pa165.service.config.ServiceConfiguration;
 
-@ContextConfiguration(classes = ServiceTestConfiguration.class)
+@ContextConfiguration(classes = ServiceConfiguration.class)
 public class OrderServiceTest extends AbstractTestNGSpringContextTests
 {
     @Mock

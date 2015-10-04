@@ -36,6 +36,7 @@ public class OrderDaoImpl implements OrderDao {
 		TypedQuery<Order> query = em.createQuery(
 				"Select o from Order o where o.user = :userid",
 				Order.class);
+		
 		query.setParameter("userid", u);
 		return query.getResultList();
 	}

@@ -12,7 +12,6 @@ public class OrderItemDTO
 
     private NewPriceDTO pricePerItem;
 
-
     public NewPriceDTO getPricePerItem() {
         return pricePerItem;
     }

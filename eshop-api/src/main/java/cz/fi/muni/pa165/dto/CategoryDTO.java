@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.dto;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CategoryDTO
@@ -11,23 +12,16 @@ public class CategoryDTO
 
     private String name;
 
-    private Set<ProductDTO> products = new HashSet<>();
-
+ 
     public String getName() {
         return name;
     }
 
-    protected void addProduct(ProductDTO p){
-        products.add(p);
-    }
     public void setName(String name) {
         this.name = name;
     }
 
-    public Set<ProductDTO> getProducts() {
-        return Collections.unmodifiableSet(products);
-    }
-
+    
     public Long getId() {
         return id;
     }

@@ -55,9 +55,6 @@ public class Product {
 	private Set<Category> categories = new HashSet<Category>();
 
 
-	@ManyToOne
-	private Category category = null;
-	
 	@OneToOne
 	@JoinTable(name="CURRENT_PRICE")
 	private Price currentPrice;
@@ -89,13 +86,6 @@ public class Product {
 		c.addProduct(this);
 	}
 
-
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
-	}
 
 	public enum Color{ BLACK, WHITE, RED}
 	

@@ -7,14 +7,21 @@ import java.math.BigDecimal;
 
 public class NewPriceDTO
 {
-    private Long id;
-
+	private Long productId;
     private BigDecimal value;
-
     private Currency currency;
+    
 
+    
+    public Long getProductId() {
+		return productId;
+	}
 
-    public BigDecimal getValue() {
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public BigDecimal getValue() {
         return value;
     }
 
@@ -31,9 +38,6 @@ public class NewPriceDTO
         this.currency = currency;
     }
 
-    public Long  getId() {
-        return id;
-    }
 
 	@Override
 	public int hashCode() {

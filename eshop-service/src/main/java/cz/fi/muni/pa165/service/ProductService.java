@@ -21,5 +21,5 @@ public interface ProductService {
 	public void changePrice(Product product, Price newPrice);
 	public void deleteProduct(Product p);
 	public BigDecimal getPriceValueInCurrency(Product p, Currency currency);
-	public void changeImage(Product product, byte[] photo);
+	
 }

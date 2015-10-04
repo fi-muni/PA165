@@ -62,10 +62,6 @@ public class ProductServiceImpl implements ProductService {
 		productDao.remove(p);
 	}
 
-	@Override
-	public void changeImage(Product product, byte[] image) {
-		product.setImage(image);
-	}
 
 
 	@Override

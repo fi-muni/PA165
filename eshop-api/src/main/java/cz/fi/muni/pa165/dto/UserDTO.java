@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UserDTO
 {
-    private long id;
+    private Long id;
     private String passwordHash;
 
     private String email;
@@ -14,7 +14,7 @@ public class UserDTO
 
     private Date joinedDate;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

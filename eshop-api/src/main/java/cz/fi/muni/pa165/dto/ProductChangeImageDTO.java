@@ -4,8 +4,18 @@ public class ProductChangeImageDTO
 {
     private Long productId;
     private byte[] image;
+	private String imageMimeType;
 
-    public Long getProductId()
+	
+    public String getImageMimeType() {
+		return imageMimeType;
+	}
+
+	public void setImageMimeType(String imageMimeType) {
+		this.imageMimeType = imageMimeType;
+	}
+
+	public Long getProductId()
     {
         return productId;
     }

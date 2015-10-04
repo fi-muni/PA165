@@ -18,4 +18,5 @@ public interface CategoryService {
 	List<Category> findAll();
 	void create(Category category);
 	void remove(Category c);
+	Category findByName(String categoryName);
 }
