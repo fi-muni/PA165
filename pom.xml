@@ -35,10 +35,7 @@
 
     <modules>
         <module>eshop-persistence</module>
-        <module>eshop-rest</module>
-        <module>eshop-service</module>
         <module>eshop-api</module>
-        <module>eshop-fe</module>
   </modules>
 
     <dependencies>

@@ -1,19 +1,16 @@
 package cz.fi.muni.pa165;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Product;
-import cz.fi.muni.pa165.entity.Product.Color;
 
 public class MainJavaSe {
 	private static EntityManagerFactory emf;
@@ -104,20 +101,10 @@ public class MainJavaSe {
 		// * dateAdded = 20-01-2011 - to fill java.util.Date, use java.util.Calendar.getTime(). On the Calendar, set only these three fields: YEAR=11, MONTH=0, DAY_OF_MONTH=20
 		//
 		// Additional task: Change the underlying table of Product entity to be ESHOP_PRODUCTS. After you do this, check this by inspecting console output (the CREATE TABLE statement)
+		//
+		// To test your code uncomment the commented code at the end of this method.
 
-		Product prod = new Product();
-		prod.setName("Guitar");
-		prod.setColor(Color.BLACK);
-		Calendar cal1 = Calendar.getInstance();
-		cal1.set(Calendar.YEAR, 2011);
-		cal1.set(Calendar.MONTH, 0);
-		cal1.set(Calendar.DAY_OF_MONTH, 20);
-		prod.setAddedDate(cal1.getTime());
-		EntityManager e = emf.createEntityManager();
-		e.getTransaction().begin();
-		e.persist(prod);
-		e.getTransaction().commit();
-		e.close();
+
 		
 		
 
@@ -128,6 +115,8 @@ public class MainJavaSe {
 		em.getTransaction().commit();
 		em.close();
 
+	/** TODO Uncomment the following test code after you are finished!
+	 
 		assertEq(p.getName(), "Guitar");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(p.getAddedDate());
@@ -160,6 +149,7 @@ public class MainJavaSe {
 	
 
 		System.out.println("Task7 ok!");
+		*/
 	}
 	
 	private static void task08() {
@@ -170,7 +160,10 @@ public class MainJavaSe {
 		
 		//TODO after you implement equals nad hashCode, you can uncomment the code below. It will try
 		// to check whether you are doing everything correctly. 
-		
+	
+/* TODO uncomment the following (it should work if you were successfull with task08)
+
+
 		class MockProduct extends Product {
 			private boolean getNameCalled = false;
 			@Override
@@ -206,7 +199,7 @@ public class MainJavaSe {
 		if (mp.getNameCalled){
 			System.out.println("CORRECT");
 		} else System.out.println("INCORRECT!");
-		
+		 */
 	
 	}
 

@@ -23,13 +23,6 @@ public class Category {
 	@NotNull
 	@Column(nullable=false,unique=true)
 	private String name;
-	
-	@ManyToMany(mappedBy="categories")
-	private Set<Product> products = new HashSet<Product>();
-	
-	public void addProduct(Product product) {
-		this.products.add(product);
-	}
 
 	public Category(Long categoryId) {
 		this.id = categoryId; 
@@ -43,10 +36,6 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Set<Product> getProducts() {
-		return Collections.unmodifiableSet(products);
 	}
 
 	public Long getId() {
