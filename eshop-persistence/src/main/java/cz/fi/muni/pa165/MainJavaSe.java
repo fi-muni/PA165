@@ -22,7 +22,6 @@ public class MainJavaSe {
 		// The following line is here just to start up a in-memory database
 		new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class);
 
-		System.out.println(" ****** STARTING PET STORE APPLICATOIN ****** ");
 		emf = Persistence.createEntityManagerFactory("default");
 
 		// BEGIN YOUR CODE
