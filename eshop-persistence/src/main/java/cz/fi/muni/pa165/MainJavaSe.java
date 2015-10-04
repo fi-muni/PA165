@@ -32,21 +32,11 @@ public class MainJavaSe {
 		// TODO under this line, persist two categories, one with name
 		// Electronics and second with name Musical
 		// You must first obtain the Entity manager 
-		EntityManager emWork = emf.createEntityManager();
-		emWork.getTransaction().begin();
-		Category c1 = new Category();
-		c1.setName("Electronics");
-		Category c2=new Category();
-		c2.setName("Musical");
-		emWork.persist(c1);
-		emWork.persist(c2);
+
 		
-		emWork.getTransaction().commit();
-		
-		
+		// The code below is just testing code do not modify it
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-
 		List<Category> categories = em.createQuery(
 				"select c from Category c order by c.name", Category.class)
 				.getResultList();
@@ -73,13 +63,8 @@ public class MainJavaSe {
 		// the detached category
 		// into the context and change the name to "Electro"
 
-		EntityManager em2 = emf.createEntityManager();
-		em2.getTransaction().begin();
-		category = em2.merge(category);
-		category.setName("Electro");
-		em2.getTransaction().commit();
-		em2.close();
 
+		// The code below is just testing code do not modify it
 		EntityManager checkingEm = emf.createEntityManager();
 		checkingEm.getTransaction().begin();
 		Category cat = checkingEm.find(Category.class, category.getId());
@@ -104,9 +89,6 @@ public class MainJavaSe {
 		//
 		// To test your code uncomment the commented code at the end of this method.
 
-
-		
-		
 
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
