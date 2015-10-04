@@ -84,13 +84,7 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 						content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(
 						jsonPath("$.[?(@.id==10)].name").value("Raspberry PI"))
-				.andExpect(jsonPath("$.[?(@.id==20)].name").value("Arduino"))
-				.andExpect(
-						jsonPath("$.[?(@.id==10)].priceHistory[0].value")
-								.value(34))
-				.andExpect(
-						jsonPath("$.[?(@.id==20)].priceHistory[0].value")
-								.value(44));
+				.andExpect(jsonPath("$.[?(@.id==20)].name").value("Arduino"));
 
 	}
 
@@ -106,15 +100,12 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 				.andExpect(status().isOk())
 				.andExpect(
 						content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.name").value("Raspberry PI"))
-				.andExpect(jsonPath("$.priceHistory[0].value").value(34));
-
+				.andExpect(jsonPath("$.name").value("Raspberry PI"));
 		mockMvc.perform(get("/products/20"))
 				.andExpect(status().isOk())
 				.andExpect(
 						content().contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(jsonPath("$.name").value("Arduino"))
-				.andExpect(jsonPath("$.priceHistory[0].value").value(44));
+				.andExpect(jsonPath("$.name").value("Arduino"));
 
 	}
 
@@ -167,11 +158,10 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 		doReturn(products.get(0)).when(productFacade).getProductWithId(10l);
 		doReturn(products.get(1)).when(productFacade).getProductWithId(20l);
 
-		ProductDTO product = new ProductDTO();
-		product.setName("test");
 		doNothing().when(productFacade).changePrice(any(NewPriceDTO.class));
-
-		String json = this.convertObjectToJsonBytes(product);
+		NewPriceDTO newPrice = new NewPriceDTO();
+		
+		String json = this.convertObjectToJsonBytes(newPrice);
 
 		mockMvc.perform(
 				put("/products/10").contentType(MediaType.APPLICATION_JSON)
