@@ -27,8 +27,8 @@ the main method is working well.
 ```xml
         <dependency>
             <groupId>javax.inject</groupId>
-            <artifactId>inject-api</artifactId>
-            <version>1.0.0-PRD</version>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
 ```
 
