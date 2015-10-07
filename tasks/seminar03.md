@@ -11,14 +11,14 @@ open project currency-convertor.
   </dependency> 
 ```
 
-**Task 03** Create class ExchangeRateTableImpl in package cz.fi.muni.pa165.currency.
+**Task 03** Create class ExchangeRateTableImpl in package cz.muni.fi.pa165.currency.
 This class will implement ExchangeRateTable interface, method getExchangeRate
 will return fixed exchange rate 27 for conversion from EUR to CZK and null for
 any other currencies.
 
 **Task 04** Create Spring xml application context which will configure
 components ExchangeRateTableImpl and CurrencyConvertorImpl. Create MainXml class
-in package cz.fi.muni.pa165 with main method which will create Spring
+in package cz.muni.fi.pa165 with main method which will create Spring
 ApplicationContext based on this Spring xml application context configuration.
 Then get instance of CurrencyConvertor and try convert one euro to czk. Test, if
 the main method is working well.
@@ -27,21 +27,21 @@ the main method is working well.
 ```xml
         <dependency>
             <groupId>javax.inject</groupId>
-            <artifactId>inject-api</artifactId>
-            <version>1.0.0-PRD</version>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
 ```
 
 **Task 06** Add JSR-330 annotations to ExchangeRateTableImpl and
 CurrencyConvertorImpl components. Create MainAnnotations class
-in package cz.fi.muni.pa165 with main method which will create Spring
+in package cz.muni.fi.pa165 with main method which will create Spring
 ApplicationContext based on these annotations.
 Then get instance of CurrencyConvertor and try convert one euro to czk. Test, if
 the main method is working well.
 
 **Task 07** Create JavaConfig Spring application context which will configure
 components ExchangeRateTableImpl and CurrencyConvertorImpl. Create MainJavaConfig
-class in package cz.fi.muni.pa165 with main method which will create Spring
+class in package cz.muni.fi.pa165 with main method which will create Spring
 ApplicationContext based on this JavaConfig application context configuration.
 Then get instance of CurrencyConvertor and try convert one euro to czk. Test, if
 the main method is working well.
