@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.currency;
+package cz.muni.fi.pa165.currency;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
