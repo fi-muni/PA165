@@ -46,6 +46,10 @@ ApplicationContext based on this JavaConfig application context configuration.
 Then get instance of CurrencyConvertor and try convert one euro to czk. Test, if
 the main method is working well.
 
+Warning: You may unknowingly create two instances of CurrencyConvertor if you
+both have the method annotated with @Bean and enabled scanning of components which finds the class annotated with @Named. In that case remove the scanning of
+components, or specify the bean name as the first parameter of the getBean() method.
+
 **Task 08** Add spring-aop, aspectjrt and aspectjweaver as a maven dependency
 into `pom.xml`:
 ```xml
