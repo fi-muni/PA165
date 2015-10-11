@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.dto;
 
-import cz.fi.muni.pa165.dto.ProductDTO.Color;
 
 
 public class ProductCreateDTO

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -17,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
@@ -25,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.validation.AllOrNothing;
 
 @Entity
@@ -87,8 +86,6 @@ public class Product {
 	}
 
 
-	public enum Color{ BLACK, WHITE, RED}
-	
 	public java.util.Date getAddedDate() {
 		return addedDate;
 	}

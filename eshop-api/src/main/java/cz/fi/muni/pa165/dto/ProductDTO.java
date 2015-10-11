@@ -1,6 +1,9 @@
 package cz.fi.muni.pa165.dto;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ProductDTO
 {
@@ -19,8 +22,6 @@ public class ProductDTO
     private PriceDTO currentPrice;
 
     private Color color;
-
-    public enum Color{ BLACK, WHITE, RED}
 
 
     public byte[] getImage() {

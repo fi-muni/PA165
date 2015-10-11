@@ -12,12 +12,12 @@ import javax.servlet.ServletContextListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Order;
 import cz.fi.muni.pa165.entity.OrderItem;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
-import cz.fi.muni.pa165.entity.Product.Color;
 import cz.fi.muni.pa165.entity.User;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.enums.OrderState;

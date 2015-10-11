@@ -11,9 +11,9 @@ import javax.persistence.PersistenceException;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Product;
-import cz.fi.muni.pa165.entity.Product.Color;
 
 public class MainJavaSe {
 	private static EntityManagerFactory emf;

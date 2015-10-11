@@ -9,12 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
@@ -22,13 +19,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
-import cz.fi.muni.pa165.dao.CategoryDaoImpl;
-import cz.fi.muni.pa165.dao.ProductDaoImpl;
+import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Price;
 import cz.fi.muni.pa165.entity.Product;
-import cz.fi.muni.pa165.entity.User;
-import cz.fi.muni.pa165.entity.Product.Color;
 import cz.fi.muni.pa165.enums.Currency;
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
