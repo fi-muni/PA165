@@ -113,6 +113,7 @@ public class Task04 extends AbstractTestNGSpringContextTests {
 	/**
 	 * Write query that returns count of Products, make sure to return only 1 number
 	 */
+	@Test
 	public void countProducts() {
 		Long count = em.createQuery("TODO",Long.class).getSingleResult();
 			
