@@ -25,7 +25,7 @@ import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Product;
 
-//Solution 
+
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 public class Task04 extends AbstractTestNGSpringContextTests {
 

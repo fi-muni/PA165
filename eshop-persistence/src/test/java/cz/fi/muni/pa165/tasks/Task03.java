@@ -10,7 +10,7 @@ import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.dao.ProductDao;
 import cz.fi.muni.pa165.entity.Product;
 
-//Solution 
+
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 public class Task03 extends AbstractTestNGSpringContextTests {
 
@@ -18,11 +18,12 @@ public class Task03 extends AbstractTestNGSpringContextTests {
 	private ProductDao productDao;
 	
 	@Test
-	public void createFind(){
+	public void createFindDeleteTest(){
 		Product p = new Product();
 		p.setName("TestProduct1");
 		productDao.create(p);
 		
+		//Solution begin
 		Product p2 = new Product();
 		p2.setName("TestProduct2");
 		productDao.create(p2);
@@ -32,5 +33,6 @@ public class Task03 extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(productDao.findByName("TestProduct1").size(), 1);
 		productDao.remove(p2);
 		Assert.assertEquals(productDao.findAll().size(), 1);
+		//Solution end
 	}
 }

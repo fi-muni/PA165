@@ -17,13 +17,14 @@ import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.entity.Category;
 import cz.fi.muni.pa165.entity.Product;
 
-//Solution 
+ 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 public class Task02 extends AbstractTestNGSpringContextTests {
 
 	@PersistenceUnit
 	private EntityManagerFactory emf;
 
+	//Solution begin
 	private Category catKitchen = new Category();
 	private Category catElectro = new Category();
 	private Product flashlight = new Product();
@@ -60,7 +61,7 @@ public class Task02 extends AbstractTestNGSpringContextTests {
 	
 	//Solution to Task 05
 	@Test(expectedExceptions=ConstraintViolationException.class)
-	public void testSaveNull(){
+	public void testDoesntSaveNullName(){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		Product p =new Product();
@@ -104,27 +105,7 @@ public class Task02 extends AbstractTestNGSpringContextTests {
 		em.close();
 	}	
 	
-	private void assertContainsCategoryWithName(Set<Category> categories,
-			String expectedCategoryName) {
-		for(Category cat: categories){
-			if (cat.getName().equals(expectedCategoryName))
-				return;
-		}
-			
-		Assert.fail("Couldn't find category "+ expectedCategoryName+ " in collection "+categories);
-	}
-	private void assertContainsProductWithName(Set<Product> products,
-			String expectedProductName) {
-		
-		for(Product prod: products){
-			if (prod.getName().equals(expectedProductName))
-				return;
-		}
-			
-		Assert.fail("Couldn't find product "+ expectedProductName+ " in collection "+products);
-	}
 
-	
 
 	@Test
 	public void testCategoryKitchen(){
@@ -149,5 +130,27 @@ public class Task02 extends AbstractTestNGSpringContextTests {
 		
 		em.close();
 	}	
+	//Solution end
+	
+	private void assertContainsCategoryWithName(Set<Category> categories,
+			String expectedCategoryName) {
+		for(Category cat: categories){
+			if (cat.getName().equals(expectedCategoryName))
+				return;
+		}
+			
+		Assert.fail("Couldn't find category "+ expectedCategoryName+ " in collection "+categories);
+	}
+	private void assertContainsProductWithName(Set<Product> products,
+			String expectedProductName) {
+		
+		for(Product prod: products){
+			if (prod.getName().equals(expectedProductName))
+				return;
+		}
+			
+		Assert.fail("Couldn't find product "+ expectedProductName+ " in collection "+products);
+	}
 
+	
 }

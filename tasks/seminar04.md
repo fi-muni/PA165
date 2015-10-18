@@ -8,6 +8,11 @@ Do not forget to checkout branch seminar04! Do not work in master! This first se
 		emf.close();
   ```
 
+If you experience out of memory errors, you can use the following command in terminal to kill all java processes:
+```
+killall java
+```
+
 **Task 01** Your first task is to locate and download JPA 2.1 specification (JSR 338). It is a PDF file. 
    
 **Task 02** Try to run cz.fi.muni.pa165.MainJavaSe from NetBeans 
