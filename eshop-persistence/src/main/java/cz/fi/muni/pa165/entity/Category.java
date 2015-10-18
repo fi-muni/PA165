@@ -24,12 +24,15 @@ public class Category {
 	@Column(nullable=false,unique=true)
 	private String name;
 	
-	@ManyToMany(mappedBy="categories")
-	private Set<Product> products = new HashSet<Product>();
-	
-	public void addProduct(Product product) {
-		this.products.add(product);
-	}
+
+	//TODO after you are done with task02 you can uncomment this methods
+//	public void addProduct(Product product) {
+//		this.products.add(product);
+//	}
+//
+//	public Set<Product> getProducts() {
+//		return Collections.unmodifiableSet(products);
+//	}
 
 	public Category(Long categoryId) {
 		this.id = categoryId; 
@@ -45,9 +48,6 @@ public class Category {
 		this.name = name;
 	}
 
-	public Set<Product> getProducts() {
-		return Collections.unmodifiableSet(products);
-	}
 
 	public Long getId() {
 		return id;

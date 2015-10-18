@@ -40,8 +40,7 @@ public class Product {
 
 	private String imageMimeType;
 	
-	@NotNull
-	@Column(nullable=false,unique=true)
+
 	private String name;
 	
 	/*
@@ -50,9 +49,6 @@ public class Product {
 	@Temporal(TemporalType.DATE)
 	private java.util.Date addedDate;
 	
-	@ManyToMany
-	private Set<Category> categories = new HashSet<Category>();
-
 
 	@OneToOne
 	@JoinTable(name="CURRENT_PRICE")
@@ -70,20 +66,33 @@ public class Product {
 	public void setId(Long id){
 		this.id = id;
 	}
-	
-	public void removeCategory(Category category)
-	{
-		this.categories.remove(category);
-	}
 
-	public Set<Category> getCategories() {
-		return Collections.unmodifiableSet(categories);
+
+
+	/**
+	 * TODO these two methods are here just to make Task04 compilable. After you are finished
+	 * with TASK 02 you should delete this empty method
+	 * @param kitchen
+	 */
+	public void addCategory(Category kitchen) {	
 	}
+	public List<Product> getCategories() {
+		return null;
+	}
+	//TODO after you are done with task02 you can uncomment this methods
+//	public void removeCategory(Category category)	{
+//		this.categories.remove(category);
+//	}
+//	
+//	public void addCategory(Category c) {
+//		categories.add(c);
+//		c.addProduct(this);
+//	}
+//
+//	public Set<Category> getCategories() {
+//		return Collections.unmodifiableSet(categories);
+//	}
 	
-	public void addCategory(Category c) {
-		categories.add(c);
-		c.addProduct(this);
-	}
 
 
 	public java.util.Date getAddedDate() {
@@ -183,6 +192,7 @@ public class Product {
 			return false;
 		return true;
 	}
+
 
 
 	
