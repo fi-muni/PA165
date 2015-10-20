@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.dto.CategoryDTO;
+import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.dto.NewPriceDTO;
 import cz.fi.muni.pa165.dto.PriceDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
@@ -198,7 +199,7 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 		currentPrice.setCurrency(Currency.EUR);
 		currentPrice.setValue(new BigDecimal("34"));
 		productOne.setCurrentPrice(currentPrice);
-		productOne.setColor(ProductDTO.Color.BLACK);
+		productOne.setColor(Color.BLACK);
 
 		ProductDTO productTwo = new ProductDTO();
 		productTwo.setId(20L);
@@ -207,7 +208,7 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 		price.setCurrency(Currency.EUR);
 		price.setValue(new BigDecimal("44"));
 		productTwo.setCurrentPrice(price);
-		productTwo.setColor(ProductDTO.Color.WHITE);
+		productTwo.setColor(Color.WHITE);
 
 		return Arrays.asList(productOne, productTwo);
 	}
