@@ -7,7 +7,7 @@ killall java
 ```
 
 **Task 01**  
-Modify class Task01Test (package cz.fi.muni.pa165.tasks) to be unit test that creates ApplicationContext. Use @ContextConfiguration annotation (see documentation [1][2]) and configure it so that PersistenceSampleApplicationContext.class is used as the spring configuration class. Your test class should also extend AbstractTestNGSpringContextTests. Test code is already in the file, you can run it and see if it doesn't fail.
+Modify class Task01 (package cz.fi.muni.pa165.tasks) to be unit test that creates ApplicationContext. Use @ContextConfiguration annotation (see documentation [1][2]) and configure it so that PersistenceSampleApplicationContext.class is used as the spring configuration class. Your test class should also extend AbstractTestNGSpringContextTests. Test code is already in the file, you can run it and see if it doesn't fail.
 
 Now you have running unit test, but it doesn't assert anything. Add assert to this test. Create a second entity manager in categoryTest, use find method to find the category and assert its name.
 
