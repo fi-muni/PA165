@@ -247,7 +247,7 @@ public class Task04 extends AbstractTestNGSpringContextTests {
 		CriteriaQuery<Product> query = cb.createQuery(Product.class);
 		//Solution begin
 		Root<Product> p = query.from(Product.class);
-		query.select(p).where(cb.isNotEmpty(p.get("categories")));		
+		query.select(p).where(cb.isNotEmpty(p.<List<Category>>get("categories")));		
 		//Solution end
 		List<Product> found = em.createQuery(query).getResultList();
 		Assert.assertEquals(found.size(), 3);
