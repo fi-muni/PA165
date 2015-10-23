@@ -1,0 +1,94 @@
+/* Cascading Style Sheet (CSS) */
+.message {
+    background-color: lightgreen;
+    border: 1px solid darkgreen;
+    padding: 1em;
+}
+
+span.error {
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+}
+
+input.error {
+    background-color: yellow;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+    background-color: azure;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+    text-shadow: aquamarine;
+    text-transform: capitalize;
+}
+
+table.basic {
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+table.basic th, table.basic td {
+    border: solid 1px black;
+    padding: 4px;
+}
+
+/*  http://www.alistapart.com/articles/taminglists/ */
+#navigation {
+    width: 120px;
+    border-right: 1px solid #000;
+    padding: 0 0 1em 0;
+    margin-bottom: 1em;
+    background-color: #90bade;
+    color: #333;
+}
+
+#navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+#navigation li {
+    border-bottom: 1px solid #90bade;
+    margin: 0;
+}
+
+#navigation li a {
+    display: block;
+    padding: 5px 5px 5px 0.5em;
+    border-left: 10px solid #1958b7;
+    border-right: 10px solid #508fc4;
+    background-color: #2175bc;
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+}
+
+html>body #navigation li a {
+    width: auto;
+}
+
+#navigation li a:hover {
+    border-left: 10px solid #1c64d1;
+    border-right: 10px solid #5ba3e0;
+    background-color: #2586d7;
+    color: #fff;
+}
+
+/*  http://realworldstyle.com/2col.html */
+#navigation {
+    width: 120px;
+    float: left;
+    margin-left: -1px;
+}
+
+#content {
+    padding: 10px;
+    margin-left: 130px;
+}
