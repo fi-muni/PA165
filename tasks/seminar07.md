@@ -4,18 +4,17 @@ In this seminar, we will use several steps checked out from the GitHub repositor
 Each step is marked by a git tag. A git tag is a pointer to a specific commit, 
 while a git branch is a pointer to the last commit in a series of commits. 
 In each step, we will reset the content of the working directory to the state
-marked by each tag.
+marked by each tag. You can see the final solution in the branch [seminar07](https://github.com/fi-muni/PA165/tree/seminar07/webapp-plain).
 
 
 **Task 01** In a new folder, checkout the tag seminar07_step1 from https://github.com/fi-muni/PA165. 
-Open the project webapp-plain. Run the application and view it in your browser.
+Open the project webapp-plain. Run the application and view it in your browser at [http://localhost:8080/webapp-plain/](http://localhost:8080/webapp-plain/).
 ```
 mkdir seminar07
 cd seminar07
 git clone -b seminar07_step1 https://github.com/fi-muni/PA165
 cd PA165/webapp-plain
 mvn tomcat7:run
-firefox http://localhost:8080/webapp-plain/
 ```
 
 **Task 02** Open the project in your favorite IDE. Inspect all the files in the application and decide what is their purpose.
