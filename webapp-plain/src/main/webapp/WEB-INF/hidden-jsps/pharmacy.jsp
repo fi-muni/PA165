@@ -19,6 +19,10 @@
             <td><input type="text" id="drugamount" name="amount"></td>
         </tr>
         <tr>
+            <td><label for="drugvendor"><fmt:message key="drug.vendor"/>:</label></td>
+            <td><input type="text" id="drugvendor" name="vendor"></td>
+        </tr>
+        <tr>
             <td colspan="2"><input type="submit" ></td>
         </tr>
     </table>
@@ -30,11 +34,13 @@
     <tr>
         <th><fmt:message key="drug.name"/></th>
         <th><fmt:message key="drug.amount"/></th>
+        <th><fmt:message key="drug.vendor"/></th>
     </tr>
   <c:forEach items="${drugs}" var="d">
     <tr>
-      <td>${d.name}</td>
+      <td><c:out value="${d.name}"/></td>
       <td><c:out value="${d.amount}"/></td>
+      <td><c:out value="${d.vendor}"/></td>
     </tr>
   </c:forEach>
 </table>

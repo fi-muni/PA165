@@ -37,11 +37,12 @@ public class PharmacyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         String amount = request.getParameter("amount");
-        log.debug("pharmacy servlet called by HTTP POST, drugname={} drugamount={}");
+        String vendor = request.getParameter("vendor");
+        log.debug("pharmacy servlet called by HTTP POST, name={} amount={} vendor={}",name,amount,vendor);
 
         //add the entered data to a list held in a servlet context attribute
         ArrayList<Drug> drugs = (ArrayList<Drug>) getServletContext().getAttribute("drugs");
-        drugs.add(new Drug(name,amount));
+        drugs.add(new Drug(name,amount,vendor));
 
         //redirect-after-post to clear browser history
         response.sendRedirect(request.getContextPath() + PHARMACY_URL);
@@ -52,8 +53,8 @@ public class PharmacyServlet extends HttpServlet {
         log.debug("preparing example data");
         ArrayList<Drug> drugs = new ArrayList<>();
         getServletContext().setAttribute("drugs", drugs);
-        drugs.add(new Drug("Celaskon","500mg"));
-        drugs.add(new Drug("Aspirin", "30mg"));
+        drugs.add(new Drug("Celaskon","500mg","Zentiva"));
+        drugs.add(new Drug("Aspirin", "30mg","Bayer"));
     }
 
     /**
@@ -64,10 +65,12 @@ public class PharmacyServlet extends HttpServlet {
 
         private String name;
         private String amount;
+        private String vendor;
 
-        public Drug(String name, String amount) {
+        public Drug(String name, String amount,String vendor) {
             this.name = name;
             this.amount = amount;
+            this.vendor = vendor;
         }
 
         public String getName() {
@@ -84,6 +87,14 @@ public class PharmacyServlet extends HttpServlet {
 
         public void setAmount(String amount) {
             this.amount = amount;
+        }
+
+        public String getVendor() {
+            return vendor;
+        }
+
+        public void setVendor(String vendor) {
+            this.vendor = vendor;
         }
     }
 }
