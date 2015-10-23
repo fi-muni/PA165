@@ -1,4 +1,9 @@
 /* Cascading Style Sheet (CSS) */
+#footer {
+    clear: both;
+    background-color:  lightblue;
+}
+
 .message {
     background-color: lightgreen;
     border: 1px solid darkgreen;

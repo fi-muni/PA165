@@ -29,7 +29,7 @@ public class PrahaServlet extends HttpServlet {
         request.setAttribute("now", new Date());
         request.setAttribute("message", ResourceBundle.getBundle("Texts", request.getLocale()).getString("praha.message"));
 
-        request.getRequestDispatcher("/praha.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/hidden-jsps/praha.jsp").forward(request, response);
     }
 
 }
