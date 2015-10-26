@@ -1,0 +1,36 @@
+<!-- web application deployment descriptor, needed for config that cannot be set using annotations -->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- define existing roles -->
+    <security-role>
+        <role-name>administrator</role-name>
+    </security-role>
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+
+    <!-- protect URLs -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Authentication for selected URLs</web-resource-name>
+            <url-pattern>/praha/*</url-pattern>
+            <url-pattern>/podoli/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- define authentication method, can be BASIC or FORM -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/WEB-INF/hidden-jsps/login.jsp</form-login-page>
+            <form-error-page>/WEB-INF/hidden-jsps/login-failed.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+</web-app>

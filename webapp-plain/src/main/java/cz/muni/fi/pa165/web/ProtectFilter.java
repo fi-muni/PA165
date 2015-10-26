@@ -42,6 +42,7 @@ public class ProtectFilter implements Filter {
             response401(response);
             return;
         }
+        log.debug("did HTTP BASIC auth for "+request.getRequestURL());
         chain.doFilter(request, response);
     }
 
