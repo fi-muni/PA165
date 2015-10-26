@@ -19,7 +19,7 @@ mvn tomcat7:run
 ```
 
 **Task 02** Open the project in your favorite IDE. Inspect all the files in the application and decide what is their purpose. The application contains:
- * a ServletContextListener in the class MyStartListener
+ * a ServletContextListener in the class MyStartInitializer
  * a Filter in the class CharacterEncodingFilter
  * a Servlet in the class HomeServlet
  * a localization ResourceBundle in the files Texts*.properties
