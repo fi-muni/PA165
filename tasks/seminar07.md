@@ -14,6 +14,7 @@ mkdir seminar07
 cd seminar07
 git clone -b seminar07_step1 https://github.com/fi-muni/PA165
 cd PA165/webapp-plain
+module add maven
 mvn tomcat7:run
 ```
 
