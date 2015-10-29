@@ -81,7 +81,7 @@ This is an example of a container-managed form-based authentication. There are a
  * resource bundles Texts.properties and Texts_cs.properties contain new keys for the new JSPs
  * the JSP *podoli.jsp* was modified to display info about authenticated user 
 
-Run the application from the command line, click on *to Podolí* and authenticate using the form. 
+Run the application **from the command line**, click on *to Podolí* and authenticate using the form. 
 Define a new user in a new role, create a URL that would be accessible only by this new user.
 
 **Task 13** In this task we will try a SAML (Security Assertion Markup Language) federated identity login. However establishing mutual trust among involved parties needs administrative steps and takes time, which we cannot afford during this seminar, so we will use pre-existing systems with already established legal relationship, in this case *Google Apps for Education* as the service provider and *IS MU* as the identity provider.
@@ -95,8 +95,12 @@ services in IS before, do it now (you can switch it off again at
 [https://is.muni.cz/auth/extservices/](https://is.muni.cz/auth/extservices/)
 later). Then you will be redirected back to Google, where the account knows your name and email address from IS.
 
-Now you can use Google aplications from this account. For example, you can
-visit (still in the same browser window) [Google Disk](https://drive.google.com/drive/my-drive), there is a search field at the
-top of the page. Type *PA165* into the search field, then click on the small down pointing arrow on the right side of
-it and check the checkbox *search mail.muni.cz* (or *Prohledat doménu* in Czech localization) and perform the search.
-It should find a document shared in the domain.
+**Task 14** Check out tag seminar07_step5 from the repository:
+```
+git checkout -f seminar07_step5
+```
+In this task we will try OAuth2 authentication. You will need a Google account, use either your own or the one created in the task 13.
+Run the web application **from the command line**, it is important to have it running on the URL http://localhost:8080/webapp-plain !
+
+The home page now has an icon for logging in using Google Account, and a new servlet GoogleServlet for processing the authentication.
+Log in using Google account, the home page should display your name, email and picture. You can revoke the permission for the application at [Apps connected to your account](https://security.google.com/settings/security/permissions).
