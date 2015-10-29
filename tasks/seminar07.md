@@ -88,7 +88,7 @@ Define a new user in a new role, create a URL that would be accessible only by t
 
 Open an anonymous window in your browser (it clears all cookies and
 authenticated sessions). In the anonymous window, open the URL
-[https://accounts.google.com](https://accounts.google.com) and specify **your_učo@mail.muni.cz** as your email.
+[https://accounts.google.com](https://accounts.google.com) and specify **`your_učo@mail.muni.cz`** as your email.
 You will be redirected to the login page of IS MU, log into it with your
 učo and primary password. If you have not allowed Google Apps in External
 services in IS before, do it now (you can switch it off again at
