@@ -82,4 +82,21 @@ This is an example of a container-managed form-based authentication. There are a
  * the JSP *podoli.jsp* was modified to display info about authenticated user 
 
 Run the application from the command line, click on *to Podolí* and authenticate using the form. 
-Define a new user in a new role, create a new JSP that would be accessible only by this new user.
+Define a new user in a new role, create a URL that would be accessible only by this new user.
+
+**Task 13** In this task we will try a SAML (Security Assertion Markup Language) federated identity login. However establishing mutual trust among involved parties needs administrative steps and takes time, which we cannot afford during this seminar, so we will use pre-existing systems with already established legal relationship, in this case *Google Apps for Education* as the service provider and *IS MU* as the identity provider.
+
+Open an anonymous window in your browser (it clears all cookies and
+authenticated sessions). In the anonymous window, open the URL
+[https://accounts.google.com](https://accounts.google.com) and specify **your_učo@mail.muni.cz** as your email.
+You will be redirected to the login page of IS MU, log into it with your
+učo and primary password. If you have not allowed Google Apps in External
+services in IS before, do it now (you can switch it off again at
+[https://is.muni.cz/auth/extservices/](https://is.muni.cz/auth/extservices/)
+later). Then you will be redirected back to Google, where the account knows your name and email address from IS.
+
+Now you can use Google aplications from this account. For example, you can
+visit (still in the same browser window) [Google Disk](https://drive.google.com/drive/my-drive), there is a search field at the
+top of the page. Type *PA165* into the search field, then click on the small down pointing arrow on the right side of
+it and check the checkbox *search mail.muni.cz* (or *Prohledat doménu* in Czech localization) and perform the search.
+It should find a document shared in the domain.
