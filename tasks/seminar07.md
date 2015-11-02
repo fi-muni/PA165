@@ -34,7 +34,7 @@ Change the setting of your browser accepted language subsequently to Czech and E
 
 **Task 03** Add a logging statement to CharacterEncodingFilter to log the called URL on the "trace" level. Modify the logback.xml file to see the log events. Re-run the application and check the log.
 
-**Task 04** Click on the "to Prague" link in the navigation menu. Go back and click on the direct link to praha.jsp on the home page. Explain the difference of the output. Move the file praha.jsp to the WEB-INF/hidden-jsps/ folder so that it cannot be called directly, and modify PrahaServlet class to forward to the new location of the JSP.
+**Task 04** Click on the "to Prague" link in the navigation menu. Go back and click on the direct link to praha.jsp on the home page. Explain the difference of the output. (If not sure, check the class javadoc in the [solution](https://github.com/fi-muni/PA165/blob/seminar07/webapp-plain/src/main/java/cz/muni/fi/pa165/web/PrahaServlet.java)). Move the file praha.jsp to the WEB-INF/hidden-jsps/ folder so that it cannot be called directly, and modify PrahaServlet class to forward to the new location of the JSP.
 
 **Task 05**  Make all changes needed for the third item in the navigation menu to work. It means - create a servlet, a JSP page, and localized texts in the Texts*.properties files 
 
@@ -52,8 +52,9 @@ Change the setting of your browser accepted language subsequently to Czech and E
 git checkout -f seminar07_step2
 ```
 New files will appear:
-* a servlet class PharmacyServlet
+* a servlet class PharmacyServlet with an inner class Drug
 * a JSP page pharmacy.jsp 
+
 Run the updated application and add some data using the form. Inspect how the form works.
 
 **Task 09**
@@ -81,8 +82,8 @@ This is an example of a container-managed form-based authentication. There are a
  * resource bundles Texts.properties and Texts_cs.properties contain new keys for the new JSPs
  * the JSP *podoli.jsp* was modified to display info about authenticated user 
 
-Run the application **from the command line**, click on *to Podolí* and authenticate using the form. 
-Define a new user in a new role, create a URL that would be accessible only by this new user.
+Run the application **from the command line** (otherwise the tomcat-users.xml file will not be used). Click on *to Podolí* and authenticate using the form. 
+Define a new user in a new role, and secure the URL `/snoop.jsp` to be accessible only by this new user.
 
 **Task 13** In this task we will try a SAML (Security Assertion Markup Language) federated identity login. However establishing mutual trust among involved parties needs administrative steps and takes time, which we cannot afford during this seminar, so we will use pre-existing systems with already established legal relationship, in this case *Google Apps for Education* as the service provider and *IS MU* as the identity provider.
 
