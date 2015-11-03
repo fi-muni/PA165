@@ -24,4 +24,5 @@
     <!-- list of logger prefixes with non-default logging levels -->
     <logger name="org.hibernate.tool.hbm2ddl.SchemaExport" level="off" />
     <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
+    <logger name="cz.muni.fi.pa165.sampledata" level="info"/>
 </configuration>

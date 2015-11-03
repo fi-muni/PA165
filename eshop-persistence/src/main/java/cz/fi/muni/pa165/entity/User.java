@@ -39,16 +39,25 @@ public class User {
 	
 	@Pattern(regexp="\\+?\\d+")
 	private String phone;
+
+    @NotNull
+    private String address;
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate;
 
+    private boolean admin;
+
 	public Long getId() {
 		return id;
 	}
 
-	public String getPasswordHash() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPasswordHash() {
 		return passwordHash;
 	}
 
@@ -93,15 +102,31 @@ public class User {
 		this.phone = phone;
 	}
 
-	public Date getJoinedDate() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getJoinedDate() {
 		return joinedDate;
 	}
 
 	public void setJoinedDate(Date joinedDate) {
 		this.joinedDate = joinedDate;
 	}
-	
-	@Override
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -125,6 +150,19 @@ public class User {
 			return false;
 		return true;
 	}
-	
-	
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", email='" + email + '\'' +
+                ", givenName='" + givenName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", joinedDate=" + joinedDate +
+                ", admin=" + admin +
+                '}';
+    }
 }

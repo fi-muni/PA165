@@ -38,12 +38,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isAdmin(User u) {
-        return u.getGivenName().equals("admin");
+        //must get a fresh copy from database
+        return findUserById(u.getId()).isAdmin();
     }
 
     @Override
     public User findUserById(Long userId) {
         return userDao.findById(userId);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userDao.findUserByEmail(email);
     }
 
     //see  https://crackstation.net/hashing-security.htm#javasourcecode
@@ -71,6 +77,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public static boolean validatePassword(String password, String correctHash) {
+        if(password==null) return false;
+        if(correctHash==null) throw new IllegalArgumentException("password hash is null");
         String[] params = correctHash.split(":");
         int iterations = Integer.parseInt(params[0]);
         byte[] salt = fromHex(params[1]);

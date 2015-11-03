@@ -8,6 +8,8 @@ import cz.fi.muni.pa165.dto.UserDTO;
 public interface UserFacade {
 	
 	UserDTO findUserById(Long userId);
+
+	UserDTO findUserByEmail(String email);
 	
 	/**
 	 * Register the given user with the given unencrypted password.

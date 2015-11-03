@@ -1,18 +1,37 @@
 package cz.fi.muni.pa165.dto;
 
 
+import cz.fi.muni.pa165.enums.Currency;
 
-public class ProductCreateDTO
-{
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+
+public class ProductCreateDTO {
     private byte[] image;
 
     private String imageMimeType;
 
+    @NotNull
+    @Size(min = 3, max = 50)
     private String name;
 
-    private NewPriceDTO currentPrice;
+    @NotNull
+    @Size(min = 3, max = 500)
+    private String description;
 
     private Color color;
+
+    @NotNull
+    @Min(0)
+    private BigDecimal price;
+
+    @NotNull
+    private Currency currency;
+
+    @NotNull
+    private Long categoryId;
 
 
     public byte[] getImage() {
@@ -25,22 +44,10 @@ public class ProductCreateDTO
     }
 
 
-
     public void setImageMimeType(String imageMimeType) {
         this.imageMimeType = imageMimeType;
     }
 
-
-
-    public NewPriceDTO getCurrentPrice() {
-        return currentPrice;
-    }
-
-
-    public void setCurrentPrice(NewPriceDTO currentPrice) {
- 
-        this.currentPrice = currentPrice;
-    }
 
     public void setImage(byte[] image) {
         this.image = image;
@@ -55,6 +62,14 @@ public class ProductCreateDTO
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Color getColor() {
         return color;
     }
@@ -63,7 +78,30 @@ public class ProductCreateDTO
         this.color = color;
     }
 
-    
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -87,5 +125,17 @@ public class ProductCreateDTO
         } else if (!name.equals(other.name))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductCreateDTO{" +
+                ", imageMimeType='" + imageMimeType + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", color=" + color +
+                ", price=" + price +
+                ", currency=" + currency +
+                '}';
     }
 }

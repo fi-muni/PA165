@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import cz.fi.muni.pa165.dto.CategoryCreateDTO;
+import cz.fi.muni.pa165.entity.Category;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +38,13 @@ public class CategoryFacadeImpl implements CategoryFacade
     public CategoryDTO getCategoryById(Long id)
     {
         return beanMappingService.mapTo(categoryService.findById(id),CategoryDTO.class);
+    }
+
+    @Override
+    public Long createCategory(CategoryCreateDTO categoryCreateDTO) {
+        Category category = new Category();
+        category.setName(categoryCreateDTO.getName());
+        categoryService.create(category);
+        return  category.getId();
     }
 }

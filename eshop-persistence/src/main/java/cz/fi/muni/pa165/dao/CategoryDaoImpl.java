@@ -44,7 +44,7 @@ public class CategoryDaoImpl implements CategoryDao {
 		try {
 			return em
 					.createQuery("select c from Category c where name = :name",
-							Category.class).setParameter(":name", name)
+							Category.class).setParameter("name", name)
 					.getSingleResult();
 		} catch (NoResultException nrf) {
 			return null;

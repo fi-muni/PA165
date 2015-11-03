@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import cz.fi.muni.pa165.dao.OrderItemDao;
+import cz.fi.muni.pa165.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +24,23 @@ import cz.fi.muni.pa165.exceptions.EshopServiceException;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
-	@Autowired
+
+    @Autowired
+    private OrderItemDao orderItemDao;
+    @Autowired
 	private OrderDao orderDao;
 	@Autowired
 	private TimeService timeService;
 
-	@Override
+    @Override
+    public void createOrder(Order order) {
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItemDao.create(orderItem);
+        }
+        orderDao.create(order);
+    }
+
+    @Override
 	public Order findOrderById(Long id) {
 		return orderDao.findById(id);
 	}

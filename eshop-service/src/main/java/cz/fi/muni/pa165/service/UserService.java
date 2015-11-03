@@ -35,4 +35,6 @@ public interface UserService {
 	boolean isAdmin(User u);
 
 	User findUserById(Long userId);
+
+	User findUserByEmail(String email);
 }

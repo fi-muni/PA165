@@ -55,5 +55,10 @@
 			<scope>test</scope>
 		</dependency>
 
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope><!-- logging implementation should not be part of a library, but is needed for tests -->
+        </dependency>
 	</dependencies>
 </project>

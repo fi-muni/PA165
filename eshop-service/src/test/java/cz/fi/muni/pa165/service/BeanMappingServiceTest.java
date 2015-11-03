@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.cz.fi.muni.pa165.service;
+package cz.fi.muni.pa165.service;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,14 +4,13 @@ import javax.inject.Inject;
 
 import cz.fi.muni.pa165.dto.ProductChangeImageDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
-import cz.fi.muni.pa165.entity.User;
 
-import org.dozer.DozerBeanMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.fi.muni.pa165.dao.PriceRepository;
 import cz.fi.muni.pa165.dto.NewPriceDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.entity.Category;
@@ -22,11 +21,14 @@ import cz.fi.muni.pa165.service.BeanMappingService;
 import cz.fi.muni.pa165.service.CategoryService;
 import cz.fi.muni.pa165.service.ProductService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Transactional
 public class ProductFacadeImpl implements ProductFacade {
+
+	final static Logger log = LoggerFactory.getLogger(ProductFacadeImpl.class);
 
 	@Inject
 	private ProductService productService;
@@ -39,8 +41,21 @@ public class ProductFacadeImpl implements ProductFacade {
 
 	@Override
 	public Long createProduct(ProductCreateDTO p) {
-		Product newProduct = productService.createProduct(beanMappingService.mapTo(p,
-				Product.class));
+        Product mappedProduct = beanMappingService.mapTo(p, Product.class);
+        //map price DTO to entity
+        Price price = new Price();
+        price.setValue(p.getPrice());
+        price.setCurrency(p.getCurrency());
+        Date now = new Date();
+        price.setPriceStart(now);
+        mappedProduct.setAddedDate(now);
+        //set price on product entity
+        mappedProduct.setCurrentPrice(price);
+        mappedProduct.addHistoricalPrice(price);
+        //add to category
+        mappedProduct.addCategory(categoryService.findById(p.getCategoryId()));
+        //save product
+        Product newProduct = productService.createProduct(mappedProduct);
 		return newProduct.getId();
 	}
 

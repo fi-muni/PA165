@@ -6,12 +6,11 @@ public class UserDTO
 {
     private Long id;
     private String passwordHash;
-
     private String email;
     private String givenName;
     private String surname;
     private String phone;
-
+    private String address;
     private Date joinedDate;
 
     public Long getId() {
@@ -68,6 +67,14 @@ public class UserDTO
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Date getJoinedDate() {
         return joinedDate;
     }
@@ -99,5 +106,19 @@ public class UserDTO
         } else if (!email.equals(other.email))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", email='" + email + '\'' +
+                ", givenName='" + givenName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", joinedDate=" + joinedDate +
+                '}';
     }
 }

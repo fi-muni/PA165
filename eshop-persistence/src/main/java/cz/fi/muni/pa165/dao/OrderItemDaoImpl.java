@@ -16,7 +16,12 @@ public class OrderItemDaoImpl implements OrderItemDao {
 	@PersistenceContext
 	private EntityManager em;
 
-	@Override
+    @Override
+    public void create(OrderItem orderItem) {
+        em.persist(orderItem);
+    }
+
+    @Override
 	public void delete(OrderItem orderItem) {
 		em.remove(orderItem);
 	}

@@ -80,9 +80,5 @@ public class OrderFacadeImpl implements OrderFacade {
 		orderService.cancelOrder(orderService.findOrderById(id));
 	}
 
-	@Override
-	public List<OrderDTO> getAllOrders(OrderState state) {
-		return beanMappingService.mapTo(orderService.findAllOrders(),
-				OrderDTO.class);
-	}
+
 }

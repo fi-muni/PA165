@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.sampledata;
 
-import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.dao.OrderDao;
 import cz.fi.muni.pa165.dao.ProductDao;
+import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.entity.User;
+import cz.fi.muni.pa165.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +19,19 @@ import org.testng.annotations.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Tests data loading.
  *
  * @author Martin Kuba makub@ics.muni.cz
  */
-@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
+@ContextConfiguration(classes = {EshopWithSampleDataConfiguration.class})
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class SampleDataLoaderTest extends AbstractTestNGSpringContextTests {
+public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTests {
 
-    final static Logger log = LoggerFactory.getLogger(SampleDataLoaderTest.class);
+    final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeTest.class);
 
     @Autowired
     public ProductDao productDao;
@@ -36,18 +39,29 @@ public class SampleDataLoaderTest extends AbstractTestNGSpringContextTests {
     @Autowired
     public OrderDao orderDao;
 
+    @Autowired
+    public UserService userService;
+
+    @Autowired
+    public SampleDataLoadingFacade sampleDataLoadingFacade;
+
     @PersistenceContext
     private EntityManager em;
 
     @Test
     public void createSampleData() throws IOException {
         log.debug("starting test");
-        SampleDataLoader sampleDataLoader = new SampleDataLoader();
-        sampleDataLoader.setEntityManagerFactory(em.getEntityManagerFactory());
-        sampleDataLoader.fillData();
-        Assert.assertEquals(productDao.findAll().size(), 3, "number of products wrong ");
-        Assert.assertEquals(orderDao.findAll().size(), 6, "number of orders wrong ");
+        sampleDataLoadingFacade.loadData();
 
+        Assert.assertTrue(productDao.findAll().size() > 0, "no products");
+
+        List<Price> priceHistory = productDao.findById(1l).getPriceHistory();
+        Assert.assertTrue(priceHistory.size() > 0, "no prices for product 1");
+
+        Assert.assertTrue(orderDao.findAll().size() > 0, "no orders");
+
+        User admin = userService.getAllUsers().stream().filter(userService::isAdmin).findFirst().get();
+        Assert.assertEquals(true, userService.authenticate(admin,"admin"));
     }
 
 }

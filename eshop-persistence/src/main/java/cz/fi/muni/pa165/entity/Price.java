@@ -98,7 +98,13 @@ public class Price {
 		return true;
 	}
 
-
-	
-	
+	@Override
+	public String toString() {
+		return "Price{" +
+				"id=" + id +
+				", value=" + value +
+				", priceStart=" + priceStart +
+				", currency=" + currency +
+				'}';
+	}
 }

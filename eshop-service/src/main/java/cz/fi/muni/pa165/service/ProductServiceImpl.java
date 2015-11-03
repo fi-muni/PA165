@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -53,6 +54,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product createProduct(Product p) {
+        List<Price> priceHistory = p.getPriceHistory();
+        for (Price price : priceHistory) {
+			priceRepository.save(price);
+		}
 		productDao.create(p);
 		return p;
 	}

@@ -1,9 +1,6 @@
 package cz.fi.muni.pa165.dto;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ProductDTO
 {
@@ -15,13 +12,17 @@ public class ProductDTO
 
     private String name;
 
-    private Set<CategoryDTO> categories = new HashSet<CategoryDTO>();
-
-    private List<PriceDTO> priceHistory = new ArrayList<PriceDTO>();
-    
-    private PriceDTO currentPrice;
+    private String description;
 
     private Color color;
+
+    private Date addedDate;
+
+    private Set<CategoryDTO> categories = new HashSet<>();
+
+    private List<PriceDTO> priceHistory = new ArrayList<>();
+    
+    private PriceDTO currentPrice;
 
 
     public byte[] getImage() {
@@ -78,6 +79,14 @@ public class ProductDTO
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Color getColor() {
         return color;
     }
@@ -86,6 +95,13 @@ public class ProductDTO
         this.color = color;
     }
 
+    public Date getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate) {
+        this.addedDate = addedDate;
+    }
 
     public Long getId() {
         return id;
@@ -121,4 +137,18 @@ public class ProductDTO
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "id=" + id +
+                ", imageMimeType='" + imageMimeType + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", color=" + color +
+                ", addedDate=" + addedDate +
+                ", categories=" + categories +
+                ", priceHistory=" + priceHistory +
+                ", currentPrice=" + currentPrice +
+                '}';
+    }
 }

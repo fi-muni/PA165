@@ -2,13 +2,18 @@ package cz.fi.muni.pa165.dto;
 
 import cz.fi.muni.pa165.enums.Currency;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 
 public class NewPriceDTO
 {
 	private Long productId;
+
+    @NotNull
     private BigDecimal value;
+
+    @NotNull
     private Currency currency;
     
 
@@ -68,4 +73,12 @@ public class NewPriceDTO
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "NewPriceDTO{" +
+				"productId=" + productId +
+				", value=" + value +
+				", currency=" + currency +
+				'}';
+	}
 }

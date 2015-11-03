@@ -10,7 +10,9 @@ import cz.fi.muni.pa165.entity.User;
  * An interface that defines a service access to the {@link Order} entity.
  */
 public interface OrderService {
-	
+
+	void createOrder(Order order);
+
 	/**
 	 * Get all saved orders belonging to the given user.
 	 */

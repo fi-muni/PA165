@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import cz.fi.muni.pa165.enums.Currency;
 
@@ -8,6 +9,7 @@ public class PriceDTO {
 	private Long id;
 	private BigDecimal value;
 	private Currency currency;
+	private Date priceStart;
 	
 	public Long getId() {
 		return id;
@@ -27,34 +29,31 @@ public class PriceDTO {
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((currency == null) ? 0 : currency.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PriceDTO other = (PriceDTO) obj;
-		if (currency != other.currency)
-			return false;
-		if (value == null) {
-			if (other.value != null)
-				return false;
-		} else if (!value.equals(other.value))
-			return false;
-		return true;
-	}
-	
-	
+    public Date getPriceStart() {
+        return priceStart;
+    }
+    public void setPriceStart(Date priceStart) {
+        this.priceStart = priceStart;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PriceDTO priceDTO = (PriceDTO) o;
+
+        if (value != null ? !value.equals(priceDTO.value) : priceDTO.value != null) return false;
+        if (currency != priceDTO.currency) return false;
+        return !(priceStart != null ? !priceStart.equals(priceDTO.priceStart) : priceDTO.priceStart != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value != null ? value.hashCode() : 0;
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        result = 31 * result + (priceStart != null ? priceStart.hashCode() : 0);
+        return result;
+    }
 }

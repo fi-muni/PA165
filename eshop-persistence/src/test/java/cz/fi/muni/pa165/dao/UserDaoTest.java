@@ -35,11 +35,13 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
 		u1.setEmail("filip@fi.cz");
 		u1.setJoinedDate(new Date());
 		u1.setSurname("Filipovic");
+		u1.setAddress("Brno");
 
 		u2.setGivenName("Jirka");
 		u2.setEmail("jirka@fi.cz");
 		u2.setJoinedDate(new Date());
 		u2.setSurname("Jirkovic");
+        u2.setAddress("Praha");
 
 		userdao.create(u1);
 		userdao.create(u2);
@@ -65,6 +67,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
 		user.setEmail("filip@seznam.cz");
 		user.setGivenName("Filip");
 		user.setSurname("Markovic");
+        user.setAddress("Jihlava");
 		user.setJoinedDate(new Date());
 		return user;
 	}
@@ -74,6 +77,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
 		user.setEmail("jirka@seznam.cz");
 		user.setGivenName("Jiri");
 		user.setSurname("Mrkev");
+        user.setAddress("Hodonin");
 		user.setJoinedDate(new Date());
 		return user;
 	}

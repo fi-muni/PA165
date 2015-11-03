@@ -51,11 +51,6 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
-			<version>2.2.4</version>
-		</dependency>
-		<dependency>
 			<groupId>cz.fi.muni.pa165</groupId>
 			<artifactId>eshop-api</artifactId>
 			<version>1.0-SNAPSHOT</version>
@@ -63,7 +58,8 @@
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>javax.el</artifactId>
-			<version>2.2.4</version>
+			<version>2.2.5</version>
+            <scope>test</scope><!-- conflicts with tomcat libraries, needed only for tests anyway -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -80,14 +76,21 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- just the logging API should be included in a project that's used as a library in other projects, not an implementation -->
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope><!-- logging implementation should not be part of a library, but is needed for tests -->
+        </dependency>
+
 
 		<!-- For embedded usage -->
 		<dependency>

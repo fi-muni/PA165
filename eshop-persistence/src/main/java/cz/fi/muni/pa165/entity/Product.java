@@ -1,10 +1,6 @@
 package cz.fi.muni.pa165.entity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +29,6 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
 
 	@Lob
 	private byte[] image;
@@ -43,8 +38,13 @@ public class Product {
 	@NotNull
 	@Column(nullable=false,unique=true)
 	private String name;
-	
-	/*
+
+	private String description;
+
+    @Enumerated
+    private Color color;
+
+    /*
 	 * The day this item has been added to the eshop
 	 */
 	@Temporal(TemporalType.DATE)
@@ -62,10 +62,6 @@ public class Product {
 	@OrderBy("priceStart DESC")
 	@JoinColumn(name="Product_FK")
 	private List<Price> priceHistory = new ArrayList<Price>();
-	
-	@Enumerated
-	private Color color;
-
 	
 	public void setId(Long id){
 		this.id = id;
@@ -146,7 +142,15 @@ public class Product {
 		this.name = name;
 	}
 
-	public Color getColor() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Color getColor() {
 		return color;
 	}
 
@@ -184,8 +188,17 @@ public class Product {
 		return true;
 	}
 
-
-	
-	
-	
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", addedDate=" + addedDate +
+                ", categories=" + categories +
+                ", currentPrice=" + currentPrice +
+                ", priceHistory=" + priceHistory +
+                ", color=" + color +
+                '}';
+    }
 }
