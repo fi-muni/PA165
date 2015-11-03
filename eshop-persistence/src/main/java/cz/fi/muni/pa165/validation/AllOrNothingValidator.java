@@ -1,5 +1,8 @@
 package cz.fi.muni.pa165.validation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -9,7 +12,9 @@ import javax.validation.ConstraintValidatorContext;
 
 public class AllOrNothingValidator implements ConstraintValidator<AllOrNothing, Object>{
 
-	private AllOrNothing annotation;
+    final static Logger log = LoggerFactory.getLogger(AllOrNothingValidator.class);
+
+    private AllOrNothing annotation;
 	
 	@Override
 	public void initialize(AllOrNothing annotation) {
@@ -20,7 +25,7 @@ public class AllOrNothingValidator implements ConstraintValidator<AllOrNothing, 
 	public boolean isValid(Object annotatedObject, ConstraintValidatorContext context) {
 		String [] members = annotation.members();
 		
-		System.out.println("Members to be validated: " + Arrays.toString(members));
+		if(log.isDebugEnabled()) log.debug("Members to be validated: {}", Arrays.toString(members));
 		
 		boolean first = true;
 		boolean allShouldBeNull = false;;
