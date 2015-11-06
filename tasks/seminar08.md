@@ -34,53 +34,53 @@ Create a new method named *bar* mapped to URL */example/bar* in the ExampleContr
 
 **Task 04 (order management)**
  
- Check out tag seminar08_step2 from git:
- ```
- git checkout -f seminar08_step2 
- ```
- New files appeared:
- * filter ProtectFilter that asks for email and password when administrative pages are accesses
- * controller OrderControler for managing orders
- * JSP pages in src/main/webapp/WEB-INF/jsp/order
+Check out tag seminar08_step2 from git:
+```
+git checkout -f seminar08_step2 
+```
+New files appeared:
+* filter ProtectFilter that asks for email and password when administrative pages are accesses
+* controller OrderControler for managing orders
+* JSP pages in src/main/webapp/WEB-INF/jsp/order
  
- Restart the application. Access the page [http://localhost:8080/eshop/order/list/all](http://localhost:8080/eshop/order/list/all).
- Use email **admin@eshop.com** and password **admin** for authentication. (Users are defined in the subproject eshop-sample-data in the class SampleDataLoadingFacadeImpl.) 
- Inspect the source code for the controller to see how it is done.
+Restart the application. Access the page [http://localhost:8080/eshop/order/list/all](http://localhost:8080/eshop/order/list/all).
+Use email **admin@eshop.com** and password **admin** for authentication. (Users are defined in the subproject eshop-sample-data in the class SampleDataLoadingFacadeImpl.) 
+Inspect the source code for the controller to see how it is done.
  
 **Task 05 (list of users)**
  
- Taking example from the existing controllers, create a new protected page displaying list of existing users. It means:
-  * create a new controller UserController mapped to URL prefix */user* 
-  * create an instance variable inside with injected UserFacade instance
-  * add a new method mapped to relative URL prefix */list* that retrieves list of users, adds it to model and forwards to JSP to display it
-  * create a new JSP in a new folder /main/webapp/WEB-INF/jsp/user/list.jsp that displays a table of users
+Taking example from the existing controllers, create a new protected page displaying list of existing users. It means:
+* create a new controller UserController mapped to URL prefix */user* 
+* create an instance variable inside with injected UserFacade instance
+* add a new method mapped to relative URL prefix */list* that retrieves list of users, adds it to model and forwards to JSP to display it
+* create a new JSP in a new folder /main/webapp/WEB-INF/jsp/user/list.jsp that displays a table of users
   
-  Restart the application and access the URL [http://localhost:8080/eshop/user/list](http://localhost:8080/eshop/user/list).
+Restart the application and access the URL [http://localhost:8080/eshop/user/list](http://localhost:8080/eshop/user/list).
  
 **Task 06 (validation of input values)**
- Check out tag seminar08_step3 from git:
- ```
- git checkout -f seminar08_step3 
- ```
- New files appeared:
- * class ProductController
- * JSP pages in  src/main/webapp/WEB-INF/jsp/product
- * validator class ProductCreateDTOValidator
+Check out tag seminar08_step3 from git:
+```
+git checkout -f seminar08_step3 
+```
+New files appeared:
+* class ProductController
+* JSP pages in  src/main/webapp/WEB-INF/jsp/product
+* validator class ProductCreateDTOValidator
  
- Run the application. Access the page [http://localhost:8080/eshop/product/list](http://localhost:8080/eshop/product/list).
- Click on the button *New product*. Submit empty form and see the error messages.
+Run the application. Access the page [http://localhost:8080/eshop/product/list](http://localhost:8080/eshop/product/list).
+Click on the button *New product*. Submit empty form and see the error messages.
  
- There are two validations going on. The first one is JSR-333 validation which is driven by annotations on the class **ProductCreateDTO**
- located in the subproject eshop-api. The annotations @NotNull, @Size and @Min specify requirements for valid data.
- The second validation is SpringMVC-specific validation performed in the class **ProductCreateDTOValidator** which can do any complex
- checking, even involving rlations among multiple properties. 
+There are two validations going on. The first one is JSR-333 validation which is driven by annotations on the class **ProductCreateDTO**
+located in the subproject eshop-api. The annotations @NotNull, @Size and @Min specify requirements for valid data.
+The second validation is SpringMVC-specific validation performed in the class **ProductCreateDTOValidator** which can do any complex
+checking, even involving rlations among multiple properties. 
  
- Look at the source code of the class ProductController and the JSP pages to see how the form validation is implemented.
+Look at the source code of the class ProductController and the JSP pages to see how the form validation is implemented.
  
- **Task 07 (new category form)**
+**Task 07 (new category form)**
  
- Create a controller and JSP pages which provide creation of new categories. 
+Create a controller and JSP pages which provide creation of new categories. 
  
- Using the administration web pages, create a new category and a new product in that category.
+Using the administration web pages, create a new category and a new product in that category.
  
 

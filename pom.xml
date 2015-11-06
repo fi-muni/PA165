@@ -65,10 +65,8 @@
 
     <modules>
         <module>eshop-persistence</module>
-        <module>eshop-rest</module>
         <module>eshop-service</module>
         <module>eshop-api</module>
-        <module>eshop-fe</module>
         <module>eshop-sample-data</module>
         <module>eshop-spring-mvc</module>
     </modules>
