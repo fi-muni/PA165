@@ -90,15 +90,4 @@ public class ExampleController {
         }
     }
 
-    @RequestMapping("/bar")
-    public String bar(@RequestParam String c,
-                      @RequestParam int d,
-                      @RequestParam boolean e,
-                      Model model
-                      ) {
-        model.addAttribute("c", c);
-        model.addAttribute("d", d);
-        model.addAttribute("e", e);
-        return "bar";
-    }
 }
