@@ -25,7 +25,7 @@ Today web applications need to display correctly on a wide variety of devices, f
 
 On the eshop home page, click on the button *Go shopping*. Change the width of your browser screen to see all four sizes.  Notice what the top navigation menu does for extra small screen. Also notice how the product images rearrange to 1, 3, 4 and 6 columns respectively on the four screen sizes.
 
-See the examples in the [Grid](http://getbootstrap.com/css/#grid) section of Bootstrap documentation. Edit the page *home.jsp* to display twelve buttons labelled Button1, ..., Button12, which rearrange themselves to 1 column on extra small screen, to 2 columns on small screen, to 6 columns on medium screen and to 12 columns on large screen.
+See the examples in the [Grid](http://getbootstrap.com/css/#grid) section of Bootstrap documentation. Edit the page *home.jsp* to display twelve buttons labelled Button1, ..., Button12, which rearrange themselves to 1 column on extra small screen, to 2 columns on small screen, to 6 columns on medium screen and to 12 columns on large screen. (Hint: you can use the JSTL tag `<c:forEach begin="1" end="12" var="i">` or a scriptlet to generate the buttons in a loop.)
 
 **Task 03 (example SpringMVC controller)** 
 
@@ -74,7 +74,7 @@ Run the application. Access the page [http://localhost:8080/eshop/product/list](
 Click on the button *New product*. Submit empty form and see the error messages.
  
 There are two validations going on. The first one is JSR-303 validation which is driven by annotations on the class **ProductCreateDTO**
-located in the subproject eshop-api, se that class. The annotations @NotNull, @Size and @Min specify requirements for valid data.
+located in the subproject eshop-api, see that class. The annotations @NotNull, @Size and @Min specify requirements for valid data.
 The second validation is SpringMVC-specific validation performed in the class **ProductCreateDTOValidator** which can do any complex
 checking, even involving relations among multiple properties. Try to select color BLACK and price higher than 100 to see it in action.
  
