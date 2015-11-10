@@ -51,7 +51,6 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
     @Test
     public void createSampleData() throws IOException {
         log.debug("starting test");
-        sampleDataLoadingFacade.loadData();
 
         Assert.assertTrue(productDao.findAll().size() > 0, "no products");
 
