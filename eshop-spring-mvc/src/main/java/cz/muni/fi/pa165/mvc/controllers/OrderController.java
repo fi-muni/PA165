@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.dto.OrderItemDTO;
+import cz.fi.muni.pa165.dto.OrderTotalPriceDTO;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.exceptions.EshopServiceException;
@@ -80,21 +81,10 @@ public class OrderController {
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public String unprocessed(@PathVariable long id, Model model) {
-        OrderDTO order = orderFacade.getOrderById(id);
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        Currency totalCurrency = null;
-        for (OrderItemDTO item : order.getOrderItems()) {
-            totalPrice = totalPrice.add(item.getPricePerItem().getValue().multiply(new BigDecimal(item.getAmount())));
-            Currency itemCurrency = item.getPricePerItem().getCurrency();
-            if(totalCurrency==null) {totalCurrency=itemCurrency;}
-            if(!totalCurrency.equals(itemCurrency)) {
-                model.addAttribute("alert_danger","Cannot sum prices in different currencies ");
-                break;
-            }
-        }
-        model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("totalCurrency", totalCurrency);
-        model.addAttribute("order", order);
+        OrderTotalPriceDTO otp = orderFacade.getOrderTotalPrice(id, Currency.CZK);
+        model.addAttribute("totalPrice", otp.getPrice());
+        model.addAttribute("totalCurrency", otp.getCurrency());
+        model.addAttribute("order", otp.getOrder());
         return "order/detail";
     }
 

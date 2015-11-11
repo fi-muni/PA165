@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.sampledata;
 
-import cz.fi.muni.pa165.dao.PriceRepository;
 import cz.fi.muni.pa165.dto.Color;
 import cz.fi.muni.pa165.entity.*;
 import cz.fi.muni.pa165.enums.Currency;
@@ -57,39 +56,39 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Category toys = category("Toys");
         Category presents = category("Presents");
 
-        Product amber = product("Amber", "", "amber.jpg", JPEG, 10000, Color.UNDEFINED, presents);
-        Product blackberries = product("Blackberries", "", "blackberries.jpg", JPEG, 20, Color.BLACK, food);
-        Product blueberries = product("Blueberries", "", "blueberries.jpg", JPEG, 25, Color.BLUE, food);
-        Product chilli = product("Chilli", "", "chilli.jpg", JPEG, 15, Color.RED, food);
-        Product clamps = product("Clamps", "", "clamps.jpg", JPEG, 5, Color.UNDEFINED, office);
-        Product cofee = product("Coffee", "", "coffee.jpg", JPEG, 100, Color.BROWN, food, office, presents);
-        Product mouse = product("Mouse", "", "computer-mouse.jpg", JPEG, 200, Color.BLACK, office);
-        Product cow = product("Cow", "", "cow.jpg", JPEG, 199, Color.BROWN, toys);
-        Product crayons = product("Crayons", "", "crayons.jpg", JPEG, 10, Color.BLACK, office);
-        Product diamonds = product("Diamond", "", "diamond.jpg", JPEG, 50000, Color.WHITE, presents);
-        Product figs = product("Figs", "", "figs.jpg", JPEG, 100, Color.BROWN, food);
-        Product gold = product("Gold", "", "gold.jpg", JPEG, 15000, Color.YELLOW, presents);
-        Product horse = product("Horse", "", "horse.jpg", JPEG, 299, Color.BROWN, toys);
-        Product limes = product("Limes", "", "limes.jpg", JPEG, 60, Color.GREEN, food);
-        Product mixedFlowers = product("Mixed flowers", "", "mixed-flowers.jpg", JPEG, 300, Color.UNDEFINED, flowers);
-        Product monitor = product("Monitor", "", "monitor.jpg", JPEG, 10000, Color.BLACK, office);
-        Product narcissus = product("Narcissus", "", "narcissus.jpg", JPEG, 250, Color.YELLOW, flowers);
-        Product notebook = product("Notebook", "", "notebook.jpg", JPEG, 20000, Color.BLACK, office);
-        Product oranges = product("Oranges", "", "oranges.jpg", JPEG, 70, Color.ORANGE, food);
-        Product pears = product("Pears", "", "pears.jpg", JPEG, 85, Color.GREEN, food);
-        Product peppers = product("Peppers", "", "peppers.jpg", JPEG, 60, Color.UNDEFINED, food);
-        Product pins = product("Pins", "", "pins.jpg", JPEG, 30, Color.UNDEFINED, office);
-        Product raspberries = product("Raspberries", "", "raspberries.jpg", JPEG, 90, Color.PINK, food);
-        Product duck = product("Rubber ducks", "", "rubber-duckies.jpg", JPEG, 99, Color.YELLOW, toys);
-        Product strawberries = product("Strawberries", "Very tasty and exceptionally red strawberries.", "strawberries.jpg", JPEG, 80, Color.RED, food);
-        Product tulip = product("Tulip", "", "tulip.jpg", JPEG, 220, Color.RED, flowers);
+        Product amber = product("Amber", "", "amber.jpg", JPEG, 10000, Currency.CZK, Color.UNDEFINED, presents);
+        Product blackberries = product("Blackberries", "", "blackberries.jpg", JPEG, 20, Currency.CZK, Color.BLACK, food);
+        Product blueberries = product("Blueberries", "", "blueberries.jpg", JPEG, 25, Currency.CZK, Color.BLUE, food);
+        Product chilli = product("Chilli", "", "chilli.jpg", JPEG, 15, Currency.CZK, Color.RED, food);
+        Product clamps = product("Clamps", "", "clamps.jpg", JPEG, 5, Currency.CZK, Color.UNDEFINED, office);
+        Product cofee = product("Coffee", "", "coffee.jpg", JPEG, 100, Currency.CZK, Color.BROWN, food, office, presents);
+        Product mouse = product("Mouse", "", "computer-mouse.jpg", JPEG, 200, Currency.CZK, Color.BLACK, office);
+        Product cow = product("Cow", "", "cow.jpg", JPEG, 199, Currency.CZK, Color.BROWN, toys);
+        Product crayons = product("Crayons", "", "crayons.jpg", JPEG, 10, Currency.CZK, Color.BLACK, office);
+        Product diamonds = product("Diamond", "Diamonds are forever.", "diamond.jpg", JPEG, 50000, Currency.EUR, Color.WHITE, presents);
+        Product figs = product("Figs", "", "figs.jpg", JPEG, 100, Currency.CZK, Color.BROWN, food);
+        Product gold = product("Gold", "", "gold.jpg", JPEG, 15000, Currency.CZK, Color.YELLOW, presents);
+        Product horse = product("Horse", "", "horse.jpg", JPEG, 299, Currency.CZK, Color.BROWN, toys);
+        Product limes = product("Limes", "", "limes.jpg", JPEG, 60, Currency.CZK, Color.GREEN, food);
+        Product mixedFlowers = product("Mixed flowers", "", "mixed-flowers.jpg", JPEG, 300, Currency.CZK, Color.UNDEFINED, flowers);
+        Product monitor = product("Monitor", "", "monitor.jpg", JPEG, 10000, Currency.CZK, Color.BLACK, office);
+        Product narcissus = product("Narcissus", "", "narcissus.jpg", JPEG, 250, Currency.CZK, Color.YELLOW, flowers);
+        Product notebook = product("Notebook", "", "notebook.jpg", JPEG, 20000, Currency.CZK, Color.BLACK, office);
+        Product oranges = product("Oranges", "", "oranges.jpg", JPEG, 70, Currency.CZK, Color.ORANGE, food);
+        Product pears = product("Pears", "", "pears.jpg", JPEG, 85, Currency.CZK, Color.GREEN, food);
+        Product peppers = product("Peppers", "", "peppers.jpg", JPEG, 60, Currency.CZK, Color.UNDEFINED, food);
+        Product pins = product("Pins", "", "pins.jpg", JPEG, 30, Currency.CZK, Color.UNDEFINED, office);
+        Product raspberries = product("Raspberries", "", "raspberries.jpg", JPEG, 90, Currency.CZK, Color.PINK, food);
+        Product duck = product("Rubber ducks", "", "rubber-duckies.jpg", JPEG, 99, Currency.CZK, Color.YELLOW, toys);
+        Product strawberries = product("Strawberries", "Very tasty and exceptionally red strawberries.", "strawberries.jpg", JPEG, 80, Currency.CZK, Color.RED, food);
+        Product tulip = product("Tulip", "", "tulip.jpg", JPEG, 220, Currency.CZK, Color.RED, flowers);
         log.info("Loaded eShop categories and products.");
         User pepa = user("heslo", "Pepa", "Novák", "pepa@novak.cz", "603123456", toDate(2015, 5, 12), "Horní Kotěhůlky 12");
         User jiri = user("heslo", "Jiří", "Dvořák", "jiri@dvorak.cz", "603789123", toDate(2015, 3, 5), "Dolní Lhota 56");
         User eva = user("heslo", "Eva", "Adamová", "eva@adamova.cz", "603457890", toDate(2015, 6, 5), "Zadní Polná 44");
         User admin = user("admin", "Josef", "Administrátor", "admin@eshop.com", "9999999999", toDate(2014, 12, 31), "Šumavská 15, Brno");
         log.info("Loaded eShop users.");
-        order(pepa, daysBeforeNow(10), OrderState.DONE, orderItem(duck, 5), orderItem(cow, 1));
+        order(pepa, daysBeforeNow(10), OrderState.DONE, orderItem(duck, 5), orderItem(diamonds, 1));
         order(pepa, daysBeforeNow(6), OrderState.SHIPPED, orderItem(horse, 3), orderItem(cow, 3));
         order(pepa, daysBeforeNow(3), OrderState.CANCELED, orderItem(duck, 10), orderItem(horse, 1));
         order(pepa, daysBeforeNow(2), OrderState.RECEIVED, orderItem(duck, 10), orderItem(horse, 1));
@@ -148,15 +147,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private static Random random = new Random();
 
-    private Price price(long price, ZonedDateTime priceStart) {
+    private Price price(long price, ZonedDateTime priceStart, Currency currency) {
         Price p = new Price();
-        p.setCurrency(Currency.CZK);
+        p.setCurrency(currency);
         p.setPriceStart(Date.from(priceStart.toInstant()));
         p.setValue(BigDecimal.valueOf(price));
         return p;
     }
 
-    private Product product(String name, String description, String imageFile, String mimeType, long price, Color color, Category... categories) throws IOException {
+    private Product product(String name, String description, String imageFile, String mimeType, long price, Currency currency, Color color, Category... categories) throws IOException {
         Product pr = new Product();
         for (Category category : categories) {
             pr.addCategory(category);
@@ -167,14 +166,14 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
         //set curent price as 7 days ago
         ZonedDateTime day = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).minusDays(7);
-        Price p = price(price, day);
+        Price p = price(price, day, currency);
         pr.setCurrentPrice(p);
         pr.addHistoricalPrice(p);
         //generate randomly higher historical prices
         for (int i = 0, n = 1 + random.nextInt(8); i <= n; i++) {
             day = day.minusMonths(1);
             price = price + 1 + random.nextInt((int) (price / 5l));
-            pr.addHistoricalPrice(price(price, day));
+            pr.addHistoricalPrice(price(price, day, currency));
         }
         pr.setAddedDate(Date.from(day.toInstant()));
 

@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.service;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -8,6 +9,8 @@ import java.util.Set;
 
 import cz.fi.muni.pa165.dao.OrderItemDao;
 import cz.fi.muni.pa165.entity.OrderItem;
+import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.enums.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDao orderDao;
 	@Autowired
 	private TimeService timeService;
+    @Autowired
+    private ExchangeService exchangeService;
 
     @Override
     public void createOrder(Order order) {
@@ -44,6 +49,24 @@ public class OrderServiceImpl implements OrderService {
 	public Order findOrderById(Long id) {
 		return orderDao.findById(id);
 	}
+
+	@Override
+	public Price getTotalPrice(long orderId, Currency currency) {
+		Order order = this.findOrderById(orderId);
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (OrderItem item : order.getOrderItems()) {
+            BigDecimal itemPrice = item.getPricePerItem().getValue().multiply(new BigDecimal(item.getAmount()));
+            Currency itemCurrency = item.getPricePerItem().getCurrency();
+            if(itemCurrency != currency) {
+                itemPrice = itemPrice.multiply(exchangeService.getCurrencyRate(itemCurrency, currency));
+            }
+            totalPrice = totalPrice.add(itemPrice);
+        }
+        Price price = new Price();
+        price.setCurrency(currency);
+        price.setValue(totalPrice);
+        return price;
+    }
 
 	@Override
 	public List<Order> getOrdersByState(OrderState state) {

@@ -3,6 +3,8 @@ package cz.fi.muni.pa165.service;
 import java.util.List;
 
 import cz.fi.muni.pa165.entity.Order;
+import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.entity.User;
 
@@ -37,5 +39,6 @@ public interface OrderService {
 	void cancelOrder(Order order);
 
 	Order findOrderById(Long id);
-	
+
+	Price getTotalPrice(long orderId, Currency currency);
 }

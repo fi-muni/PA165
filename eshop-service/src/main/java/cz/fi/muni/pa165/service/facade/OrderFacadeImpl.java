@@ -2,8 +2,9 @@ package cz.fi.muni.pa165.service.facade;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
+import cz.fi.muni.pa165.dto.OrderTotalPriceDTO;
+import cz.fi.muni.pa165.entity.Price;
+import cz.fi.muni.pa165.enums.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,6 +79,16 @@ public class OrderFacadeImpl implements OrderFacade {
 	@Override
 	public void cancelOrder(Long id) {
 		orderService.cancelOrder(orderService.findOrderById(id));
+	}
+
+	@Override
+	public OrderTotalPriceDTO getOrderTotalPrice(long id, Currency currency) {
+		OrderTotalPriceDTO otp = new OrderTotalPriceDTO();
+		otp.setOrder(this.getOrderById(id));
+		Price totalPrice = orderService.getTotalPrice(id,currency);
+		otp.setPrice(totalPrice.getValue());
+		otp.setCurrency(totalPrice.getCurrency());
+		return otp;
 	}
 
 
