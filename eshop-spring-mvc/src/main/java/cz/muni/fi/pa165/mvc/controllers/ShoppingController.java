@@ -27,9 +27,9 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/shopping")
-public class ShoppingControler {
+public class ShoppingController {
 
-    final static Logger log = LoggerFactory.getLogger(ShoppingControler.class);
+    final static Logger log = LoggerFactory.getLogger(ShoppingController.class);
 
     @Autowired
     private CategoryFacade categoryFacade;
