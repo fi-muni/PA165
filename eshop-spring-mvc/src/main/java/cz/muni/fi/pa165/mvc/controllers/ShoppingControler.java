@@ -37,6 +37,14 @@ public class ShoppingControler {
     @Autowired
     private ProductFacade productFacade;
 
+    public void setCategoryFacade(CategoryFacade categoryFacade) {
+        this.categoryFacade = categoryFacade;
+    }
+
+    public void setProductFacade(ProductFacade productFacade) {
+        this.productFacade = productFacade;
+    }
+
     /**
      * Shows all categories and products.
      *

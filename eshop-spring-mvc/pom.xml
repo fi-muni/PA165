@@ -3,13 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cz.fi.muni.pa165</groupId>
+        <groupId>cz.muni.fi.pa165</groupId>
         <artifactId>eshop-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>eshop-spring-mvc</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>Web front end implemented in Spring MVC</name>
@@ -22,24 +21,20 @@
         </developer>
     </developers>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
     <dependencies>
         <!-- dependency on eshop sample data, other eshop parts are imported by transitive dependencies of this one-->
         <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
+            <groupId>cz.muni.fi.pa165</groupId>
             <artifactId>eshop-sample-data</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <!-- servlet, JSP, JSTL -->
+        <!-- must be this instead of javaee-web for the springmvc-tests to succeed -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-api</artifactId>
+            <version>7.0.42</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -74,7 +69,27 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
+
+        <!-- librarries needed for unit tests -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
+
 
     <build>
         <!-- what to do when only "mvn" is run -->

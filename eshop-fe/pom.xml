@@ -3,22 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-	   <groupId>cz.fi.muni.pa165</groupId>
+	   <groupId>cz.muni.fi.pa165</groupId>
 	    <artifactId>eshop-parent</artifactId>
-	    <version>1.0</version>
+	    <version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>cz.fi.muni.pa165</groupId>
 	<artifactId>eshop-fe</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Front End Layer</name>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-	<dependencies>
 
-	</dependencies>
 </project>
