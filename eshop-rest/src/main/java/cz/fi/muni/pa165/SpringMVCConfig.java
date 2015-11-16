@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cz.fi.muni.pa165.rest.controllers.CategoriesController;
-import cz.fi.muni.pa165.service.OrderServiceImpl;
-import cz.fi.muni.pa165.service.config.ServiceConfiguration;
-import cz.fi.muni.pa165.service.facade.CategoryFacadeImpl;
-
+import cz.muni.fi.pa165.sampledata.EshopWithSampleDataConfiguration;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -21,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.*;
  
 @Configuration
 @ComponentScan(basePackageClasses={CategoriesController.class})
+@Import({EshopWithSampleDataConfiguration.class})
 public class SpringMVCConfig extends WebMvcConfigurationSupport {
  
     @Override
