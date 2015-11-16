@@ -13,6 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <!-- defines compatible versions of many libraries -->
     <!-- see http://docs.spring.io/platform/docs/1.1.4.RELEASE/reference/htmlsingle/#getting-started-using-spring-io-platform-maven -->
     <parent>
         <groupId>io.spring.platform</groupId>
@@ -20,20 +21,29 @@
         <version>1.1.4.RELEASE</version>
         <relativePath/>
     </parent>
-    <!-- specifies versions inherited by child projects -->
+    <!-- specifies versions not defined by the Spring platform-bom -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>6.8.8</version>
-                <scope>test</scope>
-            </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>2.0.2-beta</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-api</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer</artifactId>
+                <version>5.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>1.2.0</version><!-- spring-test 4.1.8 uses this version as compile dependency -->
             </dependency>
         </dependencies>
     </dependencyManagement>
