@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.rest.controllers;
 
+import cz.fi.muni.pa165.rest.ApiUris;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,52 +15,149 @@ import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.NewPriceDTO;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
+import cz.fi.muni.pa165.exceptions.EshopServiceException;
 import cz.fi.muni.pa165.facade.ProductFacade;
-import cz.fi.muni.pa165.rest.ResourceNotFoundException;
+import cz.fi.muni.pa165.rest.exceptions.InvalidParameterException;
+import cz.fi.muni.pa165.rest.exceptions.ResourceAlreadyExistingException;
+import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 
+/**
+ * REST Controller for Products
+ *
+ * @author brossi
+ */
 @RestController
-@RequestMapping("/products")
+@RequestMapping(ApiUris.ROOT_URI_PRODUCTS)
 public class ProductsController {
-    
-    @Inject
-    private ProductFacade productFacade; 
 
-    @RequestMapping( method = RequestMethod.GET, produces = "application/json")
+    final static Logger logger = LoggerFactory.getLogger(ProductsController.class);
+
+    @Inject
+    private ProductFacade productFacade;
+
+    /**
+     * Get list of Products curl -i -X GET
+     * http://localhost:8080/eshop-rest/products
+     *
+     * @return ProductDTO
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<ProductDTO> getProducts() {
-        return productFacade.getAllProducts();   
+        logger.debug("rest getProducts()");
+        return productFacade.getAllProducts();
     }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+
+    /**
+     *
+     * Get Product by identifier id curl -i -X GET
+     * http://localhost:8080/eshop-rest/products/1
+     *
+     * @param id identifier for a product
+     * @return ProductDTO
+     * @throws ResourceNotFoundException
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final ProductDTO getProduct(@PathVariable("id") long id) throws Exception {
-        ProductDTO productDTO = productFacade.getProductWithId(id);                
-        if (productDTO != null){
+        logger.debug("rest getProduct({})", id);
+        ProductDTO productDTO = productFacade.getProductWithId(id);
+        if (productDTO != null) {
             return productDTO;
-        }else{
+        } else {
             throw new ResourceNotFoundException();
         }
-            
+
     }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
+
+    /**
+     * Delete one product by id curl -i -X DELETE
+     * http://localhost:8080/eshop-rest/products/1
+     *
+     * @param id identifier for product
+     * @throws ResourceNotFoundException
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteProduct(@PathVariable("id") long id) throws Exception {
-       productFacade.deleteProduct(id);            
+        logger.debug("rest deleteProduct({})", id);
+        try {
+            productFacade.deleteProduct(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
+        }
     }
-    
-    @RequestMapping(value = "/test", method = RequestMethod.POST, consumes = "application/json") 
-    
-    public final void createProduct(@RequestBody ProductCreateDTO product) throws Exception {
-       productFacade.createProduct(product);            
+
+    /**
+     * Create a new product by POST method
+     * curl -X POST -i -H "Content-Type: application/json" --data 
+     * '{"name":"test","description":"test","color":"UNDEFINED","price":"200",
+     * "currency":"CZK", "categoryId":"1"}' 
+     * http://localhost:8080/eshop-rest/products/create
+     * 
+     * @param product ProductCreateDTO with required fields for creation
+     * @return the created product ProductDTO
+     * @throws ResourceAlreadyExistingException
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final ProductDTO createProduct(@RequestBody ProductCreateDTO product) throws Exception {
+
+        logger.debug("rest createProduct()");
+
+        try {
+            Long id = productFacade.createProduct(product);
+            return productFacade.getProductWithId(id);
+        } catch (Exception ex) {
+            throw new ResourceAlreadyExistingException();
+        }
     }
-        
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-    public final void changePrice(@RequestBody NewPriceDTO newPrice) throws Exception {
-       productFacade.changePrice(newPrice);            
+
+    /**
+     * Update the price for one product by PUT method curl -X PUT -i -H
+     * "Content-Type: application/json" --data '{"value":"16.33","currency":"CZK"}'
+     * http://localhost:8080/eshop-rest/products/4
+     *
+     * @param id identified of the product to be updated
+     * @param newPrice required fields as specified in NewPriceDTO
+     * @return the updated product ProductDTO
+     * @throws InvalidParameterException
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final ProductDTO changePrice(@PathVariable("id") long id, @RequestBody NewPriceDTO newPrice) throws Exception {
+
+        logger.debug("rest changePrice({})", id);
+
+        try {
+            newPrice.setProductId(id);
+            productFacade.changePrice(newPrice);
+            return productFacade.getProductWithId(id);
+        } catch (EshopServiceException esse) {
+            throw new InvalidParameterException();
+        }
+
     }
-    
-    @RequestMapping(value = "/{id}/categories", method = RequestMethod.POST, consumes = "application/json")
+
+    /**
+     * Add a new category by POST Method
+     *
+     * @param id the identifier of the Product to have the Category added
+     * @param category the category to be added
+     * @return the updated product as defined by ProductDTO
+     * @throws InvalidParameterException
+     */
+    @RequestMapping(value = "/{id}/categories", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public final ProductDTO addCategory(@PathVariable("id") long id, @RequestBody CategoryDTO category) throws Exception {
-       productFacade.addCategory(id, category.getId());     
-       return productFacade.getProductWithId(id);
+
+        logger.debug("rest addCategory({})", id);
+
+        try {
+            productFacade.addCategory(id, category.getId());
+            return productFacade.getProductWithId(id);
+        } catch (Exception ex) {
+            throw new InvalidParameterException();
+        }
     }
 }

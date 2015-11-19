@@ -33,6 +33,7 @@ import cz.fi.muni.pa165.dto.OrderDTO;
 import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.facade.OrderFacade;
 import cz.fi.muni.pa165.rest.controllers.OrdersController;
+import static org.mockito.Mockito.doThrow;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -135,7 +136,7 @@ public class OrdersControllerTest {
 
     @Test
     public void getInvalidOrder() throws Exception {
-        doReturn(null).when(orderFacade).getOrderById(1l);
+        doThrow(new RuntimeException()).when(orderFacade).getOrderById(1l);
 
         mockMvc.perform(get("/orders/1"))
                 .andExpect(status().is4xxClientError());

@@ -27,6 +27,7 @@ import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.UserFacade;
 import cz.fi.muni.pa165.rest.controllers.UsersController;
+import static org.mockito.Mockito.doThrow;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -85,7 +86,7 @@ public class UsersControllerTest {
 
     @Test
     public void getInvalidUser() throws Exception {
-        doReturn(null).when(userFacade).findUserById(1l);
+        doThrow(new RuntimeException()).when(userFacade).findUserById(1l);
 
         mockMvc.perform(get("/users/1"))
                 .andExpect(status().is4xxClientError());

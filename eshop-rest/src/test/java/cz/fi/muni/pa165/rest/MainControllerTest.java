@@ -25,8 +25,9 @@ public class MainControllerTest {
                 .andExpect(
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 
-                .andExpect(jsonPath("orders_url").value("/orders"))
-                .andExpect(jsonPath("users_url").value("/users"))
-                .andExpect(jsonPath("products_url").value("/products"));
+                .andExpect(jsonPath("orders_uri").value(ApiUris.ROOT_URI_ORDERS))
+                .andExpect(jsonPath("users_uri").value(ApiUris.ROOT_URI_USERS))
+                .andExpect(jsonPath("products_uri").value(ApiUris.ROOT_URI_PRODUCTS))
+                .andExpect(jsonPath("categories_uri").value(ApiUris.ROOT_URI_CATEGORIES));
     }
 }

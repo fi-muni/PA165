@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.rest;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,6 +46,7 @@ import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.facade.ProductFacade;
 import cz.fi.muni.pa165.rest.controllers.ProductsController;
+
 
 @WebAppConfiguration
 @ContextConfiguration(classes = { RootWebContext.class })
@@ -123,13 +125,21 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 	public void deleteProduct() throws Exception {
 
 		List<ProductDTO> products = this.createProducts();
-
-		doReturn(products.get(0)).when(productFacade).getProductWithId(10l);
-		doReturn(products.get(1)).when(productFacade).getProductWithId(20l);
-
-		mockMvc.perform(delete("/products/10")) // TODO: delete always returns
-												// 204?
+                
+		mockMvc.perform(delete("/products/10"))
 				.andExpect(status().isOk());
+
+	}
+        
+        @Test
+	public void deleteProductNonExisting() throws Exception {
+
+		List<ProductDTO> products = this.createProducts();
+
+		doThrow(new RuntimeException("the product does not exist")).when(productFacade).deleteProduct(20l);
+
+		mockMvc.perform(delete("/products/20"))
+				.andExpect(status().isNotFound());
 
 	}
 
@@ -147,7 +157,7 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 		System.out.println(json);
 
 		mockMvc.perform(
-				post("/products/test").contentType(MediaType.APPLICATION_JSON)
+				post("/products/create").contentType(MediaType.APPLICATION_JSON)
 						.content(json)).andDo(print())
 				.andExpect(status().isOk());
 	}

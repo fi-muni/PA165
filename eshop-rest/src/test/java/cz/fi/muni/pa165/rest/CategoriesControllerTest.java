@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.rest;
 
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,6 +28,7 @@ import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.facade.CategoryFacade;
 import cz.fi.muni.pa165.rest.controllers.CategoriesController;
+
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -85,7 +87,7 @@ public class CategoriesControllerTest {
 
     @Test
     public void getInvalidCategory() throws Exception {
-        doReturn(null).when(categoryFacade).getCategoryById(1l);
+        doThrow(new RuntimeException("")).when(categoryFacade).getCategoryById(1l);
 
         mockMvc.perform(get("/categories/1"))
                 .andExpect(status().is4xxClientError());
