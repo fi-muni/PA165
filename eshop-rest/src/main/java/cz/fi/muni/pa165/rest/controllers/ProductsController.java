@@ -62,10 +62,11 @@ public class ProductsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final ProductDTO getProduct(@PathVariable("id") long id) throws Exception {
         logger.debug("rest getProduct({})", id);
-        ProductDTO productDTO = productFacade.getProductWithId(id);
-        if (productDTO != null) {
+
+        try {
+            ProductDTO productDTO = productFacade.getProductWithId(id);
             return productDTO;
-        } else {
+        } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
 
