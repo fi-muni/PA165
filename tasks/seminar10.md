@@ -246,9 +246,9 @@ HTTP/1.1 422 Unprocessable Entity
 
 * Create an **ApiError** class in package **cz.fi.muni.pa165.rest**. We will use this class to represent error messages;
 * In the class, have a List of Strings with getters, setters and constructors for error messages;
-* If not already done in the code, comment the line **@ResponseStatus(value = HttpStatus.NOT_FOUND, reason="The requested resource was not found")**  in the **ResourceNotFoundException** class;
+* If not already done in the code, comment the line **@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason="The resource already exists")**  in the **ResourceAlreadyExistingException** class;
 * Create a new class called **GlobalExceptionController** in **cz.fi.muni.pa165.rest.controllers** mark the class with **@ControllerAdvice**;
-* add a new method **ApiError handleException(ResourceNotFoundException ex)** annotated with 
+* add a new method **ApiError handleException(ResourceAlreadyExistingException ex)** annotated with 
   ```
   @ExceptionHandler
   @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
