@@ -26,6 +26,9 @@ import org.springframework.http.MediaType;
 
 /**
  * REST Controller for Products
+ * this is what we are using in step1 of seminar10
+ * also most of the other parts of the application are complete
+ * this is only to test the REST API
  *
  * @author brossi
  */
