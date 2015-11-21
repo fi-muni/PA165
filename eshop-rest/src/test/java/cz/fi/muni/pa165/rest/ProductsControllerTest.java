@@ -45,8 +45,14 @@ import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.facade.ProductFacade;
+import cz.fi.muni.pa165.rest.controllers.GlobalExceptionController;
 import cz.fi.muni.pa165.rest.controllers.ProductsController;
+import java.lang.reflect.Method;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -68,6 +74,27 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = standaloneSetup(productsController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+    }
+    
+     /**
+      * We need to register the GlobalExceptionController if @ControllerAdvice is used
+     * this can be used in SetHandlerExceptionResolvers() standaloneSetup() configured above
+     * 
+     * Note that new Spring version from 4.2 has already a setControllerAdvice() method on 
+     * MockMVC builders, so in that case it is only needed to pass one or more
+     * @ControllerAdvice(s) to have them available in tests
+     * 
+     */
+    private ExceptionHandlerExceptionResolver createExceptionResolver() {
+        ExceptionHandlerExceptionResolver exceptionResolver = new ExceptionHandlerExceptionResolver() {
+            protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
+                Method method = new ExceptionHandlerMethodResolver(GlobalExceptionController.class).resolveMethod(exception);
+                return new ServletInvocableHandlerMethod(new GlobalExceptionController(), method);
+            }
+        };
+        exceptionResolver.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        exceptionResolver.afterPropertiesSet();
+        return exceptionResolver;
     }
 
     @Test
