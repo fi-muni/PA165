@@ -1,12 +1,10 @@
 package cz.fi.muni.pa165.rest.controllers;
 
 import cz.fi.muni.pa165.rest.ApiUris;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.UserFacade;
 import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
-import cz.fi.muni.pa165.views.View;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -39,7 +37,7 @@ public class UsersController {
      * @return list of UserDTOs
      * @throws JsonProcessingException
      */
-    @JsonView(View.Summary.class)
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<UserDTO> getUsers() throws JsonProcessingException {
         

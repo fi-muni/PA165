@@ -2,19 +2,13 @@ package cz.fi.muni.pa165;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-import cz.fi.muni.pa165.dto.ProductDTO;
-import cz.fi.muni.pa165.rest.mixin.ProductDTOMixin;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import cz.fi.muni.pa165.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.sampledata.EshopWithSampleDataConfiguration;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -45,11 +39,7 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
         MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        //objectMapper.setDateFormat(new ISO8601DateFormat());
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
-        objectMapper.addMixIn(ProductDTO.class, ProductDTOMixin.class);
-        
+       
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }

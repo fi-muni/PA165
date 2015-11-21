@@ -29,9 +29,8 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
         encodingFilter.setEncoding("utf-8");
         encodingFilter.setForceEncoding(true);
        
-        ShallowEtagHeaderFilter shallowEtagHeaderFilter = new ShallowEtagHeaderFilter();
         
-        return new Filter[]{encodingFilter, shallowEtagHeaderFilter};
+        return new Filter[]{encodingFilter};
     }
 
     @Override

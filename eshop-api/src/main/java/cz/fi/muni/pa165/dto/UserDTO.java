@@ -1,34 +1,23 @@
 package cz.fi.muni.pa165.dto;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
-import cz.fi.muni.pa165.views.View;
 import java.util.Date;
 
 public class UserDTO
 {
-    @JsonView(View.Summary.class)
     private Long id;
     
     private String passwordHash;
     
-    @JsonView(View.Summary.class)
     private String email;
     
-    @JsonView(View.Summary.class)
     private String givenName;
 
-    @JsonView(View.Summary.class)
     private String surname;
     
-    @JsonView(View.Summary.class)
     private String phone;
     
-    @JsonView(View.Summary.class)
     private String address;
     
-    @JsonView(View.Summary.class)
     private Date joinedDate;
 
     public UserDTO(){
@@ -43,12 +32,10 @@ public class UserDTO
         this.id = id;
     }
 
-   // @JsonIgnore
     public String getPasswordHash() {
         return passwordHash;
     }
 
-  //  @JsonProperty
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
