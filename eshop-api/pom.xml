@@ -19,5 +19,11 @@
             <artifactId>validation-api</artifactId>
         </dependency>
         
+        <!-- to support jackson json filtering -->
+         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        
 	</dependencies>
 </project>
