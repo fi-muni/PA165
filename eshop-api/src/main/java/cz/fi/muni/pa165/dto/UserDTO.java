@@ -1,10 +1,11 @@
 package cz.fi.muni.pa165.dto;
+
 import java.util.Date;
 
 public class UserDTO
 {
     private Long id;
-  
+    
     private String passwordHash;
     
     private String email;

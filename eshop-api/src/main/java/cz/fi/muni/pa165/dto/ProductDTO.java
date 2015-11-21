@@ -24,6 +24,8 @@ public class ProductDTO
     
     private PriceDTO currentPrice;
 
+
+
     public byte[] getImage() {
         return image;
     }
