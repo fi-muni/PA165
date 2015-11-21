@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -45,12 +46,20 @@ import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.enums.Currency;
 import cz.fi.muni.pa165.facade.ProductFacade;
+import cz.fi.muni.pa165.rest.controllers.GlobalExceptionController;
 import cz.fi.muni.pa165.rest.controllers.ProductsController;
+import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
+import java.lang.reflect.Method;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
 
 @WebAppConfiguration
-@ContextConfiguration(classes = { RootWebContext.class })
-public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
+@ContextConfiguration(classes = { RootWebContext.class})
+public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 
 	@Mock
 	private ProductFacade productFacade;
@@ -58,15 +67,41 @@ public class ProductsControllerTest extends AbstractTestNGSpringContextTests {
 	@Autowired
 	@InjectMocks
 	private ProductsController productsController;
+        
+         @Autowired
+        private WebApplicationContext webApplicationContext;
 
 	private MockMvc mockMvc;
+        
 
 	@BeforeClass
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = standaloneSetup(productsController).setMessageConverters(
-				new MappingJackson2HttpMessageConverter()).build();
-	}
+		mockMvc = standaloneSetup(productsController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();          
+    }
+        
+        
+      
+    /**
+     * Registering the GlobalExceptionController if @ControllerAdvice is used
+     * this can be used in SetHandlerExceptionResolvers() standaloneSetup()
+     * Note that new Spring version from 4.2 has already a setControllerAdvice() method on 
+     * MockMVC builders, so in that case it is only needed to pass one or more
+     * @ControllerAdvice(s) configured within the application
+     * 
+     * @return
+     */
+    private ExceptionHandlerExceptionResolver createExceptionResolver() {
+        ExceptionHandlerExceptionResolver exceptionResolver = new ExceptionHandlerExceptionResolver() {
+            protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
+                Method method = new ExceptionHandlerMethodResolver(GlobalExceptionController.class).resolveMethod(exception);
+                return new ServletInvocableHandlerMethod(new GlobalExceptionController(), method);
+            }
+        };
+        exceptionResolver.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        exceptionResolver.afterPropertiesSet();
+        return exceptionResolver;
+    }
 
 	@Test
 	public void debugTest() throws Exception {

@@ -28,6 +28,7 @@ public class ProductResourceAssembler implements ResourceAssembler<ProductDTO, R
 
         try {
             productResource.add(linkTo(ProductsControllerHateoas.class).slash(productDTO.getId()).withSelfRel());
+            productResource.add(linkTo(ProductsControllerHateoas.class).slash(productDTO.getId()).withRel("DELETE"));
 
         } catch (Exception ex) {
             Logger.getLogger(ProductResourceAssembler.class.getName()).log(Level.SEVERE, "could not link resource from ProductsControllerHateoas", ex);

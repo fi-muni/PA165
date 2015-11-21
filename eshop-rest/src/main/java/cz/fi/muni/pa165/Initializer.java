@@ -3,6 +3,7 @@ package cz.fi.muni.pa165;
 import javax.servlet.Filter;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -27,7 +28,10 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("utf-8");
         encodingFilter.setForceEncoding(true);
-        return new Filter[]{encodingFilter};
+       
+        ShallowEtagHeaderFilter shallowEtagHeaderFilter = new ShallowEtagHeaderFilter();
+        
+        return new Filter[]{encodingFilter, shallowEtagHeaderFilter};
     }
 
     @Override

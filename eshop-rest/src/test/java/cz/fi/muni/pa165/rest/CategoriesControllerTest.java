@@ -28,12 +28,14 @@ import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.facade.CategoryFacade;
 import cz.fi.muni.pa165.rest.controllers.CategoriesController;
+import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
-public class CategoriesControllerTest {
-
+public class CategoriesControllerTest extends AbstractTestNGSpringContextTests {
+    
     @Mock
     private CategoryFacade categoryFacade;
 
@@ -46,7 +48,8 @@ public class CategoriesControllerTest {
     @BeforeClass
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = standaloneSetup(categoriesController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+       mockMvc = standaloneSetup(categoriesController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+    
     }
 
     @Test

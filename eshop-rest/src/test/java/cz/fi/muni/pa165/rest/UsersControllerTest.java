@@ -27,11 +27,13 @@ import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.UserFacade;
 import cz.fi.muni.pa165.rest.controllers.UsersController;
+import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
 import static org.mockito.Mockito.doThrow;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
-public class UsersControllerTest {
+public class UsersControllerTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private UserFacade userFacade;
@@ -84,7 +86,7 @@ public class UsersControllerTest {
 
     }
 
-    @Test
+     @Test
     public void getInvalidUser() throws Exception {
         doThrow(new RuntimeException()).when(userFacade).findUserById(1l);
 

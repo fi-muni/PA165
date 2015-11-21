@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties({ "imageMimeType" })
 public abstract class ProductDTOMixin {
-//  @JsonIgnore  private String imageMimeType;
+    
+    // @JsonIgnore and @JsonProperty can be used as well:
+    //  @JsonIgnore  private String imageMimeType;
   
 }

@@ -1,7 +1,11 @@
 package cz.fi.muni.pa165.rest;
 
+import cz.fi.muni.pa165.RootWebContext;
 import cz.fi.muni.pa165.rest.controllers.MainController;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -12,7 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 import org.testng.annotations.Test;
 
-public class MainControllerTest {
+@WebAppConfiguration
+@ContextConfiguration(classes = {RootWebContext.class})
+public class MainControllerTest extends AbstractTestNGSpringContextTests {
 
     private final MockMvc mockMvc = standaloneSetup(new MainController())
             .build();

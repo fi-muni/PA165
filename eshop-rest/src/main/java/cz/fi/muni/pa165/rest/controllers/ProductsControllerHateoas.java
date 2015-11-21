@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.facade.ProductFacade;
 import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.rest.assemblers.ProductResourceAssembler;
+import cz.fi.muni.pa165.rest.exceptions.ResourceNotModifiedException;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Inject;
@@ -23,12 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.http.MediaType;
+import org.springframework.web.context.request.WebRequest;
 
 /**
- * REST HATEOAS Controller for products
+ * REST HATEOAS Controller for Products
  * This class shows Spring support for full HATEOAS REST services
  * it uses the {@link cz.fi.muni.pa165.rest.assemblers.productResourceAssembler} to create 
- * resources to return as ResponseEntities
+ * resources to be returned as ResponseEntities
  *
  */
 @RestController
@@ -68,6 +70,44 @@ public class ProductsControllerHateoas {
         return new ResponseEntity<Resources<Resource<ProductDTO>>>(productsResources, HttpStatus.OK);
 
     }
+    
+    /**
+     *
+     * Get list of products - this method also supports HTTP caching
+     * See http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-caching
+     * 
+     * See also http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/request/WebRequest.html#checkNotModified-java.lang.String-
+     * 
+     * The conditional request can be sent with
+     * curl -i -X GET http://localhost:8080/eshop-rest/products_hateoas/cached  --header 'If-None-Match: "077e8fe377ab6dfa8b765b166972ba2d6"'
+     * 
+     * @return HttpEntity<Resources<Resource<ProductDTO>>>
+     */
+    @RequestMapping(value = "/cached", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<Resources<Resource<ProductDTO>>> getProductsCached(WebRequest webRequest) {
+        
+        logger.debug("rest getProducts({}) hateoas cached version");
+       
+        final Collection<ProductDTO> productsDTO = productFacade.getAllProducts();
+        final Collection<Resource<ProductDTO>> productResourceCollection = new ArrayList();
+
+        for (ProductDTO p : productsDTO) {
+            productResourceCollection.add(productResourceAssembler.toResource(p));
+        }
+
+        Resources<Resource<ProductDTO>> productsResources = new Resources(productResourceCollection);
+        productsResources.add(linkTo(ProductsControllerHateoas.class).withSelfRel());
+
+        final StringBuffer eTag = new StringBuffer("\"");
+        eTag.append(Integer.toString(productsResources.hashCode()));
+        eTag.append('\"');
+        
+        if (webRequest.checkNotModified(eTag.toString())){
+            throw new ResourceNotModifiedException();
+        }
+                
+        return ResponseEntity.ok().eTag(eTag.toString()).body(productsResources);
+    }
 
     /**
      *
@@ -87,6 +127,23 @@ public class ProductsControllerHateoas {
             Resource<ProductDTO> resource = productResourceAssembler.toResource(productDTO);
             return new ResponseEntity<Resource<ProductDTO>>(resource, HttpStatus.OK);    
         } catch (Exception ex){
+            throw new ResourceNotFoundException();
+        }
+    }
+    
+        /**
+     * Delete one product by id curl -i -X DELETE
+     * http://localhost:8080/eshop-rest/products/1
+     *
+     * @param id identifier for product
+     * @throws ResourceNotFoundException
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void deleteProduct(@PathVariable("id") long id) throws Exception {
+        logger.debug("rest deleteProduct({}) hateoas", id);
+        try {
+            productFacade.deleteProduct(id);
+        } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
     }

@@ -34,10 +34,11 @@ import cz.fi.muni.pa165.enums.OrderState;
 import cz.fi.muni.pa165.facade.OrderFacade;
 import cz.fi.muni.pa165.rest.controllers.OrdersController;
 import static org.mockito.Mockito.doThrow;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
-public class OrdersControllerTest {
+public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private OrderFacade orderFacade;
@@ -75,14 +76,13 @@ public class OrdersControllerTest {
         List<OrderDTO> orders = this.createOrders().stream()
            .filter(o -> o.getState().equals("DONE")).collect(Collectors.toList());
 
-        //TODO this 
-//        doReturn(Collections.unmodifiableList(orders)).when(orderFacade).getOrdersByState(OrderState.DONE);
+        doReturn(Collections.unmodifiableList(orders)).when(orderFacade).getOrdersByState(OrderState.DONE);
 
         mockMvc.perform(get("/orders").param("status", "ALL")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.[?(@.id==1)].state").value("DONE"));  // TODO: improve these tests
+                .andExpect(jsonPath("$.[?(@.id==1)].state").value("DONE")); 
 
     }
     
@@ -134,7 +134,7 @@ public class OrdersControllerTest {
 
     }
 
-    @Test
+     @Test
     public void getInvalidOrder() throws Exception {
         doThrow(new RuntimeException()).when(orderFacade).getOrderById(1l);
 
