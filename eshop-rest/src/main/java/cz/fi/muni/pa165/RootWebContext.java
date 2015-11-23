@@ -3,6 +3,7 @@ package cz.fi.muni.pa165;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.rest.mixin.ProductDTOMixin;
 import org.springframework.context.annotation.ComponentScan;
@@ -48,8 +49,9 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
         
-         objectMapper.addMixIn(ProductDTO.class, ProductDTOMixin.class);
-       
+        objectMapper.addMixIn(ProductDTO.class, ProductDTOMixin.class);
+        objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
+        
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
