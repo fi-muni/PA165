@@ -113,7 +113,7 @@ Move to step5:
 git checkout -f seminar10_step5
 ```
 
-It does not make sense to always consider all of an object's fields during serialization/deserialization from DTOs. What we would like to achieve with this step is that when we are returning an user instance, we would not consider the password hash. We will see three alternative ways, that if you want you can apply to other DTOs/fields as well. Please note that for approaches i) and ii) you will need to work mostly in the **API Module** annotating DTOs, while for approach iii) you will only work in the **eshop-rest** module. 
+It does not make sense to always consider all of an object's fields during serialization/deserialization from DTOs. What we would like to achieve with this step is that when we are returning an user instance, we would not consider the password hash. We will see three alternative ways, that if you want you can apply to other DTOs/fields as well. Please note that for approaches i) and ii) you will need to work mostly in the **API Module** annotating DTOs, while for approach iii) you will only work in the **eshop-rest** module. If you modify the **API Module** in one of the steps, please remember also to rebuild also that module and not only the **eshop-rest** module.
 
 a) Approach i
 
@@ -128,8 +128,6 @@ Add Jackson annotations as dependencies to the pom.xml file to the **API Module*
 
 In the **API module**, annotate with **@JsonIgnore** in the **class UserDTO** the getter **getPasswordHash()**. At the same time, we might want to still serialize password hash (e.g. when a new user is created). To do this, annotate **setPasswordHash(..)** with  **@JsonProperty**. Look for details why annotating both getters and setters: [here](https://fasterxml.github.io/jackson-annotations/javadoc/2.0.2/com/fasterxml/jackson/annotation/JsonIgnore.html)
 
-Also mark  @JsonIgnore
-
 Rebuild and restart the application and try to access [http://localhost:8080/eshop-rest/users](http://localhost:8080/eshop-rest/users) (or with CURL). You should get no password hash displayed.
 
 b) Approach ii
@@ -140,12 +138,20 @@ Create one class in the **API module** in a **new package cz.fi.muni.pa165.views
 In the class **UserDTO**, annotate each field that you would like to have in the controller response with **@JsonView(View.Summary.class)**.
 Annotate then each controller's method in which you want to have one view with **@JsonView(View.Summary.class)**. Rebuild the application and restart to look at the changes in responses.
 
+**Note:** for the solution of this step you need also to disable ```MapperFeature.DEFAULT_VIEW_INCLUSION``` (that according to documentation defines how properties without view annotations are managed) from the Jackson mapper. It should be disabled by default, but apparently it isn't in the current Spring version :) You can see this implemented in the overall solution, not in the next tag.
+
+You need to add the following to **RootWebContext** class when configuring the object mapper.
+
+```
+objectMapper.disable(com.fasterxml.jackson.databind.MapperFeature.DEFAULT_VIEW_INCLUSION);
+```
+
 c) Approach iii
 
 Let's have a look at yet an alternative way to filter objects that will not modify the DTOs: using Jackson Mix-ins (see [http://wiki.fasterxml.com/JacksonMixInAnnotations](http://wiki.fasterxml.com/JacksonMixInAnnotations), note that some parts of the documentation might be outdated so you need to find the correct way to set the mixins in the mapper). In this case, we will not modify the DTOs but just filter entities based on properties at the REST module level. Let's filter out *"imageMimeType"* from the products.
 
 * in the **eshop-rest** module, create a new package **cz.fi.muni.pa165.rest.mixin** with a new class **ProductDTOMixin**;
-* Annotate this class with either **@JsonIgnoreProperties** class-level annotation with indication of the fields or **@JsonIgnore** for the field(s) you want to ignore;
+* Annotate this class with either **@JsonIgnoreProperties** class-level annotation with indication of the fields or **@JsonIgnore** for the field(s) you want to ignore. In this mixin class, you need to provide the same signature for fields as in the original DTO and annotate the class/field(s) with one of the mentioned annotations;
 * configure the **objectMapper** by mapping the mixin just created to the **ProductDTO** class;
 
 There are also more ways to filter JSON responses (that we do not cover here), as using JSON Filters ( [http://wiki.fasterxml.com/JacksonFeatureJsonFilter](http://wiki.fasterxml.com/JacksonFeatureJsonFilter)).
@@ -191,7 +197,7 @@ public class ProductResourceAssembler implements ResourceAssembler<ProductDTO,
 
 Implement the needed abstract method **toResource**, that will map one **ProductDTO** to a **Resource<ProductDTO>**.
 Inside the method, you want to:
-* Create a new **Resource<DTO>** by using in the constructor **ProductDTO**;
+* Create a new **Resource<ProductDTO>** by using in the constructor **ProductDTO**. Some line like ```Resource<ProductDTO> productResource = new Resource<ProductDTO>(productDTO);```: we are wrapping the original DTO in a resource that we will populate then with links to resources;
 * add a link to the main resource **withSelfRel** so that you will add to the resource something similar to ``` "links":[{"rel":"self","href":"http://localhost:8080/eshop-rest/products_hateoas/1"}] ``` (hint: you can get link to the base URI with **linkTo(ProductsControllerHateoas.class)** );
 * return the product resource;
           
@@ -214,7 +220,7 @@ Move to step7:
 git checkout -f seminar10_step7
 ```
 
-In the current version of the API, we are using **@ResponseStatus** annotated custom exceptions that are thrown by the different RestControllers. You can look at them in the **cz.fi.muni.pa165.rest.exceptions** package. Even though error messages can be added with the **reason** parameter, we would like to return a more structured error message, as well managing exceptions in a central place. With a returned error message, apart from the HTTP code, we can also return more information about the error:
+In the current version of the API, we are using **@ResponseStatus** annotated custom exceptions that are thrown by the different RestControllers. You can look at them in the **cz.fi.muni.pa165.rest.exceptions** package (you can also look at lecture slides for more details). Even though error messages can be added with the **reason** parameter, we would like to return a more structured error message, as well managing exceptions in a central place. With a returned error message, apart from the HTTP code, we can also return more information about the error:
 
 ```
 {

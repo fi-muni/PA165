@@ -3,6 +3,7 @@ package cz.fi.muni.pa165;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.rest.mixin.ProductDTOMixin;
@@ -49,7 +50,8 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
         //objectMapper.setDateFormat(new ISO8601DateFormat());
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
         objectMapper.addMixIn(ProductDTO.class, ProductDTOMixin.class);
-        
+        objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
+   
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
