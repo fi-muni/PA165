@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import cz.fi.muni.pa165.dto.ProductDTO;
+import cz.fi.muni.pa165.dto.UserDTO;
 import cz.fi.muni.pa165.rest.mixin.ProductDTOMixin;
+import cz.fi.muni.pa165.rest.mixin.UserDTOMixin;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -47,9 +48,11 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        //objectMapper.setDateFormat(new ISO8601DateFormat());
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
+        
         objectMapper.addMixIn(ProductDTO.class, ProductDTOMixin.class);
+        objectMapper.addMixIn(UserDTO.class,    UserDTOMixin.class);
+        
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
    
         jsonConverter.setObjectMapper(objectMapper);

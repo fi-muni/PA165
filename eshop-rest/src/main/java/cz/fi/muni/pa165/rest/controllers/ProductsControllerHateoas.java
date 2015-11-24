@@ -35,7 +35,6 @@ import org.springframework.web.context.request.WebRequest;
  */
 @RestController
 @RequestMapping("/products_hateoas")
-@ExposesResourceFor(UserDTO.class)
 public class ProductsControllerHateoas {
 
     final static Logger logger = LoggerFactory.getLogger(ProductsControllerHateoas.class);
