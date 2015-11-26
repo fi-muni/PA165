@@ -55,12 +55,11 @@ public class CategoriesController {
 
         logger.debug("rest getCategory({})", id);
 
-        try {
-            CategoryDTO categoryDTO = categoryFacade.getCategoryById(id);
-            return categoryDTO;
-        } catch (Exception ex) {
+        CategoryDTO categoryDTO = categoryFacade.getCategoryById(id);
+        if (categoryDTO == null) {
             throw new ResourceNotFoundException();
         }
 
+        return categoryDTO;
     }
 }

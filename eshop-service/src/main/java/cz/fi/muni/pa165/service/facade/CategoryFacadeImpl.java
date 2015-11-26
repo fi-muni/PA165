@@ -37,7 +37,8 @@ public class CategoryFacadeImpl implements CategoryFacade
     @Override 
     public CategoryDTO getCategoryById(Long id)
     {
-        return beanMappingService.mapTo(categoryService.findById(id),CategoryDTO.class);
+        Category category = categoryService.findById(id);
+        return (category == null) ? null : beanMappingService.mapTo(category,CategoryDTO.class);
     }
 
     @Override

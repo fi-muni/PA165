@@ -56,13 +56,12 @@ public class UsersController {
     public final UserDTO getUser(@PathVariable("id") long id) throws Exception {
 
         logger.debug("rest getUser({})", id);
-
-        try {
-            UserDTO userDTO = userFacade.findUserById(id);
-            return userDTO;
-        } catch (Exception ex) {
+         UserDTO userDTO = userFacade.findUserById(id);
+         if (userDTO == null){
             throw new ResourceNotFoundException();
-        }
+         }
+         return userDTO;
+        
 
     }
 }

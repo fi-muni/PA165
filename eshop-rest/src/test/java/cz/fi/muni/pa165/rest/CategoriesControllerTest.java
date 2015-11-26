@@ -90,7 +90,7 @@ public class CategoriesControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getInvalidCategory() throws Exception {
-        doThrow(new RuntimeException("")).when(categoryFacade).getCategoryById(1l);
+        doReturn(null).when(categoryFacade).getCategoryById(1l);
 
         mockMvc.perform(get("/categories/1"))
                 .andExpect(status().is4xxClientError());

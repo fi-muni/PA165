@@ -30,6 +30,8 @@ import cz.fi.muni.pa165.rest.controllers.UsersController;
 import cz.fi.muni.pa165.rest.exceptions.ResourceNotFoundException;
 import static org.mockito.Mockito.doThrow;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import org.springframework.web.context.WebApplicationContext;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -48,6 +50,7 @@ public class UsersControllerTest extends AbstractTestNGSpringContextTests {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = standaloneSetup(usersController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+        
     }
 
     @Test
@@ -88,7 +91,8 @@ public class UsersControllerTest extends AbstractTestNGSpringContextTests {
 
      @Test
     public void getInvalidUser() throws Exception {
-        doThrow(new RuntimeException()).when(userFacade).findUserById(1l);
+        doReturn(null).when(userFacade).findUserById(1l);
+        
 
         mockMvc.perform(get("/users/1"))
                 .andExpect(status().is4xxClientError());

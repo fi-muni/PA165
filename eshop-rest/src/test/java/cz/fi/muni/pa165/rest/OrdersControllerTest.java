@@ -136,7 +136,7 @@ public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
 
      @Test
     public void getInvalidOrder() throws Exception {
-        doThrow(new RuntimeException()).when(orderFacade).getOrderById(1l);
+        doReturn(null).when(orderFacade).getOrderById(1l);
 
         mockMvc.perform(get("/orders/1"))
                 .andExpect(status().is4xxClientError());

@@ -90,7 +90,8 @@ public class ProductFacadeImpl implements ProductFacade {
 
 	@Override
 	public ProductDTO getProductWithId(Long id) {
-		return beanMappingService.mapTo(productService.findById(id), ProductDTO.class);
+                Product product = productService.findById(id);
+		return (product == null) ? null : beanMappingService.mapTo(product, ProductDTO.class);
 	}
 
 	@Override
