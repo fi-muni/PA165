@@ -70,6 +70,7 @@
         <module>eshop-sample-data</module>
         <module>eshop-spring-mvc</module>
         <module>eshop-rest</module>
+        <module>eshop-ws</module>
         <module>eshop-fe</module>
     </modules>
 </project>
