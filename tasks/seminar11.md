@@ -24,7 +24,7 @@ You can have a look also at the **WebServiceConfig** class for configuration of 
 
 In the comments there are several references to Spring documentation, that you can follow if you are interested in one particular part. 
 
-First we test the available endpoint with **curl**. Save the following SOAP message in one file called **request.xml** in a directory ouside from the project (you can open another shell for this).
+First we test the available endpoint with **curl**. Save the following SOAP message in one file called **request.xml** in a directory outside from the project (you can open another shell for this).
 
 ```
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
