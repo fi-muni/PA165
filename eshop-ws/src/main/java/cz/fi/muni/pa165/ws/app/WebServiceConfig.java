@@ -73,4 +73,30 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new SimpleXsdSchema(new ClassPathResource("products.xsd"));
     }
 
+    /**
+     * adding the payload interceptor
+     *
+     * @param interceptors
+     */
+    @Override
+    public void addInterceptors(List<EndpointInterceptor> interceptors) {
+        interceptors.add(this.myPayLoadInterceptor());
+    }
+
+    /**
+     * We are setting here a payload interceptor to validate both requests and
+     * responses See
+     * http://docs.spring.io/spring-ws/site/apidocs/org/springframework/ws/soap/server/endpoint/interceptor/PayloadValidatingInterceptor.html
+     *
+     * @return
+     */
+    @Bean
+    public PayloadValidatingInterceptor myPayLoadInterceptor() {
+        final PayloadValidatingInterceptor interceptor = new PayloadValidatingInterceptor();
+        interceptor.setXsdSchema(this.productsSchema());
+        interceptor.setValidateRequest(true);
+        interceptor.setValidateResponse(true);
+        return interceptor;
+    }
+
 }
