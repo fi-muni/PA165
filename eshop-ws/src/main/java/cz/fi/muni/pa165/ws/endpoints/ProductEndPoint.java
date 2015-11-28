@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.ws.endpoints;
 
 import cz.fi.muni.pa165.ws.entities.products.GetProductRequestByName;
 import cz.fi.muni.pa165.ws.entities.products.GetProductResponse;
+import cz.fi.muni.pa165.ws.entities.products.GetProductsRequest;
 import cz.fi.muni.pa165.ws.entities.products.Product;
 import cz.fi.muni.pa165.ws.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +45,33 @@ public class ProductEndPoint {
             final Product product = productRepository.getProductByName(request.getName());
 
             
-            response.setProduct(product);
+            response.getProduct().add(product);
             return response;
             
 	}
         
         
-        // TODO: Create here a method to return all Products, getProducts() or getAllProducts() with signature List<Product>
+            /**
+         * 
+         *  Get all the products that are available 
+         * 
+         */
+        
+        @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductsRequest")
+	@ResponsePayload
+	public GetProductResponse getProducts(@RequestPayload GetProductsRequest request) {
+		
+            final GetProductResponse response = new GetProductResponse();
+            final List<Product> products = productRepository.getProducts();
+            
+            for (Product product : products) {
+                response.getProduct().add(product);
+            }
+
+            return response;
+            
+	}
+
       
     
 }

@@ -4,4 +4,8 @@
     <logger name="org.springframework.web" level="DEBUG"/>
     <logger name="org.springframework.boot" level="DEBUG" />    
     
+    
+    <logger name="org.springframework.ws.server.MessageTracing.sent" level="TRACE" />
+    <logger name="org.springframework.ws.server.MessageTracing.received" level="TRACE" />
+    
 </configuration>
