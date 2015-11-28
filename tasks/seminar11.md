@@ -5,7 +5,7 @@ You can see the complete solution in the branch [seminar11](https://github.com/f
 
 **Task 01 (project build)** 
 
-In a new folder, checkout the tag *seminar11_step1* from https://github.com/fi-muni/PA165 and build the whole project. Then run the **eshop-ws** subproject. **Note:** some of the resources of the project are generated from XSD definitions, so you might get unresolved references to Java classes until you build the project.
+In a new folder, checkout the tag *seminar11_step1* from https://github.com/fi-muni/PA165 and build the whole project. Then run the **eshop-ws** subproject. **Note:** some of the resources of the project are generated from XSD definitions, so you might get unresolved references to Java classes until you build the project. If you do schema modifications, remember to run ```mvn clean install``` in the **eshop-ws** module.
 
 ```
 mkdir seminar11
@@ -13,7 +13,7 @@ cd seminar11
 git clone -b seminar11_step1 https://github.com/fi-muni/PA165
 cd PA165/
 module add maven
-mvn install
+mvn clean install
 cd eshop-ws
 mvn tomcat7:run
 ```
@@ -67,9 +67,8 @@ Our goal in this step is to build a *"contract-first"* application based on a sc
 
 In this step we deal with the creation of the schema. Follow the TODOs in **products.xsd** and **ProductEndPoint** in particular we need to:
 
-* modify the schema of products according to the TODOs. Among the TODOs, you will have to add a new request that can be used to search by name and modify the existing response so that it can support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition);
-* add a method to get all the products;
-* create an endpoint to return all the products;
+* modify the schema of products according to the TODOs. Among the TODOs, you will have to add a new request getProductRequestByName that can be used to search by name and modify the existing response getProductResponse so that it can support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition). You may also create another request getProductsRequest to be used without parameter;
+* add a method to get all the products in the **ProductEndPoint** (note: the return type is **GetProductResponse** contrary to what written in the TODO. This is the new class that supports also multiple products with the change in **products.xsd**);
 
 It is also good idea to change the logback configuration so that you can get information about the SOAP messages exchanged. You can add the level to DEBUG or TRACE in **src/main/resources/logback.xml** for ```org.springframework.ws.server.MessageTracing.sent``` and ```org.springframework.ws.server.MessageTracing.received``` and see the SOAP messages after rebuilding the **eshop-ws** project.
 
