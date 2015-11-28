@@ -65,10 +65,9 @@ git checkout -f seminar11_step2
 
 Our goal in this step is to build a *"contract-first"* application based on a schema that resembles the domain model we used to so far in the *eshop application*. 
 
-In this step we deal with the creation of the schema. Follow the TODOs in **products.xsd**, **ProductEndPoint** and **ProductRepository** in particular we need to:
+In this step we deal with the creation of the schema. Follow the TODOs in **products.xsd** and **ProductEndPoint** in particular we need to:
 
-* modify the schema of products to add more elements than those included;
-* add a new request for all the products. Currently the response supports only one product, so you need to change it to support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition);
+* modify the schema of products according to the TODOs. Among the TODOs, you will have to add a new request that can be used to search by name and modify the existing response so that it can support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition);
 * add a method to get all the products;
 * create an endpoint to return all the products;
 
