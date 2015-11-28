@@ -105,7 +105,7 @@ The response in this case will be like the following:
 </SOAP-ENV:Envelope>
 ```
 
-Also add one method that tests the method about getting all the products (see the TODO in **ProductEndpointTest**, there is an helper response).
+Also add one method that tests the method about getting all the products (see the TODO in **ProductEndpointTest**, there is an helper response). Run all the tests and ensure that they pass. You can also try the running application with curl if you want to.
 
 **Task 04 (Schema Validation)** 
 
