@@ -5,17 +5,10 @@
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="value" type="xs:decimal"/>
-            <xs:element name="currency" type="tns:Currency"/>
+            <xs:element name="currency" type="tns:Currency"/> <!-- TODO: need to create a new Currecy simpletype, you can add it below -->
             <xs:element name="dateStart" type="xs:date"/>
         </xs:sequence>
     </xs:complexType>
 
-
-    <xs:simpleType name="Currency">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="EUR"/>
-            <xs:enumeration value="CZK"/>
-            <xs:enumeration value="USD"/>
-        </xs:restriction>
-    </xs:simpleType>
+    
 </xs:schema>

@@ -5,26 +5,22 @@ xmlns:tns2="http://muni.fi.cz/pa165/ws/entities/prices"
     <xs:import namespace="http://muni.fi.cz/pa165/ws/entities/prices" schemaLocation="prices.xsd" /> 
 
     <!-- Various requests and responses needed for operations on products -->
-    <xs:element name="getProductRequestByName">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
 
+    <!-- TODO: add a new element for the request to search by name. You can call the element getProductRequestByName that will have
+         a string parameter for searching by name    -->
+
+
+   <!-- TODO: change this response to support multiple products --> 
     <xs:element name="getProductResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="product" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="product" type="tns:product" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getProductsRequest">
-        <xs:complexType>
-        </xs:complexType>
-    </xs:element>
+    
+
 
     <!-- Definition of type product -->
     <xs:complexType name="product">
@@ -35,7 +31,7 @@ xmlns:tns2="http://muni.fi.cz/pa165/ws/entities/prices"
             <xs:element name="addedDate" type="xs:date" />
             <xs:element name="category" type="tns:category" minOccurs="0" maxOccurs="unbounded" />
             <xs:element name="color" type="tns:Color"/>
-            <xs:element name="price" type="tns2:price"/>
+            <xs:element name="price" type="tns2:price"/>  <!-- TODO: open prices.xsd and update the schema there -->
         </xs:sequence>
     </xs:complexType>
     
