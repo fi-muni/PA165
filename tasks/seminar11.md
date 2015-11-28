@@ -80,15 +80,16 @@ Move to step3:
 git checkout -f seminar11_step3 
 ```
 
-We want now to provide tests for SOAP requests and responses for the methods that have been created. In the test package **cz.fi.muni.pa165.ws.test**, open the class **ProductEndpointTest** and follow the TODOs.
+We want now to provide tests for SOAP requests and responses for the methods that have been created. In the test package **cz.fi.muni.pa165.ws.test**, open the class **ProductEndpointTest** and add one test method for a Product that does not exist.
 
-In particular you will:
-* add a test for an invalid product. When a product that does not exist in the service is requested, we want to return a SOAP Fault to the requestor. Hint: for this test, you can use serverOrReceiverFault() to test for the specific fault reason. To do this, you will also need a better way to manage exceptions, by using the **@SoapFault** annotation for exceptions that will be mapped to a SOAP Fault. Example given:
+In particular you need to:
+* when a product that does not exist in the service is requested, we want to return a SOAP Fault to the requestor. Hint: for this test, you can use serverOrReceiverFault() to test for the specific fault reason. To do this, you will also need a better way to manage exceptions, by using the **@SoapFault** annotation for exceptions that will be mapped to a SOAP Fault. Example given:
 
 ```
 @SoapFault(faultCode = FaultCode.SERVER, faultStringOrReason = "Product not found." )
 
 ```
+Remember to throw such an annotated exception from the **ProductEndpoint**, in case no product is found.
 
 The response in this case will be like the following:
 
@@ -104,6 +105,7 @@ The response in this case will be like the following:
 </SOAP-ENV:Envelope>
 ```
 
+Also add one method that tests the method about getting all the products (see the TODO in **ProductEndpointTest**, there is an helper response).
 
 **Task 04 (Schema Validation)** 
 

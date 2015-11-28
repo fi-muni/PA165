@@ -63,6 +63,31 @@ public class ProductEndpointTest extends AbstractTestNGSpringContextTests {
     }
 
     
+    // TODO1: add a test method to test for an invalid product request
+    
+    
+    
+    // TODO2: add a test method for all products. You can check it against a response as the following: 
+//    
+//    Source responsePayload = new StringSource(
+//                "<ns2:getProductResponse xmlns:ns2='http://muni.fi.cz/pa165/ws/entities/products'"
+//                + " xmlns:ns3='http://muni.fi.cz/pa165/ws/entities/prices' >"        
+//                + "<ns2:product><ns2:id>1</ns2:id><ns2:name>Raspberry PI</ns2:name><ns2:description>miniPC</ns2:description>"
+//                + "<ns2:price><ns3:id>0</ns3:id><ns3:value>35.99</ns3:value><ns3:currency>CZK</ns3:currency></ns2:price> "
+//                + "<ns2:color>GREEN</ns2:color>"
+//                + "</ns2:product>"
+//                + "<ns2:product><ns2:id>2</ns2:id><ns2:name>Arduino Uno</ns2:name><ns2:description>miniPC</ns2:description>"
+//                + "<ns2:price><ns3:id>0</ns3:id><ns3:value>45.99</ns3:value><ns3:currency>CZK</ns3:currency></ns2:price> "
+//                + "<ns2:color>BLUE</ns2:color>"
+//                + "</ns2:product>"
+//                + "<ns2:product><ns2:id>3</ns2:id><ns2:name>Arduino Zero</ns2:name><ns2:description>miniPC</ns2:description>"
+//                + "<ns2:price><ns3:id>0</ns3:id><ns3:value>55.99</ns3:value><ns3:currency>CZK</ns3:currency></ns2:price> "
+//                + "<ns2:color>BLUE</ns2:color>"
+//                + "</ns2:product>"
+//                        
+//                +        "</ns2:getProductResponse>");
+    
+    
     /**
      * Test by passing a request based on a products's name: expected return is a
      * payload with getProductResponse format
