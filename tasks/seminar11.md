@@ -5,7 +5,7 @@ You can see the complete solution in the branch [seminar11](https://github.com/f
 
 **Task 01 (project build)** 
 
-In a new folder, checkout the tag *seminar11_step1* from https://github.com/fi-muni/PA165 and build the whole project. Then run the **eshop-ws** subproject. **Note:** some of the resources of the project are generated from XSD definitions, so you might get unresolved references to Java classes until you build the project.
+In a new folder, checkout the tag *seminar11_step1* from https://github.com/fi-muni/PA165 and build the whole project. Then run the **eshop-ws** subproject. **Note:** some of the resources of the project are generated from XSD definitions, so you might get unresolved references to Java classes until you build the project. If you do schema modifications, remember to run ```mvn clean install``` in the **eshop-ws** module.
 
 ```
 mkdir seminar11
@@ -13,7 +13,7 @@ cd seminar11
 git clone -b seminar11_step1 https://github.com/fi-muni/PA165
 cd PA165/
 module add maven
-mvn install
+mvn clean install
 cd eshop-ws
 mvn tomcat7:run
 ```
@@ -24,7 +24,7 @@ You can have a look also at the **WebServiceConfig** class for configuration of 
 
 In the comments there are several references to Spring documentation, that you can follow if you are interested in one particular part. 
 
-First we test the available endpoint with **curl**. Save the following SOAP message in one file called **request.xml** in a directory ouside from the project (you can open another shell for this).
+First we test the available endpoint with **curl**. Save the following SOAP message in one file called **request.xml** in a directory outside from the project (you can open another shell for this).
 
 ```
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -65,12 +65,10 @@ git checkout -f seminar11_step2
 
 Our goal in this step is to build a *"contract-first"* application based on a schema that resembles the domain model we used to so far in the *eshop application*. 
 
-In this step we deal with the creation of the schema. Follow the TODOs in **products.xsd**, **ProductEndPoint** and **ProductRepository** in particular we need to:
+In this step we deal with the creation of the schema. Follow the TODOs in **products.xsd** and **ProductEndPoint** in particular we need to:
 
-* modify the schema of products to add more elements than those included;
-* add a new request for all the products. Currently the response supports only one product, so you need to change it to support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition);
-* add a method to get all the products;
-* create an endpoint to return all the products;
+* modify the schema of products according to the TODOs. Among the TODOs, you will have to add a new request getProductRequestByName that can be used to search by name and modify the existing response getProductResponse so that it can support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition). You may also create another request getProductsRequest to be used without parameter;
+* add a method to get all the products in the **ProductEndPoint** (note: the return type is **GetProductResponse** contrary to what written in the TODO. This is the new class that supports also multiple products with the change in **products.xsd**);
 
 It is also good idea to change the logback configuration so that you can get information about the SOAP messages exchanged. You can add the level to DEBUG or TRACE in **src/main/resources/logback.xml** for ```org.springframework.ws.server.MessageTracing.sent``` and ```org.springframework.ws.server.MessageTracing.received``` and see the SOAP messages after rebuilding the **eshop-ws** project.
 
@@ -82,15 +80,16 @@ Move to step3:
 git checkout -f seminar11_step3 
 ```
 
-We want now to provide tests for SOAP requests and responses for the methods that have been created. In the test package **cz.fi.muni.pa165.ws.test**, open the class **ProductEndpointTest** and follow the TODOs.
+We want now to provide tests for SOAP requests and responses for the methods that have been created. In the test package **cz.fi.muni.pa165.ws.test**, open the class **ProductEndpointTest** and add one test method for a Product that does not exist.
 
-In particular you will:
-* add a test for an invalid product. When a product that does not exist in the service is requested, we want to return a SOAP Fault to the requestor. Hint: for this test, you can use serverOrReceiverFault() to test for the specific fault reason. To do this, you will also need a better way to manage exceptions, by using the **@SoapFault** annotation for exceptions that will be mapped to a SOAP Fault. Example given:
+In particular you need to:
+* when a product that does not exist in the service is requested, we want to return a SOAP Fault to the requestor. Hint: for this test, you can use serverOrReceiverFault() to test for the specific fault reason. To do this, you will also need a better way to manage exceptions, by using the **@SoapFault** annotation for exceptions that will be mapped to a SOAP Fault. Example given:
 
 ```
 @SoapFault(faultCode = FaultCode.SERVER, faultStringOrReason = "Product not found." )
 
 ```
+Remember to throw such an annotated exception from the **ProductEndpoint**, in case no product is found.
 
 The response in this case will be like the following:
 
@@ -106,6 +105,7 @@ The response in this case will be like the following:
 </SOAP-ENV:Envelope>
 ```
 
+Also add one method that tests the method about getting all the products (see the TODO in **ProductEndpointTest**, there is an helper response). Run all the tests and ensure that they pass. You can also try the running application with curl if you want to.
 
 **Task 04 (Schema Validation)** 
 
