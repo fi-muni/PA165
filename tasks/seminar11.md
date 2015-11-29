@@ -41,16 +41,31 @@ From the directory in which you created the file, you can try to get the respons
 
 ```curl --header "content-type: text/xml" -d @request.xml http://localhost:8080/spring-ws-seminar/products.wsdl```
 
+To get nicer formatted output you can pipe to *xmllint* if available:
+
+```curl --header "content-type: text/xml" -d @request.xml http://localhost:8080/spring-ws-seminar/products.wsdl | xmllint --format -```
+
 If all goes fine, you should see a *similar* response as the following:
 
 ```
 <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
   <SOAP-ENV:Header/>
-    <SOAP-ENV:Body>
-      <ns2:getProductResponse xmlns:ns2="http://muni.fi.cz/pa165/ws/entities/products" xmlns:ns3="http://muni.fi.cz/pa165/ws/entities/prices" >
-        <ns2:product><ns2:id>1</ns2:id><ns2:name>Raspberry PI</ns2:name><ns2:description>miniPC</ns2:description><ns2:addedDate>2015-11-28+01:00</ns2:addedDate><ns2:color>GREEN</ns2:color></ns2:product>
-      </ns2:getProductResponse>
-     </SOAP-ENV:Body>
+  <SOAP-ENV:Body>
+    <ns2:getProductResponse xmlns:ns2="http://muni.fi.cz/pa165/ws/entities/products" xmlns:ns3="http://muni.fi.cz/pa165/ws/entities/prices">
+      <ns2:product>
+        <ns2:id>1</ns2:id>
+        <ns2:name>Raspberry PI</ns2:name>
+        <ns2:description>miniPC</ns2:description>
+        <ns2:addedDate>2015-11-29+01:00</ns2:addedDate>
+        <ns2:color>GREEN</ns2:color>
+        <ns2:price>
+          <ns3:id>0</ns3:id>
+          <ns3:value>35.99</ns3:value>
+          <ns3:currency>CZK</ns3:currency>
+        </ns2:price>
+      </ns2:product>
+    </ns2:getProductResponse>
+  </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>
 ```
 
@@ -67,7 +82,7 @@ Our goal in this step is to build a *"contract-first"* application based on a sc
 
 In this step we deal with the creation of the schema. Follow the TODOs in **products.xsd** and **ProductEndPoint** in particular we need to:
 
-* modify the schema of products according to the TODOs. Among the TODOs, you will have to add a new request getProductRequestByName that can be used to search by name and modify the existing response getProductResponse so that it can support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition). You may also create another request getProductsRequest to be used without parameter;
+* modify the schema of products according to the TODOs. Among the TODOs, you will have to add a new request getProductRequestByName that can be used to search by name and modify the existing response getProductResponse so that it can support more products (hint: you can use ```minOccurs="0" maxOccurs="unbounded"``` in the schema definition. You can read more about XSD constraints [here](http://www.w3.org/TR/xmlschema-0/#OccurrenceConstraints)). You may also create another request getProductsRequest to be used without parameter;
 * add a method to get all the products in the **ProductEndPoint** (note: the return type is **GetProductResponse** contrary to what written in the TODO. This is the new class that supports also multiple products with the change in **products.xsd**);
 
 It is also good idea to change the logback configuration so that you can get information about the SOAP messages exchanged. You can add the level to DEBUG or TRACE in **src/main/resources/logback.xml** for ```org.springframework.ws.server.MessageTracing.sent``` and ```org.springframework.ws.server.MessageTracing.received``` and see the SOAP messages after rebuilding the **eshop-ws** project.
@@ -114,9 +129,10 @@ Move to step4:
 git checkout -f seminar11_step4
 ```
 
-It is a good idea to validate the schema of the requests and responses. For this, we can add an interceptor. Spring-WS gives you the possibility of adding interceptors for different purposes. We will use in this case the **PayloadValidatingInterceptor**. Open the class **WebServiceConfig** and follow the TODOs:
+It is a good idea to validate the schema of the requests and responses. For this, we can add an interceptor. Spring-WS gives you the possibility of adding interceptors for different purposes. We will use in this case the **PayloadValidatingInterceptor**. Open the class **WebServiceConfig** and implement the following changes:
 
-* you can register a new bean of type **PayloadValidatingInterceptor**;
+* register a new bean of type **PayloadValidatingInterceptor**;
+* you need to configure the interceptor by setting the schema to validate (returned by **productsSchema()**) and set to validate requests and responses;
 * override then **addInterceptors()** and add the new interceptor;
         
 
