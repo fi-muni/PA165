@@ -107,7 +107,7 @@ public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 	public void debugTest() throws Exception {
 		doReturn(Collections.unmodifiableList(this.createProducts())).when(
 				productFacade).getAllProducts();
-		mockMvc.perform(get("/products")).andDo(print());
+		mockMvc.perform(get("/products"));//.andDo(print());
 	}
 
 	@Test
@@ -193,7 +193,7 @@ public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 
 		mockMvc.perform(
 				post("/products/create").contentType(MediaType.APPLICATION_JSON)
-						.content(json)).andDo(print())
+						.content(json))//.andDo(print())
 				.andExpect(status().isOk());
 	}
 
@@ -211,7 +211,7 @@ public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 
 		mockMvc.perform(
 				put("/products/10").contentType(MediaType.APPLICATION_JSON)
-						.content(json)).andDo(print())
+						.content(json))//.andDo(print())
 				.andExpect(status().isOk());
 
 	}
@@ -231,7 +231,8 @@ public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 		mockMvc.perform(
 				post("/products/10/categories").contentType(
 						MediaType.APPLICATION_JSON).content(json))
-				.andDo(print()).andExpect(status().isOk());
+				//.andDo(print())
+				.andExpect(status().isOk());
 
 		// TODO: need to check JSON response
 	}

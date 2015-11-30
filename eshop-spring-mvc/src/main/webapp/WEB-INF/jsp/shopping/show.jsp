@@ -27,7 +27,6 @@
                         <div class="caption">
                             <h3><c:out value="${product.name}"/></h3>
                             <span style="color: red; font-weight: bold;"><c:out value="${product.currentPrice.value}"/>&nbsp;<c:out value="${product.currentPrice.currency}"/></span>
-                            <%--<p><a href="#" class="btn btn-primary" role="button">Detail</a>--%>
                         </div>
                         </div>
                         </a>
