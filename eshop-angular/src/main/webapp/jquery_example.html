@@ -12,9 +12,27 @@
                 url: '/eshop/api/v1/products',
                 success: function (data) {
                     var products = data._embedded.productDTOList;
+                    var productsTable = $('#products_list');
+                    productsTable.empty(); //remove all existing rows
                     for(var i=0;i<products.length;i++) {
                         var p = products[i];
-                        $('#products_list').append('<tr><td>'+p.id+'</td><td>'+p.name+'</td><td>'+p.currentPrice.value+' '+p.currentPrice.currency+'</td></tr>');
+                        productsTable.append('<tr><td>'+p.id+'</td><td>'+p.name+'</td><td>'+p.currentPrice.value+' '+p.currentPrice.currency+'</td></tr>');
+                    }
+                }
+            });
+        }
+
+        function loadCategories() {
+            $.ajax({
+                type: 'GET',
+                url: '/eshop/api/v1/categories',
+                success: function (data) {
+                    var categories = data._embedded.categoryDTOList;
+                    var categoriesTable = $('#categories_list');
+                    categoriesTable.empty();
+                    for(var i=0;i<categories.length;i++) {
+                        var p = categories[i];
+                        categoriesTable.append('<tr><td>'+p.id+'</td><td>'+p.name+'</td></tr>');
                     }
                 }
             });
@@ -42,6 +60,22 @@
     </thead>
     <tbody id="products_list"></tbody>
 </table>
+
+<hr>
+
+<button onclick="loadCategories()">Load all categories to table</button>
+
+<table class="basic">
+    <caption>Categories</caption>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+    </thead>
+    <tbody id="categories_list"></tbody>
+</table>
+
 
 </body>
 </html>
