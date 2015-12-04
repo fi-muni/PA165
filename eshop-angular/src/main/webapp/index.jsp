@@ -31,13 +31,6 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#!/shopping">Go shopping</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#!/admin/products">Products</a></li>
-                        <li><a href="#!/admin/categories">Categories</a></li>
-                    </ul>
-                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -46,23 +39,7 @@
 <div class="container">
 
     <div ng-app="pa165eshopApp"><!-- AngularJS takes care of this element -->
-
-        <!-- Bootstrap-styled alerts, visible when $rootScope.xxxAlert is defined -->
-        <div ng-show="warningAlert" class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" aria-label="Close" ng-click="hideWarningAlert()"> <span aria-hidden="true">&times;</span></button>
-            <strong>Warning!</strong> <span>{{warningAlert}}</span>
-        </div>
-        <div ng-show="errorAlert" class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" aria-label="Close" ng-click="hideErrorAlert()"> <span aria-hidden="true">&times;</span></button>
-            <strong>Error!</strong> <span>{{errorAlert}}</span>
-        </div>
-        <div ng-show="successAlert" class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" aria-label="Close" ng-click="hideSuccessAlert()"> <span aria-hidden="true">&times;</span></button>
-            <strong>Success !</strong> <span>{{successAlert}}</span>
-        </div>
-
-        <!-- the place where HTML templates are replaced by AngularJS routing -->
-        <div ng-view></div>
+        <div ng-view></div><!-- the place where HTML templates are replaced by AngularJS routing -->
     </div>
 
     <footer class="footer">
