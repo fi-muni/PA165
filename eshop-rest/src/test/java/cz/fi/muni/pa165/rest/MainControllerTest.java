@@ -26,7 +26,7 @@ public class MainControllerTest extends AbstractTestNGSpringContextTests {
     @Test
     public void mainControllerTest() throws Exception {
 
-        mockMvc.perform(get("/")).andDo(print())                
+        mockMvc.perform(get("/"))//.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))

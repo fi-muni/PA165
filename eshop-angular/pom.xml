@@ -8,10 +8,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>eshop-spring-mvc</artifactId>
+    <artifactId>eshop-angular</artifactId>
     <packaging>war</packaging>
 
-    <name>Web front end implemented in Spring MVC</name>
+    <name>Web front end implemented in AngularJS and REST</name>
 
     <developers>
         <developer>
@@ -53,8 +53,28 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.plugin</groupId>
+            <artifactId>spring-plugin-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${json-path.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
 
-        <!-- validator for bean properties -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -110,6 +130,21 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/eshop</path>
+                </configuration>
+            </plugin>
+            <!-- try "mavn javadoc:javadoc" and see target/site/apidocs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <detectLinks>true</detectLinks>
+                    <links>
+                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                        <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>
+                        <link>http://docs.spring.io/spring-hateoas/docs/current/api/</link>
+                        <link>http://fasterxml.github.io/jackson-annotations/javadoc/2.5/</link>
+                        <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                    </links>
                 </configuration>
             </plugin>
         </plugins>

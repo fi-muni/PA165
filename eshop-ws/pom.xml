@@ -12,8 +12,6 @@
     <artifactId>spring-ws-seminar</artifactId>
     <packaging>war</packaging>
     <name>WS Seminar</name>
-    <version>0.1.0</version>
-    
 
     <dependencies>
       

@@ -18,7 +18,7 @@
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>1.1.4.RELEASE</version>
+        <version>2.0.0.RELEASE</version>
         <relativePath/>
     </parent>
     <!-- specifies versions not defined by the Spring platform-bom -->
@@ -31,19 +31,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-api</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>net.sf.dozer</groupId>
                 <artifactId>dozer</artifactId>
                 <version>5.5.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path</artifactId>
-                <version>1.2.0</version><!-- spring-test 4.1.8 uses this version as compile dependency -->
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -71,6 +61,6 @@
         <module>eshop-spring-mvc</module>
         <module>eshop-rest</module>
         <module>eshop-ws</module>
-        <module>eshop-fe</module>
+        <module>eshop-angular</module>
     </modules>
 </project>

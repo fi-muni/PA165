@@ -1,0 +1,17 @@
+<form name="form"  novalidate class="form-horizontal">
+
+    <div class="form-group" ng-class="{'has-error': !(form.name.$valid)}">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input placeholder="name" id="name" type="text" ng-minlength="3" name="name" class="form-control"
+                   ng-model="category.name" required/>
+            <p class="help-block" ng-show="form.name.$error.required">name is required</p>
+            <p class="help-block" ng-show="form.name.$error.minlength">name must be at least 3 characters</p>
+        </div>
+    </div>
+
+    <!-- show disabled button if form is not valid -->
+    <button ng-show="!form.$valid" disabled class="btn btn-primary" type="submit">Create category</button>
+    <!-- show active button is form is valid -->
+    <button ng-show="form.$valid" class="btn btn-primary" type="submit" ng-click="create(category)">Create category</button>
+</form>
