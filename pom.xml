@@ -116,9 +116,6 @@
         <module>eshop-persistence</module>
         <module>eshop-service</module>
         <module>eshop-sample-data</module>
-        <module>eshop-spring-mvc</module>
-        <module>eshop-rest</module>
-        <module>eshop-ws</module>
         <module>eshop-angular</module>
     </modules>
 </project>
