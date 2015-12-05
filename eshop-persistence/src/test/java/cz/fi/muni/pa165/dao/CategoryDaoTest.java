@@ -35,6 +35,11 @@ public class CategoryDaoTest  extends AbstractTestNGSpringContextTests{
 	private EntityManager em;
 	
 	@Test
+	public void showPostProcessor(){
+		Category cat = categoryDao.findByName("xx");
+	}
+	
+	@Test
 	public void findAll(){
 		Category cat1 = new Category();
 		Category cat2 = new Category();
