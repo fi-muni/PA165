@@ -28,12 +28,11 @@ import cz.fi.muni.pa165.dao.UserDao;
 public class PersistenceSampleApplicationContext {
 	
 	
-//	@Bean
-//	public PersistenceExceptionTranslationPostProcessor postProcessor(){
-//		PersistenceExceptionTranslationPostProcessor pp = new PersistenceExceptionTranslationPostProcessor();
-//		return pp;
-//	}
-//	
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor postProcessor(){
+		PersistenceExceptionTranslationPostProcessor pp = new PersistenceExceptionTranslationPostProcessor();
+		return pp;
+	}
 	
 	
 	@Bean 
