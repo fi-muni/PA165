@@ -49,7 +49,5 @@
     </div>
 
     <!-- show disabled button if form is not valid -->
-    <button ng-show="!form.$valid" disabled class="btn btn-primary" type="submit">Create product</button>
-    <!-- show active button is form is valid -->
-    <button ng-show="form.$valid" class="btn btn-primary" type="submit" ng-click="create(product)">Create product</button>
+    <button ng-disabled="!form.$valid" class="btn btn-primary" type="submit" ng-click="create(product)">Create product</button>
 </form>

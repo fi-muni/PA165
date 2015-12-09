@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.restapi.controllers;
 import cz.fi.muni.pa165.dto.ProductCreateDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.facade.ProductFacade;
-import cz.muni.fi.pa165.restapi.exceptions.ResourceAlreadyExistingException;
+import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.restapi.exceptions.ServerProblemException;
 import cz.muni.fi.pa165.restapi.hateoas.ProductResource;
@@ -17,11 +17,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -60,12 +62,10 @@ public class ProductsRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public final HttpEntity<ProductResource> getProduct(@PathVariable("id") long id) throws Exception {
         log.debug("rest getProduct({})", id);
-        try {
-            ProductResource resource = productResourceAssembler.toResource(productFacade.getProductWithId(id));
-            return new ResponseEntity<>(resource, HttpStatus.OK);
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
+        ProductDTO productDTO = productFacade.getProductWithId(id);
+        if (productDTO == null) throw new ResourceNotFoundException("product " + id + " not found");
+        ProductResource resource = productResourceAssembler.toResource(productDTO);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/image", method = RequestMethod.GET)
@@ -89,25 +89,27 @@ public class ProductsRestController {
             productFacade.deleteProduct(id);
         } catch (IllegalArgumentException ex) {
             log.error("product " + id + " not found");
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("product " + id + " not found");
         } catch (Throwable ex) {
             log.error("cannot delete product " + id + " :" + ex.getMessage());
-            while((ex=ex.getCause())!=null) {
-                log.error("caused by : "+ex.getClass().getSimpleName()+": "+ex.getMessage());
+            Throwable rootCause=ex;
+            while ((ex = ex.getCause()) != null) {
+                rootCause = ex;
+                log.error("caused by : " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
             }
-            throw new ServerProblemException();
+            throw new ServerProblemException(rootCause.getMessage());
         }
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<ProductResource> createProduct(@RequestBody ProductCreateDTO product) throws Exception {
+    public final HttpEntity<ProductResource> createProduct(@RequestBody @Valid ProductCreateDTO product, BindingResult bindingResult) throws Exception {
         log.debug("rest createProduct()");
-        try {
-            Long id = productFacade.createProduct(product);
-            ProductResource resource = productResourceAssembler.toResource(productFacade.getProductWithId(id));
-            return new ResponseEntity<>(resource, HttpStatus.OK);
-        } catch (Exception ex) {
-            throw new ResourceAlreadyExistingException();
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation {}", bindingResult.toString());
+            throw new InvalidRequestException("Failed validation");
         }
+        Long id = productFacade.createProduct(product);
+        ProductResource resource = productResourceAssembler.toResource(productFacade.getProductWithId(id));
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 }

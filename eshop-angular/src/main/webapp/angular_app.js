@@ -15,14 +15,17 @@ pa165eshopApp.config(['$routeProvider',
         when('/admin/products', {templateUrl: 'partials/admin_products.html', controller: 'AdminProductsCtrl'}).
         when('/admin/newproduct', {templateUrl: 'partials/admin_new_product.html', controller: 'AdminNewProductCtrl'}).
         when('/admin/categories', {templateUrl: 'partials/admin_categories.html', controller: 'AdminCategoriesCtrl'}).
-        when('/admin/newcategory', {templateUrl: 'partials/admin_new_category.html', controller: 'AdminNewCategoryCtrl'}).
+        when('/admin/newcategory', {
+            templateUrl: 'partials/admin_new_category.html',
+            controller: 'AdminNewCategoryCtrl'
+        }).
         otherwise({redirectTo: '/shopping'});
     }]);
 
 /*
  * alert closing functions defined in root scope to be available in every template
  */
-pa165eshopApp.run(function($rootScope) {
+pa165eshopApp.run(function ($rootScope) {
     $rootScope.hideSuccessAlert = function () {
         $rootScope.successAlert = undefined;
     };
@@ -33,9 +36,6 @@ pa165eshopApp.run(function($rootScope) {
         $rootScope.errorAlert = undefined;
     };
 });
-
-
-
 
 
 /* Controllers */
@@ -76,13 +76,20 @@ eshopControllers.controller('ShoppingCtrl', function ($scope, $http) {
  * Product detail page
  */
 eshopControllers.controller('ProductDetailCtrl',
-    function ($scope, $routeParams, $http) {
+    function ($scope, $rootScope, $routeParams, $http) {
         // get product id from URL fragment #/product/:productId
         var productId = $routeParams.productId;
-        $http.get('/eshop/api/v1/products/' + productId).then(function (response) {
-            $scope.product = response.data;
-            console.log('AJAX loaded detail of product ' + $scope.product.name);
-        });
+        $http.get('/eshop/api/v1/products/' + productId).then(
+            function (response) {
+                $scope.product = response.data;
+                console.log('AJAX loaded detail of product ' + $scope.product.name);
+            },
+            function error(response) {
+                console.log("failed to load product "+productId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+            }
+        );
     });
 
 /*
@@ -118,20 +125,27 @@ eshopControllers.controller('AdminProductsCtrl',
         //initial load of all products
         loadAdminProducts($http, $scope);
         // function called when Delete button is clicked
-        $scope.deleteProduct = function (productId, index) {
-            var product = $scope.products[index];
-            console.log("deleting product[" + index + '] with id=' + productId + ' (' + product.name + ')');
+        $scope.deleteProduct = function (product) {
+            console.log("deleting product with id=" + product.id + ' (' + product.name + ')');
             $http.delete(product._links.delete.href).then(
                 function success(response) {
                     console.log('deleted product ' + product.id + ' on server');
                     //display confirmation alert
-                    $rootScope.successAlert='Deleted product "'+product.name+'"';
+                    $rootScope.successAlert = 'Deleted product "' + product.name + '"';
                     //load new list of all products
                     loadAdminProducts($http, $scope);
                 },
                 function error(response) {
-                    console.log('server returned error');
-                    $rootScope.errorAlert = 'Cannot delete product "'+product.name+'"! It is used in an order.';
+                    console.log("error when deleting product");
+                    console.log(response);
+                    switch (response.data.code) {
+                        case 'ResourceNotFoundException':
+                            $rootScope.errorAlert = 'Cannot delete non-existent product ! ';
+                            break;
+                        default:
+                            $rootScope.errorAlert = 'Cannot delete product ! Reason given by the server: '+response.data.message;
+                            break;
+                    }
                 }
             );
         };
@@ -167,14 +181,23 @@ eshopControllers.controller('AdminNewProductCtrl',
                 data: product
             }).then(function success(response) {
                 console.log('created product');
-                var createdProduct= response.data;
+                var createdProduct = response.data;
                 //display confirmation alert
-                $rootScope.successAlert = 'A new product "'+createdProduct.name+'" was created';
+                $rootScope.successAlert = 'A new product "' + createdProduct.name + '" was created';
                 //change view to list of products
                 $location.path("/admin/products");
             }, function error(response) {
                 //display error
-                $scope.errorAlert = 'Cannot create product !';
+                console.log("error when creating product");
+                console.log(response);
+                switch (response.data.code) {
+                    case 'InvalidRequestException':
+                        $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                        break;
+                    default:
+                        $rootScope.errorAlert = 'Cannot create product ! Reason given by the server: '+response.data.message;
+                        break;
+                }
             });
         };
     });
@@ -223,14 +246,26 @@ eshopControllers.controller('AdminNewCategoryCtrl',
                 url: '/eshop/api/v1/categories/create',
                 data: category
             }).then(function success(response) {
-                var createdCategory= response.data;
+                var createdCategory = response.data;
                 //display confirmation alert
-                $rootScope.successAlert = 'A new category "'+createdCategory.name+'" was created';
+                $rootScope.successAlert = 'A new category "' + createdCategory.name + '" was created';
                 //change view to list of products
                 $location.path("/admin/categories");
             }, function error(response) {
                 //display error
-                $scope.errorAlert = 'Cannot create category !';
+                console.log("error when creating category");
+                console.log(response);
+                switch (response.data.code) {
+                    case 'PersistenceException':
+                        $rootScope.errorAlert = 'Category with the same name already exists ! ';
+                        break;
+                    case 'InvalidRequestException':
+                        $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                        break;
+                    default:
+                        $rootScope.errorAlert = 'Cannot create category ! Reason given by the server: '+response.data.message;
+                        break;
+                }
             });
         };
     });

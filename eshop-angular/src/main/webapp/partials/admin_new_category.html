@@ -11,7 +11,5 @@
     </div>
 
     <!-- show disabled button if form is not valid -->
-    <button ng-show="!form.$valid" disabled class="btn btn-primary" type="submit">Create category</button>
-    <!-- show active button is form is valid -->
-    <button ng-show="form.$valid" class="btn btn-primary" type="submit" ng-click="create(category)">Create category</button>
+    <button ng-disabled="!form.$valid" ng-click="create(category)" class="btn btn-primary" type="submit" >Create category</button>
 </form>

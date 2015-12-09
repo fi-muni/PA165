@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.fi.muni.pa165.facade.CategoryFacade;
 import cz.fi.muni.pa165.facade.ProductFacade;
-import cz.muni.fi.pa165.restapi.exceptions.ResourceAlreadyExistingException;
+import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.restapi.hateoas.CategoryResource;
 import cz.muni.fi.pa165.restapi.hateoas.CategoryResourceAssembler;
@@ -22,8 +22,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -82,13 +84,10 @@ public class CategoriesRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public HttpEntity<CategoryResource> category(@PathVariable("id") long id) throws Exception {
         log.debug("rest category({})", id);
-        try {
-            CategoryDTO categoryDTO = categoryFacade.getCategoryById(id);
-            CategoryResource categoryResource = categoryResourceAssembler.toResource(categoryDTO);
-            return new HttpEntity<>(categoryResource);
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
+        CategoryDTO categoryDTO = categoryFacade.getCategoryById(id);
+        if (categoryDTO == null) throw new ResourceNotFoundException("category " + id + " not found");
+        CategoryResource categoryResource = categoryResourceAssembler.toResource(categoryDTO);
+        return new HttpEntity<>(categoryResource);
     }
 
     /**
@@ -100,16 +99,13 @@ public class CategoriesRestController {
     @RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
     public HttpEntity<Resources<ProductResource>> products(@PathVariable("id") long id) {
         log.debug("rest category/{}/products()", id);
-        try {
-            CategoryDTO categoryDTO = categoryFacade.getCategoryById(id);
-            List<ProductDTO> products = productFacade.getProductsByCategory(categoryDTO.getName());
-            List<ProductResource> resourceCollection = productResourceAssembler.toResources(products);
-            Link selfLink = entityLinks.linkForSingleResource(CategoryDTO.class, id).slash("/products").withSelfRel();
-            Resources<ProductResource> productsResources = new Resources<>(resourceCollection, selfLink);
-            return new ResponseEntity<>(productsResources, HttpStatus.OK);
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
+        CategoryDTO categoryDTO = categoryFacade.getCategoryById(id);
+        if (categoryDTO == null) throw new ResourceNotFoundException("category " + id + " not found");
+        List<ProductDTO> products = productFacade.getProductsByCategory(categoryDTO.getName());
+        List<ProductResource> resourceCollection = productResourceAssembler.toResources(products);
+        Link selfLink = entityLinks.linkForSingleResource(CategoryDTO.class, id).slash("/products").withSelfRel();
+        Resources<ProductResource> productsResources = new Resources<>(resourceCollection, selfLink);
+        return new ResponseEntity<>(productsResources, HttpStatus.OK);
     }
 
     /**
@@ -120,15 +116,15 @@ public class CategoriesRestController {
      * @throws Exception if something goes wrong
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<CategoryResource> createProduct(@RequestBody CategoryCreateDTO categoryCreateDTO) throws Exception {
+    public final HttpEntity<CategoryResource> createProduct(@RequestBody @Valid CategoryCreateDTO categoryCreateDTO, BindingResult bindingResult) throws Exception {
         log.debug("rest createCategory()");
-        try {
-            Long id = categoryFacade.createCategory(categoryCreateDTO);
-            CategoryResource resource = categoryResourceAssembler.toResource(categoryFacade.getCategoryById(id));
-            return new ResponseEntity<>(resource, HttpStatus.OK);
-        } catch (Exception ex) {
-            throw new ResourceAlreadyExistingException();
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation {}", bindingResult.toString());
+            throw new InvalidRequestException("Failed validation");
         }
+        Long id = categoryFacade.createCategory(categoryCreateDTO);
+        CategoryResource resource = categoryResourceAssembler.toResource(categoryFacade.getCategoryById(id));
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 }
 

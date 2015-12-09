@@ -12,9 +12,11 @@
                 url: '/eshop/api/v1/products',
                 success: function (data) {
                     var products = data._embedded.products;
+                    var productsTable = $('#products_list');
+                    productsTable.empty(); //remove all existing rows
                     for(var i=0;i<products.length;i++) {
                         var p = products[i];
-                        $('#products_list').append('<tr><td>'+p.id+'</td><td>'+p.name+'</td><td>'+p.price+' '+p.currency+'</td></tr>');
+                        productsTable.append('<tr><td>'+p.id+'</td><td>'+p.name+'</td><td>'+p.price+' '+p.currency+'</td></tr>');
                     }
                 }
             });
@@ -26,9 +28,11 @@
                 url: '/eshop/api/v1/categories',
                 success: function (data) {
                     var categories = data._embedded.categories;
+                    var categoriesTable = $('#categories_list');
+                    categoriesTable.empty();
                     for(var i=0;i<categories.length;i++) {
                         var p = categories[i];
-                        $('#categories_list').append('<tr><td>'+p.id+'</td><td>'+p.name+'</td></tr>');
+                        categoriesTable.append('<tr><td>'+p.id+'</td><td>'+p.name+'</td></tr>');
                     }
                 }
             });

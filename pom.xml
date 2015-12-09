@@ -14,7 +14,7 @@
     </properties>
 
     <!-- defines compatible versions of many libraries -->
-    <!-- see http://docs.spring.io/platform/docs/1.1.4.RELEASE/reference/htmlsingle/#getting-started-using-spring-io-platform-maven -->
+    <!-- see http://docs.spring.io/platform/docs/current/reference/htmlsingle/#getting-started-using-spring-io-platform-maven -->
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>

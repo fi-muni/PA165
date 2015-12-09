@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Exception annotated to be converted to the INTERNAL_SERVER_ERROR HTTP status.
  */
-@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason="Internal problem")
 public class ServerProblemException extends RuntimeException {
+
+    public ServerProblemException(String message) {
+        super(message);
+    }
 }
