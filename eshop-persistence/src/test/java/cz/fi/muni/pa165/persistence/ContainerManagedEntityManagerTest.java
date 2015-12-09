@@ -10,6 +10,7 @@ import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -44,7 +45,7 @@ public class ContainerManagedEntityManagerTest extends AbstractTransactionalTest
 		categoryDao.create(cat);		
 	}
 	
-	@Test(expectedExceptions=PersistenceException.class)
+	@Test(expectedExceptions=DataAccessException.class)
 	public void nameUnique(){
 		Category cat = new Category();
 		cat.setName("Electronics");
@@ -52,7 +53,6 @@ public class ContainerManagedEntityManagerTest extends AbstractTransactionalTest
 		cat = new Category();
 		cat.setName("Electronics");
 		categoryDao.create(cat);
-		
 	}
 	
 
