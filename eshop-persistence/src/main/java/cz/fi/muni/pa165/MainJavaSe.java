@@ -32,13 +32,15 @@ public class MainJavaSe {
 		// Electronics and second with name Musical
 		// You must first obtain the Entity manager 
 
-		
 		// The code below is just testing code do not modify it
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		List<Category> categories = em.createQuery(
 				"select c from Category c order by c.name", Category.class)
 				.getResultList();
+
+                if (categories.size() != 2) 
+                    throw new RuntimeException("Expected two categories!");
 
 		assertEq(categories.get(0).getName(), "Electronics");
 		assertEq(categories.get(1).getName(), "Musical");
