@@ -11,4 +11,7 @@
 ### Maven build fails with "... invalid target 8..."
 * Check if you have Java 8 installed and evt. registered in NetBeans - Toools -> Java Platforms
 
+### Tips
+* Read the tasks from the master branch, not from the branches of seminars.
+
 # Seminar 04
