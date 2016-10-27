@@ -25,12 +25,17 @@ There are several TODO items that require you to either delete some code or unco
 
 Then write a unit test Task02 that tests this works. In the test `@BeforeClass` first create two categories Electro and Kitchen. 
 
-Then, still in @BeforeClass create 3 products: Flashlight, Kitchen robot, Plate. Place them in the appropriate categories and commit transaction. Store these entity instances that you have created in `@BeforeClass` in instance variables, so that rest of the test method can access them. Then write 5 unit tests. One for each category and one for each product. In each test create a new entity manager, search for the entity and assert that it has correct content of e.g. `java.util.Set`. Hint: there are two helper methods prepared for you: `assertContainsCategoryWithName`, `assertContainsProductWithName`.
+Then, still in`@BeforeClass` create 3 products: Flashlight, Kitchen robot, Plate.  
+Place them in the appropriate categories and commit transaction.  
+Store these entity instances that you have created in `@BeforeClass` in instance variables, so that rest of the test method can access them.  
+Then write 5 unit tests - one for each category and one for each product.  
+In each test create a new entity manager, search for the entity and assert that it has correct content of e.g. `java.util.Set`.  
+Hint: there are two helper methods prepared for you: `assertContainsCategoryWithName`, `assertContainsProductWithName`.
 
 **Task 03**
 Create DAO object for Product into package cz.fi.muni.pa165.dao. You will need to create an interface ProductDao and implementation ProductDaoImpl.  
 Create findAll, findById, create, delete. To get entity manager inside DAO use `@PersistenceContext`.  
-`EntityManager` that is created this way is called "container managed EntityManager".  
+`EntityManager` that is created this way is called "container managed entity manager".  
 Do not create the entity manager through `EntityManagerFactory` as in the previous task! Such `EntityManager` would be "application managed".
 
 To implement `findAll()`, you will need to use JPQL this is what you need:
