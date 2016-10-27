@@ -8,7 +8,7 @@ killall java
 
 **Task 01**  
 Modify class Task01 (package cz.fi.muni.pa165.tasks) to be unit test that creates ApplicationContext.  
-Use the `@ContextConfiguration` annotation (see documentation [1][2]) and configure it so that `PersistenceSampleApplicationContext.class` is used as the spring configuration class.  
+Use the `@ContextConfiguration` annotation (see documentation [1], [2]) and configure it so that `PersistenceSampleApplicationContext.class` is used as the spring configuration class.  
 Your test class should also extend AbstractTestNGSpringContextTests.  
 Test code is already in the file, you can run it and see if it doesn't fail.
 
@@ -57,5 +57,5 @@ Use beans validation to validate Product. Use javax.validation.NotNull annotatio
 	public void testDoesntSaveNullName(){
 ``` 
 
-[1] http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
+[1] http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/  
 [2] http://docs.spring.io/spring/docs/current/javadoc-api/
