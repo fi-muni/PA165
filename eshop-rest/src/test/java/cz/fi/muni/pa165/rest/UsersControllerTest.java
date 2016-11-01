@@ -61,7 +61,7 @@ public class UsersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[?(@.id==1)].surname").value("Smith"))
                 .andExpect(jsonPath("$.[?(@.id==2)].surname").value("Williams"));
 
@@ -78,13 +78,13 @@ public class UsersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.surname").value("Smith"));
 
         mockMvc.perform(get("/users/2"))
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.surname").value("Williams"));
 
     }

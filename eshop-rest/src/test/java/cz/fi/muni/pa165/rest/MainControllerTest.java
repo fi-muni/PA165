@@ -29,7 +29,7 @@ public class MainControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/"))//.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 
                 .andExpect(jsonPath("orders_uri").value(ApiUris.ROOT_URI_ORDERS))
                 .andExpect(jsonPath("users_uri").value(ApiUris.ROOT_URI_USERS))

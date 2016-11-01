@@ -119,7 +119,7 @@ public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 		mockMvc.perform(get("/products"))
 				.andExpect(status().isOk())
 				.andExpect(
-						content().contentType(MediaType.APPLICATION_JSON_VALUE))
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(
 						jsonPath("$.[?(@.id==10)].name").value("Raspberry PI"))
 				.andExpect(jsonPath("$.[?(@.id==20)].name").value("Arduino"));
@@ -137,12 +137,12 @@ public class ProductsControllerTest  extends AbstractTestNGSpringContextTests {
 		mockMvc.perform(get("/products/10"))
 				.andExpect(status().isOk())
 				.andExpect(
-						content().contentType(MediaType.APPLICATION_JSON_VALUE))
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.name").value("Raspberry PI"));
 		mockMvc.perform(get("/products/20"))
 				.andExpect(status().isOk())
 				.andExpect(
-						content().contentType(MediaType.APPLICATION_JSON_VALUE))
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.name").value("Arduino"));
 
 	}

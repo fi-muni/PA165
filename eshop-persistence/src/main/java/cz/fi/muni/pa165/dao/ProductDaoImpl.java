@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import cz.fi.muni.pa165.entity.Product;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 //Solution begin

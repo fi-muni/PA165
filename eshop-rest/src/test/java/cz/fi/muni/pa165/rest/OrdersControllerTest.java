@@ -63,7 +63,7 @@ public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/orders").param("status", "ALL"))//.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[?(@.id==1)].state").value("DONE"))
                 .andExpect(jsonPath("$.[?(@.id==2)].state").value("CANCELED"))
                 .andExpect(jsonPath("$.[?(@.id==6)].state").value("SHIPPED"));
@@ -81,7 +81,7 @@ public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/orders").param("status", "ALL"))//.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[?(@.id==1)].state").value("DONE")); 
 
     }
@@ -94,7 +94,7 @@ public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/orders/by_user_id/1"))//.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[?(@.id==1)].state").value("DONE"))
                 .andExpect(jsonPath("$.[?(@.id==2)].state").value("CANCELED"))
                 .andExpect(jsonPath("$.[?(@.id==6)].state").value("SHIPPED"));
@@ -117,19 +117,19 @@ public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/orders/1"))
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.state").value("DONE"));
 
         mockMvc.perform(get("/orders/2"))
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.state").value("CANCELED"));
         
         mockMvc.perform(get("/orders/6"))
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.state").value("SHIPPED"));
 
     }
@@ -154,7 +154,7 @@ public class OrdersControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(post("/orders/1").param("action", "SHIP"))//.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(
-                        content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id").value(1));   // TODO: improve this test
 
     }
