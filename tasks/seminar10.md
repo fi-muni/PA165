@@ -17,7 +17,7 @@ cd eshop-rest
 mvn tomcat7:run
 ```
 
-Check that you can interact with the REST API. You can use [curl](http://curl.haxx.se/), an open source tool for this goal that is available on your machine. From the command line:
+Check that you can interact with the REST API. You can use [curl](http://curl.haxx.se/), an open source tool for this goal that is available on your machine. The exercise uses curl as it is usually available in Linux distributions and it is suggested to at least try it. There are more user-friendly alternatives, one is [Postman](https://www.getpostman.com), that can be used as a Google Chrome app. Using curl from the command line:
 ```
 curl -X GET http://localhost:8080/eshop-rest/
 curl -X GET http://localhost:8080/eshop-rest/orders?status=ALL
@@ -61,7 +61,7 @@ Let's update the price of an existing product  :
 curl -i -X GET http://localhost:8080/eshop-rest/products/4
 curl -X PUT -i -H "Content-Type: application/json" --data '{"value":"4500","currency":"CZK"}' http://localhost:8080/eshop-rest/products/4
 ```
-Based on validation introduced couple of seminars ago, it is not possible to change the price over 10% of the actual price, so it should fail. The following should succeed:
+Based on validation introduced couple of seminars ago, it is not possible to change the price over 10% of the actual price, so it should fail. You should get HTTP 406 response: we are dealing with exceptions in another task. The following command should succeed:
 
 ```
 curl -X PUT -i -H "Content-Type: application/json" --data '{"value":"16.33","currency":"CZK"}' http://localhost:8080/eshop-rest/products/4
@@ -126,7 +126,7 @@ Add Jackson annotations as dependencies to the pom.xml file to the **API Module*
         </dependency>
 ```
 
-In the **API module**, annotate with **@JsonIgnore** in the **class UserDTO** the getter **getPasswordHash()**. At the same time, we might want to still serialize password hash (e.g. when a new user is created). To do this, annotate **setPasswordHash(..)** with  **@JsonProperty**. Look for details why annotating both getters and setters: [here](https://fasterxml.github.io/jackson-annotations/javadoc/2.0.2/com/fasterxml/jackson/annotation/JsonIgnore.html)
+In the **API module**, annotate with **@JsonIgnore** in the **class UserDTO** the getter **getPasswordHash()**. At the same time, we might want to still serialize password hash (e.g. when a new user is created). To do this, annotate **setPasswordHash(..)** with  **@JsonProperty**. Look for details why annotating both getters and setters: [here](https://stackoverflow.com/questions/12505141/only-using-jsonignore-during-serialization-but-not-deserialization)
 
 Rebuild and restart the application and try to access [http://localhost:8080/eshop-rest/users](http://localhost:8080/eshop-rest/users) (or with CURL). You should get no password hash displayed.
 
@@ -172,7 +172,7 @@ We are now looking into building a real HATEOAS REST service. We will take the *
 
 In this case, we are looking at the list of products that provides a link to self, as well each resource will also have a link to where additional operations can be performed (example, deleting the resource).
 
-We will use Spring HATEOAS for this task (see [http://docs.spring.io/spring-hateoas/docs/current/reference/html/](http://docs.spring.io/spring-hateoas/docs/current/reference/html/).
+We will use Spring HATEOAS for this task (see [http://docs.spring.io/spring-hateoas/docs/current/reference/html/](http://docs.spring.io/spring-hateoas/docs/current/reference/html/)).
 
 We need first to add the Spring HATEOAS dependency in the eshop-rest module:
 
@@ -225,7 +225,7 @@ In the current version of the API, we are using **@ResponseStatus** annotated cu
 ```
 {
     "errors": [
-        "the requested resource is already existing not exist",
+        "the requested resource already exists",
         "the item might have been removed by a previous call"
     ]
 }
