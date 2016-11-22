@@ -17,6 +17,8 @@ mvn tomcat7:run
 
 **Task 02 (browser tools)** 
 
+**Warning:** When in the room B130, do not use the Chromium browser version 53 preinstalled on the school computers, it has a known problem accessing the CDN (content delivery network) servers hosting the Bootstrap framework files. Use Firefox.  
+
 The application has a REST (Representational State Transfer) API (Application Programming Interface) available. The API conforms to the HATEOAS (Hypermedia as the Engine of Application State) principles seen in the previous seminar. Moreover, the JSON (JavaScript Object Notation) serialization of objects conforms to the **HAL (Hypertext Application Language)** format, which requires each object to have _links part linking to other resources, and collections of objects are serialized in _embedded part.
  
 To see it conveniently, we will need some tools in browser. Install [JSONView](http://jsonview.com/) extension for Firefox or Chrome.  
