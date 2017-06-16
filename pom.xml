@@ -16,14 +16,16 @@
         <java.version>8</java.version>
     </properties>
 
-    <!-- defines compatible versions of many libraries -->
+    <!-- Spring Platform as parent project - this project inherits versions of dependencies and plugins -->
     <!-- see http://docs.spring.io/platform/docs/current/reference/htmlsingle/#getting-started-using-spring-io-platform-maven -->
+    <!-- update Spring by changing the version here to the current release displayed at http://platform.spring.io/platform/ -->
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>Athens-RELEASE</version>
+        <version>Brussels-SR3</version>
         <relativePath/>
     </parent>
+
     <!-- specifies versions not defined by the Spring platform-bom -->
     <dependencyManagement>
         <dependencies>

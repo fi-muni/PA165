@@ -83,7 +83,7 @@ public class ProductRepository {
      * @return
      */
     public Product getProductByName(String name) {
-        Assert.notNull(name);
+        Assert.notNull(name,"product name must not be null");
         return products.stream().filter(u -> u.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
