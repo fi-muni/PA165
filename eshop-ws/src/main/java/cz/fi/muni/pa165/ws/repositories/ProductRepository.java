@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
 public class ProductRepository {
 
     private static final AtomicInteger counter  = new AtomicInteger(0);
-    private static final List<Product> products = new ArrayList();
+    private static final List<Product> products = new ArrayList<>();
 
 
     /**

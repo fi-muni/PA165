@@ -57,7 +57,7 @@ public class ProductsControllerHateoas {
         logger.debug("rest getProducts({}) hateoas");
 
         Collection<ProductDTO> productsDTO = productFacade.getAllProducts();
-        Collection<Resource<ProductDTO>> productResourceCollection = new ArrayList();
+        Collection<Resource<ProductDTO>> productResourceCollection = new ArrayList<>();
 
         for (ProductDTO p : productsDTO) {
             productResourceCollection.add(productResourceAssembler.toResource(p));
@@ -88,13 +88,13 @@ public class ProductsControllerHateoas {
         logger.debug("rest getProducts({}) hateoas cached version");
        
         final Collection<ProductDTO> productsDTO = productFacade.getAllProducts();
-        final Collection<Resource<ProductDTO>> productResourceCollection = new ArrayList();
+        final Collection<Resource<ProductDTO>> productResourceCollection = new ArrayList<>();
 
         for (ProductDTO p : productsDTO) {
             productResourceCollection.add(productResourceAssembler.toResource(p));
         }
 
-        Resources<Resource<ProductDTO>> productsResources = new Resources(productResourceCollection);
+        Resources<Resource<ProductDTO>> productsResources = new Resources<>(productResourceCollection);
         productsResources.add(linkTo(ProductsControllerHateoas.class).withSelfRel());
 
         final StringBuffer eTag = new StringBuffer("\"");

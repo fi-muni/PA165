@@ -158,7 +158,7 @@ public class ProductEndpointTest extends AbstractTestNGSpringContextTests {
      */
     private List<Product> createProducts() {
 
-        final List<Product> products = new ArrayList();
+        final List<Product> products = new ArrayList<>();
         
         final Price p1 = new Price();
         p1.setValue(new BigDecimal("35.99"));
