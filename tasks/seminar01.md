@@ -20,7 +20,7 @@ cd PA165
 git checkout seminar01
 ```
 
-**Task 06** Open a new terminal and put Java 1.7 on your classpath using 'module add jdk-1.7.0_75' now try to compile hello-java7 `mvn clean compile`. It will fail, why? After you find out why it is failing fix it by changing configuration of pom.xml. You must configure compiler plugin to compile with target and source version 1.7
+**Task 06** Open a new terminal. OpenJDK 8 is already preinstalled on all machines in room B130. You can switch it for Oracle JDK 8 with the command 'module add jdk-1.8.0' if you want. If using your own notebook, install JDK 8. Now try to compile hello-java7 `mvn clean compile`. It will fail, why? After you find out why it is failing fix it by changing configuration of pom.xml. You must configure compiler plugin to compile with target and source version at least 7.
 
 **Task 07** Now your task is to configure and use embedded Tomcat7 plugin. You must firstly configure tomcat7 maven plugin in pom.xml. It has goal `run`, to run. Use it to run web Java application from Task 06 using command line. After the plugin is configured, you must package the app `mvn package` using Maven before using tomcat7 plugin. After the web app is started you can use web browser to test it works, it will be deployed on context '/my-webapp'. 
 
