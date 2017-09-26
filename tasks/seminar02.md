@@ -5,18 +5,26 @@
 open project currency-convertor. Look at the interfaces ExchangeRateTable and
 CurrencyConvertor in the package cz.fi.muni.pa165.currency and read their contract.
 
-**Task 02** Add mockito-all as a maven dependency into `pom.xml`:
+**Task 02** Add mockito-all and assertj-core as a maven dependencies into `pom.xml`:
 ```xml
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-all</artifactId>
         <version>1.10.19</version>
         <scope>test</scope>
-  </dependency> 
+    </dependency>
+    <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.8.0</version>
+        <scope>test</scope>
+    </dependency>
 ```
 
 **Task 03** Implement `testConvert()` method in `CurrencyConvertorImplTest`.
-Use Mockito for creating mocks and do not forget to test border values and proper
+Use [Mockito](http://site.mockito.org/) for creating mocks, 
+[AssertJ](http://joel-costigliola.github.io/assertj/)
+for assertions and do not forget to test border values and proper
 rounding. Ask your teacher to check if the test is well written.
 (Hint: use [Mockito tutorial](http://www.vogella.com/tutorials/Mockito/article.html).)
 Tip: It is better to use `new BigDecimal("15.29")` than `new BigDecimal(15.29)`
