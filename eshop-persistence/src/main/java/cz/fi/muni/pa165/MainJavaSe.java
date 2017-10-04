@@ -89,7 +89,7 @@ public class MainJavaSe {
 		// Then persist exactly one Product with the following values:
 		// * name='Guitar'
 		// * color=Color.BLACK
-		// * dateAdded = 20-01-2011 - to fill java.util.Date use LocalDate.of(2011, 1, 20) and pass it into Date.valueOf(LocalDate)
+		// * dateAdded = 20-01-2011 - to fill java.util.Date use Calendar 
 		//
 		// Additional task: Change the underlying table of Product entity to be ESHOP_PRODUCTS. After you do this, check this by inspecting console output (the CREATE TABLE statement)
 		//

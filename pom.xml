@@ -34,7 +34,6 @@
         </build> 
 
     <modules>
-        <module>eshop-persistence</module>
         <module>eshop-api</module>
   </modules>
 
