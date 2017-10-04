@@ -33,4 +33,3 @@ https://docs.jboss.org/hibernate/orm/4.3/devguide/en-US/html_single/ . Rerun **T
  2. Where is the following text used and what is the effect of it (use Hibernate dev guide to find answer)? "hibernate.format_sql"
  3. What is hibernate.hbm2ddl.auto property in persistence.xml file?
 
-**Task 10** This task requires more investigation from you and work with Hibernate documentation. For the rest of the seminar you can try to configure your persistence unit to use database in your Netbeans. First you will have to create new database in netbeans (Derby) then reconfigure the persistence unit to connect to this database on localhost and set username and password.
