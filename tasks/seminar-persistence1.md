@@ -1,5 +1,5 @@
 ## Persistence Seminar 01
-Do not forget to checkout branch seminar-persistence1! Do not work in master! This first persistence seminar tries to be as minimalistic as possible. You will work with in-memory database and just one Main Class (MainJavaSe.java). You will be asked to implement parts of methods. Then you will run the method by modifying the Main method. For example if I you want to try method corresponding to **task07**, then you will modify the main method this way:
+Do not forget to checkout branch seminar-persistence1! Do not work in master! Open eshop-persistence maven module in your IDE. This first persistence seminar tries to be as minimalistic as possible. You will work with in-memory database and just one Main Class (MainJavaSe.java). You will be asked to implement parts of methods. Then you will run the method by modifying the Main method. For example if I you want to try method corresponding to **task07**, then you will modify the main method this way:
   ```java
 		emf = Persistence.createEntityManagerFactory("javaSeUnit");
 		// BEGIN YOUR CODE
