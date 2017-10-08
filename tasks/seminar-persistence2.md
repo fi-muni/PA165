@@ -1,5 +1,5 @@
 ## Persistence Seminar 02
-Do not forget to checkout branch seminar05! Do not work in master! In this seminar you will work with unit tests in eshop-persistence module. There is package cz.fi.muni.pa165.tasks in test directory. Each task is associated with one unit test in the package.
+Do not forget to checkout branch seminar-persistence2! Do not work in master! In this seminar you will work with unit tests in eshop-persistence module. There is package cz.fi.muni.pa165.tasks in test directory. Each task is associated with one unit test in the package.
 
 If you experience out of memory errors, you can use the following command in terminal to kill all java processes:
 ```
