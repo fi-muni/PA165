@@ -33,7 +33,7 @@ In each test create a new entity manager, search for the entity and assert that 
 Hint: there are two helper methods prepared for you: `assertContainsCategoryWithName`, `assertContainsProductWithName`.
 
 **Task 03**
-Create DAO object for Product into package cz.fi.muni.pa165.dao. You will need to create an interface ProductDao and implementation ProductDaoImpl.  
+Create DAO object for Product into package cz.fi.muni.pa165.dao. You will need to create an interface ProductDao and implementation ProductDaoImpl. Then uncomment code in seminarservices.SeminarServiceImpl class (this one uses your DAO).  
 Create findAll, findById, create, delete. To get entity manager inside DAO use `@PersistenceContext`.  
 `EntityManager` that is created this way is called "container managed entity manager".  
 Do not create the entity manager through `EntityManagerFactory` as in the previous task! Such `EntityManager` would be "application managed".
@@ -42,7 +42,7 @@ To implement `findAll()`, you will need to use JPQL this is what you need:
 ```java
    em.createQuery("select p from Product p", Product.class).getResultList();
 ```
-Also, you must annotate the DAO with @Transactional since you want every method to be transactional.  
+Also, you must annotate the SeminarServiceImpl with @Transactional since you want every method to be transactional.  
 Now, just for testing this out, write one long unit test method (although this is not a good practice!).  
 In this test, inject your DAO into the test using @Autowired annotation. Use create method to create two products.  
 Then try `findAll()`, `findById()` and `remove()`. There is already some code prepared for you in Task03 to make it easier.

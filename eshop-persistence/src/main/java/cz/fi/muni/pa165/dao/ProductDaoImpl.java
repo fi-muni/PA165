@@ -11,9 +11,6 @@ import cz.fi.muni.pa165.entity.Product;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-//Solution begin
-@Transactional
-//Solution end
 public class ProductDaoImpl implements ProductDao {
 
 	@PersistenceContext
@@ -33,10 +30,6 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Product findById(Long id) {
 		return em.find(Product.class, id);
-	}
-
-	public Product update(Product p) {
-		return em.merge(p);
 	}
 
 	@Override
