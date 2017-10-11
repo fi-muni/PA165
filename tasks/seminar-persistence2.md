@@ -6,6 +6,9 @@ If you experience out of memory errors, you can use the following command in ter
 killall java
 ```
 
+** Loading the projects ** 
+After you checkout the branch, you must open the whole multimodule project into Netbeans, including the two modules eshop-api, eshop-persistence. If you experience problems, use mvn install ON WHOLE multimodule project from command line and rebuild projects in Netbeans
+
 **Task 01**  
 Modify class Task01 (package cz.fi.muni.pa165.tasks) to be unit test that creates ApplicationContext.  
 Use the `@ContextConfiguration` annotation (see documentation [1], [2]) and configure it so that `PersistenceSampleApplicationContext.class` is used as the spring configuration class.  
