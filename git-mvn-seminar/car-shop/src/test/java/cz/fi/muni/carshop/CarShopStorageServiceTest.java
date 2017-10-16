@@ -63,8 +63,6 @@ public class CarShopStorageServiceTest {
 		assertThat(service.getCheaperCarsOfSameTypeAndYear(new Car(Color.BLACK, CarTypes.AUDI, 2016, 900000)),
 				hasSize(3));
 
-		assertThat(service.getCheaperCarsOfSameTypeAndYear(new Car(Color.BLACK, CarTypes.AUDI, 2010, 900000)),
-				hasSize(0));
 	}
 
 }
