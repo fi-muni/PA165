@@ -29,7 +29,7 @@ JUnit 4.12 (comment out 4.11 part). Verify that test is compilable (that it uses
 Commit and push your changes.
 
 **Task 05 (Git)**
-Switch to feature branch (**git-mvn-feature**) and rebase onto **seminar-git-mvn**.
+Switch to feature branch (**git-mvn-feature**) and rebase it on **seminar-git-mvn** branch.
 Resolve your conflicts (keep higher version), stage resolved files by `git add .` and continue rebase operation.
 Push your changes to remote repository.
 Merge **git-mvn-feature** branch to **seminar-git-mvn**. It should be Fast-forward merge.
