@@ -1,7 +1,7 @@
 ## Persistence Git & Maven
 
-**Task 01 (Git)**  
-Your first task is to fork PA165 project and clone it to your environment. Then you should setup your local repository to use original PA165 project for pull and your forked project for push. Then, create SSH key pair and use it for pushing your changes to your remote repository.
+**Task 01 (Git/Maven)**  
+Your first task is to fork PA165 project and clone it to your environment. Then you should setup your local repository to use original PA165 project for pull and your forked project for push (https://help.github.com/articles/configuring-a-remote-for-a-fork/). Then, create SSH key pair and use it for pushing your changes to your remote repository.
 Try to build your project using mvn install, it should fail because source files contain lambda calls. Fix the issue in parent project and rebuild it. Ignore failing tests for now.
 Import project git-mvn-seminar into your IDE along with its modules.
 Use .gitignore to avoid pushing class files and jar files into repository.
@@ -11,7 +11,7 @@ Create new feature branch. Push your branch to remote repository (add remote-tra
 Uncomment method sellCar(Car car) in CarShopStorageService and create its implementation based on its contract. 
 Commit your changes (local repository). 
 
-**Task 03 (Git)**
+**Task 03 (Git/Maven)**
 Switch to master branch and change junit version to 4.12 and uncomment CarShopStorageServiceTest::testPriceCantBeNegative for JUnit 4.12 (comment 4.11 part). Verify that test is compilable (that it uses new JUnit version).
 Commit and push your changes.
 
@@ -21,7 +21,7 @@ Switch to feature branch and rebase to master. Resolve your conflict (keep highe
 **Task 05 (Git)**
 Since your feature is complete and merged into master, add tag (v1.0_feature) to mark current version as version with completed feature.
 
-**Task 06 (Git)**
+**Task 06 (Git/Maven)**
 Update project version to 0.0.2-SNAPSHOT and commit the change. 
 Then, push all the changes and tags into remote repository (check on github that tag exists and try to use tags to navigate between different versions).
 
