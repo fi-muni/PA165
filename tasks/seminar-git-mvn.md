@@ -1,4 +1,4 @@
-## Persistence Git & Maven
+## Seminar Git & Maven
 
 **Task 01 (Git)**  
 Your first task is to fork PA165 project and clone it to your environment. Then you should setup your local repository to use original PA165 project for pull and your forked project for push (https://help.github.com/articles/configuring-a-remote-for-a-fork/). Then, create SSH key pair and use it for pushing your changes to your remote repository.
@@ -38,9 +38,6 @@ Find what part of CarShopStorageService is not covered by tests and write corres
 
 **Task 10 (Maven)**  
 Configure maven profile called test-coverage for jacoco execution so it isn't executed by default (run by `mvn install -P test-coverage`). Profiles are handy in case you have long taking operations as part of your build and you want to execute them only under certain circumstances (eg. nightly builds).
-
-**Task 11 (Maven)**  
-Refactor parent pom.xml to use versions for libraries as part of properties instead of directly in dependencies.
 
 --------------
 Extra tasks in case you still have time.
