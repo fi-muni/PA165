@@ -30,7 +30,7 @@ Commit and push your changes.
 
 **Task 05 (Git)**
 Switch to feature branch (**git-mvn-feature**) and rebase it on **seminar-git-mvn** branch.
-Resolve your conflicts (keep higher version), stage resolved files by `git add .` and continue rebase operation.
+Resolve your conflicts (keep higher version), stage resolved files by `git add <resolved_filename>` and continue rebase operation.
 Push your changes to remote repository.
 Merge **git-mvn-feature** branch to **seminar-git-mvn**. It should be Fast-forward merge.
 

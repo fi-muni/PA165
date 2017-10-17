@@ -44,8 +44,8 @@ git push origin
 ```
 
 **Task 05 (Git)**
-Switch to feature branch by `git checkout git-mvn-feature` and rebase onto **seminar-git-mvn** by `git rebase seminar-git-mvn`.
-Resolve your conflicts (keep higher version), stage resolved files by `git add .` and continue rebase operation by `git rebase --continue`.
+Switch to feature branch by `git checkout git-mvn-feature` and rebase it on **seminar-git-mvn** branch by `git rebase seminar-git-mvn`.
+Resolve your conflicts (keep higher version), stage resolved files by `git add <resolved_filename>` and continue rebase operation by `git rebase --continue`.
 Push your changes to remote repository by `git push origin`
 Merge **git-mvn-feature** branch to **seminar-git-mvn**. It should be Fast-forward merge.
 ```
@@ -58,6 +58,7 @@ Since your feature is complete and merged into **seminar-git-mvn**, add tag (v1.
 feature.
 ```
 git tag -a v1.0_feature -m "My tag message"
+git push origin v1.0_feature
 ```
 
 **Task 07 (Git/Maven)**
