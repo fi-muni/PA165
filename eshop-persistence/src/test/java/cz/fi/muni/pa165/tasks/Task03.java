@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.tasks;
 
+import cz.fi.muni.pa165.seminarservices.SeminarServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -15,24 +16,24 @@ import cz.fi.muni.pa165.entity.Product;
 public class Task03 extends AbstractTestNGSpringContextTests {
 
 	@Autowired
-	private ProductDao productDao;
+	private SeminarServiceImpl productService;
 	
 	@Test
 	public void createFindDeleteTest(){
 		Product p = new Product();
 		p.setName("TestProduct1");
-		productDao.create(p);
+		productService.create(p);
 		
 		//Solution begin
 		Product p2 = new Product();
 		p2.setName("TestProduct2");
-		productDao.create(p2);
+		productService.create(p2);
 		
-		Assert.assertEquals(productDao.findById(p.getId()).getName(),"TestProduct1");
-		Assert.assertEquals(productDao.findAll().size(), 2);
-		Assert.assertEquals(productDao.findByName("TestProduct1").size(), 1);
-		productDao.remove(p2);
-		Assert.assertEquals(productDao.findAll().size(), 1);
+		Assert.assertEquals(productService.findById(p.getId()).getName(),"TestProduct1");
+		Assert.assertEquals(productService.findAll().size(), 2);
+		Assert.assertEquals(productService.findByName("TestProduct1").size(), 1);
+		productService.remove(p2);
+		Assert.assertEquals(productService.findAll().size(), 1);
 		//Solution end
 	}
 }
