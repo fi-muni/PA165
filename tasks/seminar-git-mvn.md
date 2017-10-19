@@ -25,7 +25,7 @@ Stage all new and modified files and commit all changes to **git-mvn-feature** (
 
 **Task 04 (Git/Maven)**
 Switch to **seminar-git-mvn** branch and change junit version to 4.12 and uncomment `CarShopStorageServiceTest::testPriceCantBeNegative` for 
-JUnit 4.12 (comment out 4.11 part). Verify that test is compilable (that it uses new JUnit version).
+JUnit 4.12 (comment out 4.11 part). Verify that test is compilable (just compilable, it is expected to fail, that's OK, you will correct it in the next task).
 Commit and push your changes.
 
 **Task 05 (Git)**
