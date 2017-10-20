@@ -29,7 +29,7 @@ public class CarShopStorageServiceTest {
 	@Test()
 	public void testPriceCantBeNegative() {
 		// JUnit 4.11
-		thrown.expect(IllegalArgumentException.class);
+		// thrown.expect(IllegalArgumentException.class);
 		// JUnit 4.12
 		// thrown.reportMissingExceptionWithMessage("We expect exception on
 		// negative price").expect(IllegalArgumentException.class);
