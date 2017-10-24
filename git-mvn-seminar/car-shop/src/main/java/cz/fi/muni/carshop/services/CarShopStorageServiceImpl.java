@@ -30,9 +30,6 @@ public class CarShopStorageServiceImpl implements CarShopStorageService {
 
 	@Override
 	public void addCarToStorage(Car car) {
-		if (car.getPrice()<=0){
-			throw new IllegalArgumentException("Hey, we are not giving away cars for free.");
-		}
 		CarShopStorage.getInstancce().getCars().computeIfAbsent(car.getType(), x -> new ArrayList<>()).add(car);
 	}
 
