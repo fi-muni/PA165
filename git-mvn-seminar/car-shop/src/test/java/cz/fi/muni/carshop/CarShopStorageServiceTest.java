@@ -29,10 +29,9 @@ public class CarShopStorageServiceTest {
 	@Test()
 	public void testPriceCantBeNegative() {
 		// JUnit 4.11
-		thrown.expect(IllegalArgumentException.class);
+		// thrown.expect(IllegalArgumentException.class);
 		// JUnit 4.12
-		// thrown.reportMissingExceptionWithMessage("We expect exception on
-		// negative price").expect(IllegalArgumentException.class);
+		thrown.reportMissingExceptionWithMessage("We expect exception on negative price").expect(IllegalArgumentException.class);
 
 		service.addCarToStorage(new Car(Color.BLACK, CarTypes.AUDI, 2016, -1));
 	}
@@ -63,8 +62,6 @@ public class CarShopStorageServiceTest {
 		assertThat(service.getCheaperCarsOfSameTypeAndYear(new Car(Color.BLACK, CarTypes.AUDI, 2016, 900000)),
 				hasSize(3));
 
-		assertThat(service.getCheaperCarsOfSameTypeAndYear(new Car(Color.BLACK, CarTypes.AUDI, 2010, 900000)),
-				hasSize(0));
 	}
 
 }

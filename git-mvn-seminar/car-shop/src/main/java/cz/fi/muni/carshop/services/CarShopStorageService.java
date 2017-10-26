@@ -6,11 +6,13 @@ import java.util.Optional;
 
 import cz.fi.muni.carshop.entities.Car;
 import cz.fi.muni.carshop.enums.CarTypes;
+import cz.fi.muni.carshop.exceptions.RequestedCarNotFoundException;
 
 public interface CarShopStorageService {
 
 	/**
-	 * Adds car to storage, creates type section if not existing before
+	 * Adds car to storage, creates type section if not existing before,
+	 * exception should be thrown if car price is less than 0
 	 * 
 	 * @param car
 	 *            car to be added
@@ -47,6 +49,6 @@ public interface CarShopStorageService {
 	 * @throw RequestedCarNotFoundException in case car doesn't exist in the
 	 *        storage
 	 */
-	// void sellCar(Car car) throws RequestedCarNotFoundException;
+	void sellCar(Car car) throws RequestedCarNotFoundException;
 
 }
