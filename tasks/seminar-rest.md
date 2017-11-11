@@ -1,15 +1,15 @@
-## Seminar 10 Tasks - Spring REST
+## Seminar Spring REST Tasks
 
-You can see the complete solution in the branch [seminar10](https://github.com/fi-muni/PA165/tree/seminar10).
+You can see the complete solution in the branch [seminar-rest](https://github.com/fi-muni/PA165/tree/seminar-rest).
 
 **Task 01 (project build)** 
 
-In a new folder, checkout the tag seminar10_step1 from https://github.com/fi-muni/PA165 and build the whole project. Then run the eshop-rest subproject.
+In a new folder, checkout the tag seminar-rest_step1 from https://github.com/fi-muni/PA165 and build the whole project. Then run the eshop-rest subproject.
 
 ```
-mkdir seminar10
-cd seminar10
-git clone -b seminar10_step1 https://github.com/fi-muni/PA165
+mkdir seminar-rest
+cd seminar-rest
+git clone -b seminar-rest_step1 https://github.com/fi-muni/PA165
 cd PA165/
 module add maven
 mvn install
@@ -74,7 +74,7 @@ Some of these responses might contain lots of useless data (for example image da
 
 Move to step2:
 ```
-git checkout -f seminar10_step2 
+git checkout -f seminar-rest_step2 
 ```
 As a second step, we will implement the simple REST controller that was used in the previous step. We follow here some lower REST maturity models (see lecture's slides), later we will create a more HATEOAS-oriented controller. In the eshop-rest module, open the class **ProductsController** in **package cz.fi.muni.pa165.rest.controllers** and follow the TODOs for implementation.
 
@@ -82,7 +82,7 @@ As a second step, we will implement the simple REST controller that was used in 
 
 Move to step3:
 ```
-git checkout -f seminar10_step3 
+git checkout -f seminar-rest_step3 
 ```
 
 We are going now to test the controller that has been created. Open the class **cz.fi.muni.pa165.rest.ProductsControllerTest** in eshop-rest module test packages.
@@ -93,7 +93,7 @@ For testing, we are using [MockMvc](https://docs.spring.io/spring/docs/current/j
 
 Move to step4:
 ```
-git checkout -f seminar10_step4
+git checkout -f seminar-rest_step4
 ```
 
 The suggested way to deal with dates in a REST API is to use the [ISO 8601 format](https://www.cl.cam.ac.uk/~mgk25/iso-time.html) - in our current version of the API we are always using [timestamps](http://www.unixtimestamp.com/) (look what will happen on Jan 19th 2038 :)
@@ -110,7 +110,7 @@ You can rebuild the application and test that dates are now in a more human-read
 
 Move to step5:
 ```
-git checkout -f seminar10_step5
+git checkout -f seminar-rest_step5
 ```
 
 It does not make sense to always consider all of an object's fields during serialization/deserialization from DTOs. What we would like to achieve with this step is that when we are returning an user instance, we would not consider the password hash. We will see three alternative ways, that if you want you can apply to other DTOs/fields as well. Please note that for approaches i) and ii) you will need to work mostly in the **API Module** annotating DTOs, while for approach iii) you will only work in the **eshop-rest** module. If you modify the **API Module** in one of the steps, please remember also to rebuild also that module and not only the **eshop-rest** module.
@@ -161,7 +161,7 @@ There are also more ways to filter JSON responses (that we do not cover here), a
 
 Move to step6:
 ```
-git checkout -f seminar10_step6 
+git checkout -f seminar-rest_step6 
 ```
 
 We are now looking into building a real HATEOAS REST service. We will take the **Products** controller as an example for this process. What we would like to return are resources in a format that allows to "navigate" through different resources:
@@ -217,7 +217,7 @@ You can add in the same way more links such as for example to the next product, 
 
 Move to step7:
 ```
-git checkout -f seminar10_step7
+git checkout -f seminar-rest_step7
 ```
 
 In the current version of the API, we are using **@ResponseStatus** annotated custom exceptions that are thrown by the different RestControllers. You can look at them in the **cz.fi.muni.pa165.rest.exceptions** package (you can also look at lecture slides for more details). Even though error messages can be added with the **reason** parameter, we would like to return a more structured error message, as well managing exceptions in a central place. With a returned error message, apart from the HTTP code, we can also return more information about the error:
@@ -278,7 +278,7 @@ We can see how you can cache HTTP responses in Spring either as alternative or i
 
 Move to step8:
 ```
-git checkout -f seminar10_step8
+git checkout -f seminar-rest_step8
 ```
 
 We will try caching with one of the GET methods of the HATEOAS class we created in one of the previous steps. Open the **ProductsControllerHateoas** class and duplicate the method **getProducts()**. Rename the new method **getProductsCached()** and add as a mapping **"/cached"** so that we can call this metod with **"/products_hateoas/cached"** for testing purposes.
