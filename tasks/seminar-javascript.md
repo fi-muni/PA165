@@ -1,13 +1,13 @@
-## Seminar 12 - JavaScript, AJAX, AngularJS
+## Seminar JavaScript, AJAX, AngularJS
 
 **Task 01 (project build)** 
 
-In a new folder, checkout the tag seminar12_step1 from https://github.com/fi-muni/PA165
+In a new folder, checkout the tag seminar-javascript_step1 from https://github.com/fi-muni/PA165
 and build the whole project. Then run the **eshop-angular** subproject. 
 ```
-mkdir seminar12
-cd seminar12
-git clone -b seminar12_step1 https://github.com/fi-muni/PA165
+mkdir seminar-javascript
+cd seminar-javascript
+git clone -b seminar-javascript_step1 https://github.com/fi-muni/PA165
 cd PA165/
 module add maven
 mvn install
@@ -17,15 +17,13 @@ mvn tomcat7:run
 
 **Task 02 (browser tools)** 
 
-**Warning:** When in the room B130, do not use the Chromium browser version 53 preinstalled on the school computers, it has a known problem accessing the CDN (content delivery network) servers hosting the Bootstrap framework files. Use Firefox.  
-
 The application has a REST (Representational State Transfer) API (Application Programming Interface) available. The API conforms to the HATEOAS (Hypermedia as the Engine of Application State) principles seen in the previous seminar. Moreover, the JSON (JavaScript Object Notation) serialization of objects conforms to the **HAL (Hypertext Application Language)** format, which requires each object to have _links part linking to other resources, and collections of objects are serialized in _embedded part.
  
-To see it conveniently, we will need some tools in browser. Install [JSONView](http://jsonview.com/) extension for Firefox or Chrome.  
+To see it conveniently, we will need some tools in browser. Install [JSONView for Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) or [JSONView for Firefox](https://jsonview.com/).  
 
 With the JSONView installed, visit the URL [http://localhost:8080/eshop/api/v1/categories/](http://localhost:8080/eshop/api/v1/categories/) which lists all eshop categories. Try following the links to see the HATEOAS principles in practise. 
 
-Then visit the URL [http://localhost:8080/eshop/#/shopping](http://localhost:8080/eshop/#/shopping) which is an AngularJS application calling the REST API. 
+Then visit the URL [http://localhost:8080/eshop/#!/shopping](http://localhost:8080/eshop/#!/shopping) which is an AngularJS application calling the REST API. 
 
 Press the key **F12** on your keyboard. The browser should open a subwindow with developer tools. Clink on **Console** tab to see debugging logs from JavaScript.
 
@@ -52,13 +50,13 @@ In the same page, implement equivalent functionality for categories. Use the URL
 
 **Task 05 (AngularJS basics)** 
 
-You have already seen the URL  [http://localhost:8080/eshop/#/shopping](http://localhost:8080/eshop/#/shopping) in the Task 02.
+You have already seen the URL  [http://localhost:8080/eshop/#!/shopping](http://localhost:8080/eshop/#!/shopping) in the Task 02.
 It is an web interface implemented as a single-page web application using framework [AngularJS](https://angularjs.org/).
 
-See the file **src/main/webapp/index.jsp**. It is the main HTML document. It loads three frameworks - Bootstrap, jQuery and Angular. Then it defines a navigation menu. Please note that hyperlinks in such single-page application are not links to other HTML documents, rather they use the fragment part of URL after the **#** character, so for example a hyperlink to a product detail is [#/product/25](http://localhost:8080/eshop/#/product/25).
+See the file **src/main/webapp/index.jsp**. It is the main HTML document. It loads three frameworks - Bootstrap, jQuery and Angular. Then it defines a navigation menu. Please note that hyperlinks in such single-page application are not links to other HTML documents, rather they use the fragment part of URL after the **#** character, followed by **!**, so for example a hyperlink to a product detail is [#!/product/25](http://localhost:8080/eshop/#!/product/25).
 In this moment, only two views are implemented:
-* eshop overview - [#/shopping](http://localhost:8080/eshop/#/shopping)
-* product detail - e.g. [#/product/1](http://localhost:8080/eshop/#/product/1)
+* eshop overview - [/shopping](http://localhost:8080/eshop/#!/shopping)
+* product detail - e.g. [/product/1](http://localhost:8080/eshop/#!/product/1)
 
 The main page contains very little of AngularJS functionality. It contains a DIV element with the **ng-app** attribute marking the place managed by AngularJS, and a DIV with **ng-view** attribute which is a placeholder for changing HTML views:
 ```
@@ -99,25 +97,25 @@ so you can copy it from there.
 
 **Task 07  (AngularJS forms)**
 
-Check out tag seminar12_step2 from git:
+Check out tag seminar-javascript_step2 from git:
 ```
-git checkout -f seminar12_step2 
+git checkout -f seminar-javascript_step2 
 ```
 The following changes appeared:
 * files partials/admin_products.html (list of products) and partials/admin_new_product.html (form for adding a new product) 
 * angular_app.js now contains AdminProductsCtrl and AdminNewProductCtrl controllers
-* routing for [#/admin/products](http://localhost:8080/eshop/#/admin/products) for  AdminProductsCtrl was added
-* routing for [#/admin/newproduct](http://localhost:8080/eshop/#/admin/newproduct) for AdminNewProductCtrl was added 
+* routing for [/admin/products](http://localhost:8080/eshop/#!/admin/products) for  AdminProductsCtrl was added
+* routing for [/admin/newproduct](http://localhost:8080/eshop/#!/admin/newproduct) for AdminNewProductCtrl was added 
 * the index.jsp now contains Bootstrap alerts for displaying messages and angular_app.js contains definitions of functions for closing the alerts, e.g. hideSuccessAlert()
 * angular_app.js now contains definition of a new directive convertToInt which handles HTML attribute convert-to-int used in admin_new_product.html, it is necessay to convert category ids from strings to integers
 
 Please note that to keep the example simple, no authentication is implemented. 
 
-Rebuild the application and visit the page [#/admin/products](http://localhost:8080/eshop/#/admin/products).
+Rebuild the application and visit the page [/admin/products](http://localhost:8080/eshop/#!/admin/products).
 
 Delete the first product. Delete the product with id 8. See the messages. See the implementation of AdminProductsCtrl to see how the **deleteProduct** function is implemented.
 
-Visit the page [#/admin/newproduct](http://localhost:8080/eshop/#/admin/newproduct) and create a new product. See how values in form fields are validated on the client. 
+Visit the page [/admin/newproduct](http://localhost:8080/eshop/#!/admin/newproduct) and create a new product. See how values in form fields are validated on the client. 
 
 See the implementation of AdminNewProductCtrl. It prepares data for the form and stores them in the `colors`, `currencies`, `categories` and `product` variables in `$scope`. It also defines the function `create` that is called when the form submission button is clicked.
   
@@ -133,7 +131,7 @@ Using the code described in the previous task as an example, implement pages for
 * list of categories
 * form for creating a new category
    
-You can see the solution in the branch [seminar12](https://github.com/fi-muni/PA165/tree/seminar12)   
+You can see the solution in the branch [seminar-javascript](https://github.com/fi-muni/PA165/tree/seminar-javascript)   
 
 
 
