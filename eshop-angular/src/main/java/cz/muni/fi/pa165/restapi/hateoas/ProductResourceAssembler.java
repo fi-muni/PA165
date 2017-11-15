@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.restapi.hateoas;
 
 import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.muni.fi.pa165.restapi.controllers.ProductsRestController;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
@@ -22,7 +23,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Component
 public class ProductResourceAssembler extends ResourceAssemblerSupport<ProductDTO, ProductResource> {
 
-    final static org.slf4j.Logger log = LoggerFactory.getLogger(ProductResourceAssembler.class);
+    private final static Logger log = LoggerFactory.getLogger(ProductResourceAssembler.class);
 
     public ProductResourceAssembler() {
         super(ProductsRestController.class, ProductResource.class);

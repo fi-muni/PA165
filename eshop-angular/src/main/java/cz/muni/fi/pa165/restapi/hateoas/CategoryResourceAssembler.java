@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.restapi.hateoas;
 
 import cz.fi.muni.pa165.dto.CategoryDTO;
 import cz.muni.fi.pa165.restapi.controllers.CategoriesRestController;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
@@ -17,16 +18,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryResourceAssembler extends ResourceAssemblerSupport<CategoryDTO, CategoryResource> {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    EntityLinks entityLinks;
 
-    final static org.slf4j.Logger log = LoggerFactory.getLogger(CategoryResourceAssembler.class);
+    private EntityLinks entityLinks;
 
-    public CategoryResourceAssembler() {
+    private final static Logger log = LoggerFactory.getLogger(CategoryResourceAssembler.class);
+
+    public CategoryResourceAssembler(@SuppressWarnings("SpringJavaAutowiringInspection")
+                                     @Autowired EntityLinks entityLinks) {
         super(CategoriesRestController.class, CategoryResource.class);
+        this.entityLinks = entityLinks;
     }
-
 
     @Override
     public CategoryResource toResource(CategoryDTO categoryDTO) {

@@ -30,7 +30,7 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
- * * SpringMVC controller for managing REST requests for the product resources. Conforms to HATEOAS principles.
+ * SpringMVC controller for managing REST requests for the product resources. Conforms to HATEOAS principles.
  *
  * @author Martin Kuba makub@ics.muni.cz
  */
@@ -39,12 +39,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RequestMapping("/products")
 public class ProductsRestController {
 
-    final static Logger log = LoggerFactory.getLogger(ProductsRestController.class);
+    private final static Logger log = LoggerFactory.getLogger(ProductsRestController.class);
 
-    @Autowired
+    public ProductsRestController(@Autowired ProductFacade productFacade,@Autowired ProductResourceAssembler productResourceAssembler) {
+        this.productFacade = productFacade;
+        this.productResourceAssembler = productResourceAssembler;
+    }
+
     private ProductFacade productFacade;
 
-    @Autowired
     private ProductResourceAssembler productResourceAssembler;
 
 

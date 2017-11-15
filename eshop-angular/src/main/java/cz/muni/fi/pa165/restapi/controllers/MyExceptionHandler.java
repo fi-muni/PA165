@@ -20,12 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class MyExceptionHandler {
 
-    final static Logger log = LoggerFactory.getLogger(MyExceptionHandler.class);
+    private final static Logger log = LoggerFactory.getLogger(MyExceptionHandler.class);
 
     @ExceptionHandler({Exception.class})
     @ResponseBody
     protected ResponseEntity<ErrorResource> handleProblem(Exception e) {
-
 
         ErrorResource error = new ErrorResource(e.getClass().getSimpleName(), e.getMessage());
 

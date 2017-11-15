@@ -140,11 +140,11 @@
                     <additionalparam>-Xdoclint:none</additionalparam>
                     <detectLinks>false</detectLinks>
                     <links>
-                        <link>http://docs.oracle.com/javaee/6/api/</link>
-                        <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>
-                        <link>http://docs.spring.io/spring-hateoas/docs/current/api/</link>
-                        <link>http://fasterxml.github.io/jackson-annotations/javadoc/2.5/</link>
-                        <!--<link>http://docs.oracle.com/javase/8/docs/api/</link>-->
+                        <link>https://docs.oracle.com/javaee/7/api/</link>
+                        <link>https://docs.spring.io/spring/docs/4.3.x/javadoc-api/</link>
+                        <link>https://docs.spring.io/spring-hateoas/docs/current/api/</link>
+                        <link>https://fasterxml.github.io/jackson-annotations/javadoc/2.8/</link>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                     </links>
                 </configuration>
             </plugin>

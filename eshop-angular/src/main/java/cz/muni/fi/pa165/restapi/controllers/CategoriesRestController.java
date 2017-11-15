@@ -40,23 +40,32 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RequestMapping("/categories")
 public class CategoriesRestController {
 
-    final static Logger log = LoggerFactory.getLogger(CategoriesRestController.class);
+    private final static Logger log = LoggerFactory.getLogger(CategoriesRestController.class);
 
-    @Autowired
+    public CategoriesRestController(
+            @Autowired ProductFacade productFacade,
+            @Autowired CategoryFacade categoryFacade,
+            @Autowired CategoryResourceAssembler categoryResourceAssembler,
+            @Autowired ProductResourceAssembler productResourceAssembler,
+            @SuppressWarnings("SpringJavaAutowiringInspection")
+            @Autowired EntityLinks entityLinks
+    ) {
+        this.productFacade = productFacade;
+        this.categoryFacade = categoryFacade;
+        this.categoryResourceAssembler = categoryResourceAssembler;
+        this.productResourceAssembler = productResourceAssembler;
+        this.entityLinks = entityLinks;
+    }
+
     private ProductFacade productFacade;
 
-    @Autowired
     private CategoryFacade categoryFacade;
 
-    @Autowired
     private CategoryResourceAssembler categoryResourceAssembler;
 
-    @Autowired
     private ProductResourceAssembler productResourceAssembler;
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    EntityLinks entityLinks;
+    private EntityLinks entityLinks;
 
     /**
      * Produces list of all categories in JSON.
