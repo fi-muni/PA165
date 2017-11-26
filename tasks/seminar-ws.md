@@ -1,16 +1,16 @@
-## Seminar 11 Tasks - Spring-WS
+## Seminar Spring-WS Tasks
 
 In this seminar we set-up a Spring-WS project and try the *"contract-first"* approach adopted in Spring for the development of webservices.
-You can see the complete solution in the branch [seminar11](https://github.com/fi-muni/PA165/tree/seminar11).
+You can see the complete solution in the branch [seminar-ws](https://github.com/fi-muni/PA165/tree/seminar-ws).
 
 **Task 01 (project build)** 
 
-In a new folder, checkout the tag *seminar11_step1* from https://github.com/fi-muni/PA165 and build the whole project. Then run the **eshop-ws** subproject. **Note:** some of the resources of the project are generated from XSD definitions, so you might get unresolved references to Java classes until you build the project. If you do schema modifications, remember to run ```mvn clean install``` in the **eshop-ws** module.
+In a new folder, checkout the tag *seminar-ws_step1* from https://github.com/fi-muni/PA165 and build the whole project. Then run the **eshop-ws** subproject. **Note:** some of the resources of the project are generated from XSD definitions, so you might get unresolved references to Java classes until you build the project. If you do schema modifications, remember to run ```mvn clean install``` in the **eshop-ws** module.
 
 ```
-mkdir seminar11
-cd seminar11
-git clone -b seminar11_step1 https://github.com/fi-muni/PA165
+mkdir seminar-ws
+cd seminar-ws
+git clone -b seminar-ws_step1 https://github.com/fi-muni/PA165
 cd PA165/
 module add maven
 mvn clean install
@@ -75,7 +75,7 @@ We will go through most of the steps for the creation of this module.
 
 Move to step2:
 ```
-git checkout -f seminar11_step2 
+git checkout -f seminar-ws_step2 
 ```
 
 Our goal in this step is to build a *"contract-first"* application based on a schema that resembles the domain model we used to so far in the *eshop application*. 
@@ -92,7 +92,7 @@ It is also good idea to change the logback configuration so that you can get inf
 
 Move to step3:
 ```
-git checkout -f seminar11_step3 
+git checkout -f seminar-ws_step3 
 ```
 
 We want now to provide tests for SOAP requests and responses for the methods that have been created. In the test package **cz.fi.muni.pa165.ws.test**, open the class **ProductEndpointTest** and add one test method for a Product that does not exist.
@@ -126,7 +126,7 @@ Also add one method that tests the method about getting all the products (see th
 
 Move to step4:
 ```
-git checkout -f seminar11_step4
+git checkout -f seminar-ws_step4
 ```
 
 It is a good idea to validate the schema of the requests and responses. For this, we can add an interceptor. Spring-WS gives you the possibility of adding interceptors for different purposes. We will use in this case the **PayloadValidatingInterceptor**. Open the class **WebServiceConfig** and implement the following changes:
@@ -169,5 +169,5 @@ With the validation interceptor you should get similar message as:
 You can rebuild the application without interceptor and you should get instead the expected response message.
 
 
-You can read more about different interceptors in Spring-WS documentation: [http://docs.spring.io/spring-ws/docs/2.2.0.RELEASE/reference/htmlsingle/#server-endpoint-interceptor](http://docs.spring.io/spring-ws/docs/2.2.0.RELEASE/reference/htmlsingle/#server-endpoint-interceptor)
+You can read more about different interceptors in Spring-WS documentation: [https://docs.spring.io/spring-ws/docs/current/reference/#server-endpoint-interceptor](https://docs.spring.io/spring-ws/docs/current/reference/#server-endpoint-interceptor)
 
