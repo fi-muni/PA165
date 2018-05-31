@@ -40,12 +40,10 @@
         <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-spec</artifactId>
-            <version>${taglibs-standard.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-impl</artifactId>
-            <version>${taglibs-standard.version}</version>
         </dependency>
 
         <!-- Spring MVC -->
