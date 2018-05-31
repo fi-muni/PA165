@@ -40,7 +40,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         final MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(servlet, "/*");
+        return new ServletRegistrationBean<>(servlet, "/*");
     }
 
     /**

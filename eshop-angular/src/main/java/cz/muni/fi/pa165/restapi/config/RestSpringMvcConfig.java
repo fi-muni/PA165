@@ -17,7 +17,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Validator;
 import java.text.SimpleDateFormat;
@@ -44,7 +44,7 @@ import static org.springframework.hateoas.config.EnableHypermediaSupport.Hyperme
 @Configuration
 @Import({EshopWithSampleDataConfiguration.class})
 @ComponentScan(basePackages = {"cz.muni.fi.pa165.restapi.controllers", "cz.muni.fi.pa165.restapi.hateoas"})
-public class RestSpringMvcConfig extends WebMvcConfigurerAdapter {
+public class RestSpringMvcConfig implements WebMvcConfigurer {
 
     @Bean
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {

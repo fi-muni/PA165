@@ -4,14 +4,17 @@ import cz.muni.fi.pa165.sampledata.EshopWithSampleDataConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.validation.Validator;
@@ -29,11 +32,11 @@ import javax.validation.Validator;
 @Configuration
 @Import({EshopWithSampleDataConfiguration.class})
 @ComponentScan(basePackages = "cz.muni.fi.pa165.mvc.controllers")
-public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
+public class MySpringMvcConfig implements WebMvcConfigurer {
 
-    final static Logger log = LoggerFactory.getLogger(MySpringMvcConfig.class);
+    private final static Logger log = LoggerFactory.getLogger(MySpringMvcConfig.class);
 
-    public static final String TEXTS = "Texts";
+    private static final String TEXTS = "Texts";
 
     /**
      * Maps the main page to a specific view.
