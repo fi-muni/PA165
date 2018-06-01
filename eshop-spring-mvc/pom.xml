@@ -96,22 +96,19 @@
 
     <build>
         <!-- what to do when only "mvn" is run -->
-        <defaultGoal>tomcat7:run</defaultGoal>
+        <defaultGoal>cargo:run</defaultGoal>
+        <!-- name of the produced war -->
+        <finalName>eshop</finalName>
         <plugins>
-            <!-- Servlet 3.0 allows no web.xml deployment descriptor -->
+            <!--  embedded tomcat 8 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
             </plugin>
-            <!--  embedded tomcat -->
+            <!--  embedded tomcat 7 -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
                 <configuration>
                     <path>/eshop</path>
                 </configuration>

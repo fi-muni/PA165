@@ -77,7 +77,7 @@ public class ProtectFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        log.info("Running in {}",filterConfig.getServletContext().getServerInfo());
     }
 
     @Override

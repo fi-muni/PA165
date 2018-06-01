@@ -110,36 +110,32 @@
 
     <build>
         <!-- what to do when only "mvn" is run -->
-        <defaultGoal>tomcat7:run</defaultGoal>
+        <defaultGoal>cargo:run</defaultGoal>
+        <!-- name of the produced war and the context path in URL -->
+        <finalName>eshop</finalName>
         <plugins>
-            <!-- Servlet 3.0 allows no web.xml deployment descriptor -->
+            <!--  embedded tomcat 8 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
             </plugin>
-            <!--  embedded tomcat -->
+            <!--  embedded tomcat 7 -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
                 <configuration>
                     <path>/eshop</path>
                 </configuration>
             </plugin>
-            <!-- try "mavn javadoc:javadoc" and see target/site/apidocs -->
+            <!-- try "mvn javadoc:javadoc" and see target/site/apidocs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
                     <detectLinks>false</detectLinks>
                     <links>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
-                        <link>https://docs.spring.io/spring/docs/4.3.x/javadoc-api/</link>
+                        <link>https://docs.spring.io/spring/docs/current/javadoc-api/</link>
                         <link>https://docs.spring.io/spring-hateoas/docs/current/api/</link>
                         <link>https://fasterxml.github.io/jackson-annotations/javadoc/2.8/</link>
                         <link>https://docs.oracle.com/javase/8/docs/api/</link>

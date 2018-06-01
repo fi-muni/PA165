@@ -72,6 +72,28 @@
                         <compilerArgument>-Xlint:unchecked,deprecation</compilerArgument>
                     </configuration>
                 </plugin>
+                <!-- embedded Tomcat 8 plugin configuration, use "mvn cargo:run" to run -->
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.6.8</version>
+                    <configuration>
+                        <container>
+                            <containerId>tomcat8x</containerId>
+                            <artifactInstaller>
+                                <groupId>org.apache.tomcat</groupId>
+                                <artifactId>tomcat</artifactId>
+                                <version>${tomcat.version}</version>
+                            </artifactInstaller>
+                        </container>
+                    </configuration>
+                </plugin>
+                <!-- embedded Tomcat 7 plugin configuration, use "mvn tomcat7:run" to run -->
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
