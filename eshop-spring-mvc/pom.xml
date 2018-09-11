@@ -93,6 +93,9 @@
 
     </dependencies>
 
+   <!--
+      Start tomcat with "mvn cargo:run" and visit http://localhost:8080/eshop/
+    -->
 
     <build>
         <!-- what to do when only "mvn" is run -->

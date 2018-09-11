@@ -22,10 +22,8 @@ pa165eshopApp.config(['$routeProvider',
         otherwise({redirectTo: '/shopping'});
     }]);
 
-/*
- * alert closing functions defined in root scope to be available in every template
- */
-pa165eshopApp.run(function ($rootScope) {
+pa165eshopApp.run(function ($rootScope,$http) {
+    // alert closing functions defined in root scope to be available in every template
     $rootScope.hideSuccessAlert = function () {
         $rootScope.successAlert = undefined;
     };
@@ -35,8 +33,9 @@ pa165eshopApp.run(function ($rootScope) {
     $rootScope.hideErrorAlert = function () {
         $rootScope.errorAlert = undefined;
     };
+    //change the HTTP Accept header globally to signal accepting the HAL format
+    $http.defaults.headers.common.Accept = 'application/hal+json, */*';
 });
-
 
 /* Controllers */
 

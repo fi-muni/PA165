@@ -67,17 +67,11 @@ public class RestSpringMvcConfig implements WebMvcConfigurer {
 
     @Bean
     public ObjectMapper objectMapper() {
-        //configuring mapper for HAL, see https://github.com/spring-projects/spring-hateoas/issues/333
-        ObjectMapper objectMapper = beanFactory.getBean("_halObjectMapper", ObjectMapper.class);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        //configuring mapper for HAL
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH));
         return objectMapper;
     }
-
-    @Autowired
-    private BeanFactory beanFactory;
-
 
     /**
      * Provides JSR-303 Validator.
