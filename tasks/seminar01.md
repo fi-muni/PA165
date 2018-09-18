@@ -1,7 +1,7 @@
 ## Seminar 01 Tasks 
 **Task 01** Open IDE. Main IDE for this course is IntelliJ IDEA. This IDE is installed in B130 and accessible through modules. Use the following commands to run IDE. Create hello world Java application and run it using the IDE.
 ```
-  module add idea-2018.2 maven 
+  module add idea-2018.2 maven-3.5
   idea.sh &
 ```
 The IntelliJ IDEA needs a licence. If you don't already have one, just visit https://www.jetbrains.com/student/ and create a new JetBrains account with an email from the domain @mail.muni.cz, you will get a student licence for all JetBrains products for one year.
@@ -21,7 +21,7 @@ cd PA165
 git checkout seminar01
 ```
 
-**Task 06** Open a new terminal. OpenJDK 10 is already preinstalled on all machines in room B130, but it is not fully backward compatible with JDK 8. The command `module add maven` also adds module `jdk`, which is a symlink to the module `jdk-1.8.0`, so JDK 8 should be in your PATH by now. If using your own notebook, install OpenJDK 8. Now try to compile hello-java7 `mvn clean compile`. It will fail, why? After you find out why it is failing fix it by changing configuration of pom.xml. You must configure compiler plugin to compile with target and source version at least 7.
+**Task 06** Open a new terminal. OpenJDK 10 is already preinstalled on all machines in room B130, but it is not fully backward compatible with JDK 8. The command `module add maven-3.5` also adds module `jdk`, which is a symlink to the module `jdk-1.8.0`, so JDK 8 should be in your PATH by now. If using your own notebook, install OpenJDK 8. Now try to compile hello-java7 `mvn clean compile`. It will fail, why? After you find out why it is failing fix it by changing configuration of pom.xml. You must configure compiler plugin to compile with target and source version at least 7.
 
 **Task 07** Now your task is to configure and use embedded Tomcat7 plugin. You must firstly configure tomcat7 maven plugin in pom.xml. It has goal `run`, to run. Use it to run web Java application hello-tom-web using command line. After the plugin is configured, you must package the app `mvn package` using Maven before using tomcat7 plugin. After the web app is started you can use web browser to test it works, it will be deployed on context '/my-webapp'. 
 
