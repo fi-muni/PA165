@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.currency;
+package cz.muni.fi.pa165.currency;
 
 /**
  * This exception is thrown when external service call failed.
