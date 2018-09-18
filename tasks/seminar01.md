@@ -7,7 +7,7 @@
 The IntelliJ IDEA needs a licence. If you don't already have one, just visit https://www.jetbrains.com/student/ and create a new JetBrains account with an email from the domain @mail.muni.cz, you will get a student licence for all JetBrains products for one year.
 Note: its a good idea to put the `module add` command into your ~/.bashrc
 
-**Task 02** Find out which version of Maven is installed on your machine using `which mvn`. You MUST use terminal where you added the module from Task 01. Notes: Maven was covered on the lecture. The module from Task 01 adds the Maven on your system path. This means that you must add module from Task 01 in EVERY terminal that you will be using for running netbeans or for running any Maven commands. Other notes: your local maven repo is in /tmp/maven-repo-$LOGIN.
+**Task 02** Find out which version of Maven is installed on your machine using `which mvn`. You MUST use terminal where you added the module from Task 01. Notes: Maven was covered on the lecture. The module from Task 01 adds the Maven on your system path. This means that you must add module from Task 01 in EVERY terminal that you will be using for running netbeans or for running any Maven commands. Other notes: your local maven repo is in `~/.m2`.
 
 **Task 03** Create hello world Java application using Maven from command line. Use "archetype" plugin and goal "generate". Run this application and it will print 'Hello World!'. Then modify the application by using only the command line to print text 'Hello PA165'. Run this application from commandline using Maven exec plugin goal java. Note that you must firstly compile the source codes for 'java' goal to work.
 
