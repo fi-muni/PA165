@@ -6,3 +6,6 @@ test-output
 *.iml
 *~
 target
+*.class
+*.jar
+.DS_Store
