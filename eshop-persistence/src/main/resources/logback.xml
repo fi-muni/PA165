@@ -1,0 +1,18 @@
+<!-- configuration for logback http://logback.qos.ch/ -->
+<configuration>
+    <!-- logs to console -->
+    <appender name="APP" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level %logger - %message%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="APP"/>
+    </root>
+
+    <logger name="org" level="info"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl" level="ERROR"/>
+</configuration>
