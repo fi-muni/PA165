@@ -1,10 +1,19 @@
 ## Persistence Seminar 01
-Do not forget to checkout branch seminar-persistence1:
+Do not forget to checkout fresh version of branch seminar-persistence1 from *upstream* (repository with url https://github.com/fi-muni/PA165.git):
 
 ```
-git fetch
+git fetch upstream
+git checkout -b seminar-persistence1 upstream/seminar-persistence1
+```
+
+If the repository https://github.com/fi-muni/PA165.git is not configured as *upstream*, but as *origin*, just replace string *upstream* with string *origin*. 
+
+If the local branch seminar-persistence1 already exists, reset its content to fresh version of branch seminar-persistence1 from upstream:
+
+```
+git fetch upstream
 git checkout seminar-persistence1
-git reset --hard origin/seminar-persistence1
+git reset --hard upstream/seminar-persistence1
 ```
 
 Do not work in master! After you checkout the branch, you should see the following files: 
