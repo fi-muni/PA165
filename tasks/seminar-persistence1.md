@@ -45,9 +45,9 @@ killall java
 
 **Task 01** Your first task is to locate and download JPA 2.1 specification (JSR 338). It is a PDF file. 
    
-**Task 02** Try to run cz.fi.muni.pa165.MainJavaSe from NetBeans. It runs method task04(). You should get runtime exception saying that it is expected you have 2 Category entities stored in the database. 
+**Task 02** Try to run cz.fi.muni.pa165.MainJavaSe from your IDE. It runs method task04(). You should get runtime exception saying that it is expected you have 2 Category entities stored in the database.
 
-**Task 03** Add configuration property to persistence.xml so that Hibernate formats SQL as it outputs it into the console.  See A.2 section of https://docs.jboss.org	/hibernate/orm/4.3/devguide/en-US/html_single/ . Also add the following logger into log4j.xml: 
+**Task 03** Add configuration property to persistence.xml so that Hibernate formats SQL as it outputs it into the console.  See [Hibernate ORM User Guide - SQL statement logging](https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#configurations-logging). Also add the following logger into logback.xml:
 
 ```
     <logger name="org.hibernate.SQL" level="DEBUG"/>
