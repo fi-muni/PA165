@@ -13,7 +13,7 @@ import cz.fi.muni.pa165.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.entity.Category;
 
 
-
+	
 public class Task01  {
 
 	

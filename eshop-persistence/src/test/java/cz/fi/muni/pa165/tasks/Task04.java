@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.tasks;
 
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,12 +38,9 @@ public class Task04 extends AbstractTestNGSpringContextTests {
 	
 	@BeforeClass
 	public void setup(){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		Date today = new Date();
-		cal.add(Calendar.DAY_OF_MONTH, -1);
-		Date yesterday = cal.getTime();
-		
+		LocalDate today = LocalDate.now();
+		LocalDate yesterday = LocalDate.now().minusDays(1);
+
 		EntityManager e=emf.createEntityManager();
 		e.getTransaction().begin();
 		

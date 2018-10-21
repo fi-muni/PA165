@@ -7,12 +7,12 @@ killall java
 ```
 
 ** Loading the projects ** 
-After you checkout the branch, you must open the whole multimodule project into Netbeans, including the two modules eshop-api, eshop-persistence. If you experience problems, use mvn install ON WHOLE multimodule project from command line and rebuild projects in Netbeans
+After you checkout the branch, you must open the whole multimodule project into IDE, including the two modules eshop-api, eshop-persistence. If you experience problems, use mvn install ON WHOLE multimodule project from command line and rebuild projects in Netbeans
 
 **Task 01**  
-Modify class Task01 (package cz.fi.muni.pa165.tasks) to be unit test that creates ApplicationContext.  
+Modify class Task01 (package cz.fi.muni.pa165.tasks) in directory `src/test/java/cz/fi/muni/pa165/tasks` to be unit test that creates ApplicationContext.  
 Use the `@ContextConfiguration` annotation (see documentation [1], [2]) and configure it so that `PersistenceSampleApplicationContext.class` is used as the spring configuration class.  
-Your test class should also extend AbstractTestNGSpringContextTests.  
+Your test class should also extend `AbstractTestNGSpringContextTests`.  
 Test code is already in the file, you can run it and see if it doesn't fail.
 
 Now you have running unit test, but it doesn't assert anything. Add assert to this test.  
@@ -26,17 +26,17 @@ Set `Category` as owning side. Owning side was covered on the lecture, if you ar
 Don't forget to clean up all TODO items in `Product` and `Category` entities.  
 There are several TODO items that require you to either delete some code or uncomment some code.
 
-Then write a unit test Task02 that tests this works. In the test `@BeforeClass` first create two categories Electro and Kitchen. 
+Then you need to write tests into file Task02. In the `@BeforeClass` first create two categories Electro and Kitchen. Then, still in`@BeforeClass` create 3 products: Flashlight, Kitchen robot, Plate.  
+Place them in the appropriate categories and commit transaction. Store these entity instances that you have created in `@BeforeClass` in instance variables, so that rest of the test method can access them.  
 
-Then, still in`@BeforeClass` create 3 products: Flashlight, Kitchen robot, Plate.  
-Place them in the appropriate categories and commit transaction.  
-Store these entity instances that you have created in `@BeforeClass` in instance variables, so that rest of the test method can access them.  
 Then write 5 unit tests - one for each category and one for each product.  
+
 In each test create a new entity manager, search for the entity and assert that it has correct content of e.g. `java.util.Set`.  
+
 Hint: there are two helper methods prepared for you: `assertContainsCategoryWithName`, `assertContainsProductWithName`.
 
 **Task 03**
-Create DAO object for Product into package cz.fi.muni.pa165.dao. Interface ProductDao is already prepared for you, you need to implement only the implementation ProductDaoImpl. Use Repository annotation on the DaoImpl. Create findAll, findById, create, delete. To get entity manager inside DAO use `@PersistenceContext`.   
+Create DAO object for Product into package cz.fi.muni.pa165.dao. Interface ProductDao is already prepared for you, you need to implement only the implementation ProductDaoImpl. Use Repository annotation on the DaoImpl. Implement findAll, findById, create, delete. To get entity manager inside DAO use `@PersistenceContext`.   
  
 To implement `findAll()`, you will need to use JPQL this is what you need:
 ```java
@@ -45,7 +45,9 @@ To implement `findAll()`, you will need to use JPQL this is what you need:
 
 Then uncomment code in seminarservices.SeminarServiceImpl class (this one uses your DAO) and add @Transactional annotation to the Service.
 
-Now, just uncomment Task03 unit test. Try to implement test for ProductDao.remove opeeration.
+Now, just uncomment Task03 unit test. 
+
+Next try to implement test for ProductDao.remove operation.
 
 **Task 04** 
 Write JPQL queries and criteria API queries for tests in Test04.java The Test file  contains comments that ask you to write queries.

@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,8 +47,7 @@ public class Product {
 	/*
 	 * The day this item has been added to the eshop
 	 */
-	@Temporal(TemporalType.DATE)
-	private java.util.Date addedDate;
+	private LocalDate addedDate;
 	
 
 	@OneToOne
@@ -92,15 +92,16 @@ public class Product {
 //	public Set<Category> getCategories() {
 //		return Collections.unmodifiableSet(categories);
 //	}
-	
 
 
-	public java.util.Date getAddedDate() {
+	public LocalDate getAddedDate() {
 		return addedDate;
 	}
-	public void setAddedDate(java.util.Date addedDate) {
+
+	public void setAddedDate(LocalDate addedDate) {
 		this.addedDate = addedDate;
 	}
+
 	public Product(Long productId) {
 		this.id = productId;
 	}
