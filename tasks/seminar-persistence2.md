@@ -36,7 +36,7 @@ In each test create a new entity manager, search for the entity and assert that 
 Hint: there are two helper methods prepared for you: `assertContainsCategoryWithName`, `assertContainsProductWithName`.
 
 **Task 03**
-Create DAO object for Product into package cz.fi.muni.pa165.dao. Interface ProductDao is already prepared for you, you need to implement only the implementation ProductDaoImpl. Use Repository annotation on the DaoImpl. Implement findAll, findById, create, delete. To get entity manager inside DAO use `@PersistenceContext`.   
+Create DAO object for Product into package cz.fi.muni.pa165.dao. Interface ProductDao is already prepared for you, you need to implement only the implementation ProductDaoImpl. Use Repository annotation on the DaoImpl. Implement findAll, findById, create, remove. To get entity manager inside DAO use `@PersistenceContext`.   
  
 To implement `findAll()`, you will need to use JPQL this is what you need:
 ```java
