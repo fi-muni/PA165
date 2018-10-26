@@ -8,15 +8,15 @@ marked by each tag. You can see the final solution in the branch [seminar-web1](
 
 
 **Task 01** In a new folder, checkout the tag seminar-web1_step1 from https://github.com/fi-muni/PA165. 
-Open the project webapp-plain. Run the application and view it in your browser at [http://localhost:8080/webapp-plain/](http://localhost:8080/webapp-plain/).
+Open the project webapp-plain. Run the application.
 ```
 mkdir seminar-web1
 cd seminar-web1
 git clone -b seminar-web1_step1 https://github.com/fi-muni/PA165
 cd PA165/webapp-plain
-module add maven
-mvn tomcat7:run
+mvn clean package cargo:run
 ```
+View it in your browser at [http://localhost:8080/webapp-plain/](http://localhost:8080/webapp-plain/).
 
 **Task 02** Open the project in your favorite IDE. Inspect all the files in the application and decide what is their purpose. The application contains:
  * a [ServletContextListener](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html) in the class MyStartInitializer
@@ -40,12 +40,12 @@ Change the setting of your browser accepted language subsequently to Czech and E
 
 **Task 06** Modify the page template in the file pagetemplate.tag so that every page has a footer which says `&copy; Masaryk University`. Modify the CSS stylesheet in the file style.css so that the footer has light blue background color. (You may need to force cache refresh in your browser to see the CSS change.)
 
-**Task 07** Create a new filter mapped to every request that adds a request attribute with key "currentyear" and a string value with the current year number (i.e. 2017). Modify the page template pagetemplate.tag so that the page footer copyright message includes the attribute value.
+**Task 07** Create a new filter mapped to every request that adds a request attribute with key "currentyear" and a string value with the current year number (i.e. 2018). Modify the page template pagetemplate.tag so that the page footer copyright message includes the attribute value.
 
 (Hints:
-[ServletRequest.setAttribute(String,Object)](http://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#setAttribute-java.lang.String-java.lang.Object-))
+[ServletRequest.setAttribute(String,Object)](https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletRequest.html#setAttribute-java.lang.String-java.lang.Object-)
 [SimpleDateFormat(String,Locale)](http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html#SimpleDateFormat-java.lang.String-java.util.Locale-)
-[ServletRequest.getLocale()](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getLocale--)) )
+[ServletRequest.getLocale()](https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletRequest.html#getLocale--)
 
 **Task 08** Check out tag seminar-web1_step2 from the repository, forcing the reset of files (your changes will be deleted):
 ```
@@ -75,14 +75,14 @@ There is a new class ProtectFilter. Run the application and visit the page with 
 git checkout -f seminar-web1_step4
 ```
 This is an example of a container-managed form-based authentication. There are a number of changes:
- * a new file *tomcat-users.xml* contains the definition of users, their passwords and security roles
- * the file *pom.xml* was modified to use this file in tomcat7 plugin
+ * pom.xml in the property *cargo.servlet.users* of cargo-maven2-plugin contains the definition of users, their passwords and security roles
  * a new file *web.xml* contains the definition of protected URLs and the method of authentication
  * two new JSPs *login.jsp* and *login-failed.jsp* contain login form and failure message respectively
  * resource bundles Texts.properties and Texts_cs.properties contain new keys for the new JSPs
- * the JSP *podoli.jsp* was modified to display info about authenticated user 
+ * the JSP *podoli.jsp* was modified to display info about the authenticated user and a button for logout
+ * the *PodoliServlet* class has a new method doPost() which does logout
 
-Run the application **from the command line** (otherwise the tomcat-users.xml file will not be used). Click on *to Podolí* and authenticate using the form. 
+Run the application **from the command line**. Click on *to Podolí* and authenticate using the form. 
 Define a new user in a new role, and secure the URL `/snoop.jsp` to be accessible only by this new user.
 
 **Task 13** In this task we will try a SAML (Security Assertion Markup Language) federated identity login. However establishing mutual trust among involved parties needs administrative steps and takes time, which we cannot afford during this seminar, so we will use pre-existing systems with already established legal relationship, in this case *Google Apps for Education* as the service provider and *IS MU* as the identity provider.
