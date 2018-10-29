@@ -8,7 +8,7 @@ marked by each tag. You can see the final solution in the branch [seminar-web1](
 
 
 **Task 01** In a new folder, checkout the tag seminar-web1_step1 from https://github.com/fi-muni/PA165. 
-Open the project webapp-plain. Run the application.
+Build and run the application *webapp-plain*.
 ```
 mkdir seminar-web1
 cd seminar-web1
@@ -16,7 +16,8 @@ git clone -b seminar-web1_step1 https://github.com/fi-muni/PA165
 cd PA165/webapp-plain
 mvn clean package cargo:run
 ```
-View it in your browser at [http://localhost:8080/webapp-plain/](http://localhost:8080/webapp-plain/).
+The *cargo:run* Maven goal runs Cargo plugin which is configured (in the build/plugins section of pom.xml) to run the application inside of an instance of Tomcat 8 servlet container.
+View the running application in your browser at [http://localhost:8080/webapp-plain/](http://localhost:8080/webapp-plain/).
 
 **Task 02** Open the project in your favorite IDE. Inspect all the files in the application and decide what is their purpose. The application contains:
  * a [ServletContextListener](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html) in the class MyStartInitializer
