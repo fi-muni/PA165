@@ -21,11 +21,11 @@ mvn tomcat7:run
 
 Visit the web application at [http://localhost:8080/eshop/](http://localhost:8080/eshop/). 
 
-Today web applications need to display correctly on a wide variety of devices, from 3" smartphones to 30" desktop monitors, with which users interact by a mouse or a touchscreen. This provides a challenge for web design.  A solution is the so called *responsive web design* which adapts to various screen sizes. This example project uses the CSS framework [Bootstrap](http://getbootstrap.com/) for it. Bootstrap divides device screens into 4 categories: extra small (less then 768px wide), small (768px-992px), medium (992px-1200px) and large (>1200px). It also provides 12-column grid for positioning dependent on screen size.
+Today web applications need to display correctly on a wide variety of devices, from 3" smartphones to 30" desktop monitors, with which users interact by a mouse or a touchscreen. This provides a challenge for web design.  A solution is the so called *responsive web design* which adapts to various screen sizes. This example project uses the CSS framework [Bootstrap 3](http://getbootstrap.com/) for it. Bootstrap divides device screens into 4 categories: extra small (less then 768px wide), small (768px-992px), medium (992px-1200px) and large (>1200px). It also provides 12-column grid for positioning dependent on screen size.
 
 On the eshop home page, click on the button *Go shopping*. Change the width of your browser screen to see all four sizes.  Notice what the top navigation menu does for extra small screen. Also notice how the product images rearrange to 1, 3, 4 and 6 columns respectively on the four screen sizes.
 
-See the examples in the [Grid](http://getbootstrap.com/css/#grid) section of Bootstrap documentation. Edit the page *home.jsp* to display twelve buttons labelled Button1, ..., Button12, which rearrange themselves to 1 column on extra small screen, to 2 columns on small screen, to 6 columns on medium screen and to 12 columns on large screen. (Hint: you can use the JSTL tag `<c:forEach begin="1" end="12" var="i">` or a scriptlet to generate the buttons in a loop.)
+See the examples in the [Grid](https://getbootstrap.com/docs/3.3/css/#grid) section of Bootstrap 3 documentation. Edit the page *home.jsp* to display twelve buttons labelled Button1, ..., Button12, which rearrange themselves to 1 column on extra small screen, to 2 columns on small screen, to 6 columns on medium screen and to 12 columns on large screen. (Hint: you can use the JSTL tag `<c:forEach begin="1" end="12" var="i">` or a scriptlet to generate the buttons in a loop.)
 
 **Task 03 (example SpringMVC controller)** 
 
