@@ -1,20 +1,18 @@
-## Seminar 08 Tasks - Spring MVC
+## Seminar Web 2 Tasks - Spring MVC
 
-You can see the complete solution in the branch [seminar08](https://github.com/fi-muni/PA165/tree/seminar08).
 
 **Task 01 (project build)** 
 
-In a new folder, checkout the tag seminar08_step1 from https://github.com/fi-muni/PA165
+In a new folder, checkout the tag seminar-web2_step1 from https://github.com/fi-muni/PA165
 and build the whole project. Then run the eshop-spring-mvc subproject. The application needs some time to start, wait for the message "Starting ProtocolHandler" from Tomcat.
 ```
-mkdir seminar08
-cd seminar08
-git clone -b seminar08_step1 https://github.com/fi-muni/PA165
+mkdir seminar-web2
+cd seminar-web2
+git clone -b seminar-web2_step1 https://github.com/fi-muni/PA165
 cd PA165/
-module add maven
 mvn install
 cd eshop-spring-mvc
-mvn tomcat7:run
+mvn cargo:run
 ```
 
 **Task 02 (responsive web design)** 
@@ -37,16 +35,21 @@ Create a new method named *bar* mapped to URL */example/bar* in the ExampleContr
 
 **Task 04 (order management)**
  
-Check out tag seminar08_step2 from git:
+Check out tag seminar-web2_step2 from git:
 ```
-git checkout -f seminar08_step2 
+git checkout -f seminar-web2_step2 
 ```
 New files appeared:
 * filter ProtectFilter that asks for email and password when administrative pages are accessed
 * controller OrderControler for managing orders
 * JSP pages in src/main/webapp/WEB-INF/jsp/order
  
-Restart the application. Access the page [http://localhost:8080/eshop/order/list/all](http://localhost:8080/eshop/order/list/all) either through this link or through the menu item Administration - Orders.  Use email **`admin@eshop.com`** and password **`admin`** for authentication. (Users are defined in the subproject eshop-sample-data in the class SampleDataLoadingFacadeImpl.) Click on the various buttons. View an order in the state RECEIVED and ship it, then finish it. View another order in the state RECEIVED and cancel it. 
+Stop the Tomcat by pressing CTRL+C. Rebuild and restart the application. 
+```
+mvn clean package cargo:run
+```
+
+Access the page [http://localhost:8080/eshop/order/list/all](http://localhost:8080/eshop/order/list/all) either through this link or through the menu item Administration - Orders.  Use email **`admin@eshop.com`** and password **`admin`** for authentication. (Users are defined in the subproject eshop-sample-data in the class SampleDataLoadingFacadeImpl.) Click on the various buttons. View an order in the state RECEIVED and ship it, then finish it. View another order in the state RECEIVED and cancel it. 
 
 Inspect the source code for the controller to see how it is done.
  
@@ -58,19 +61,19 @@ Taking example from the existing controllers, create a new protected page displa
 * add a new method mapped to relative URL prefix */list* that retrieves list of users, adds it to model and forwards to JSP to display it
 * create a new JSP in a new folder src/main/webapp/WEB-INF/jsp/user/list.jsp that displays a table of users
   
-Restart the application and access the URL [http://localhost:8080/eshop/user/list](http://localhost:8080/eshop/user/list).
+Rebuild and run the application. Access the page [http://localhost:8080/eshop/user/list](http://localhost:8080/eshop/user/list).
  
 **Task 06 (validation of input values)**
-Check out tag seminar08_step3 from git:
+Check out tag seminar-web2_step3 from git:
 ```
-git checkout -f seminar08_step3 
+git checkout -f seminar-web2_step3 
 ```
 New files appeared:
 * class ProductController
 * JSP pages in  src/main/webapp/WEB-INF/jsp/product
 * validator class ProductCreateDTOValidator
  
-Run the application. Access the page [http://localhost:8080/eshop/product/list](http://localhost:8080/eshop/product/list).
+Rebuild and run the application. Access the page [http://localhost:8080/eshop/product/list](http://localhost:8080/eshop/product/list).
 Click on the button *New product*. Submit empty form and see the error messages.
  
 There are two validations going on. The first one is JSR-303 validation which is driven by annotations on the class **ProductCreateDTO**
@@ -86,3 +89,6 @@ Create a controller and JSP pages which provide creation of new categories.
  
 Using the administration web pages, create a new category and a new product in that category.
  
+** Solution **
+
+You can see the complete solution in the branch [seminar-web2](https://github.com/fi-muni/PA165/tree/seminar-web2).
