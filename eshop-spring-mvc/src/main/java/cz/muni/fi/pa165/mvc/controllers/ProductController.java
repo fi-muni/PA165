@@ -11,6 +11,7 @@ import cz.muni.fi.pa165.mvc.forms.ProductCreateDTOValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * SpringMVC Controller for administering products.
@@ -34,7 +34,7 @@ import java.util.Locale;
 @RequestMapping("/product")
 public class ProductController {
 
-    final static Logger log = LoggerFactory.getLogger(ProductController.class);
+    private final static Logger log = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
     private ProductFacade productFacade;
@@ -55,11 +55,17 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         ProductDTO product = productFacade.getProductWithId(id);
-        productFacade.deleteProduct(id);
         log.debug("delete({})", id);
-        redirectAttributes.addFlashAttribute("alert_success", "Product \"" + product.getName() + "\" was deleted.");
+        try {
+            productFacade.deleteProduct(id);
+            redirectAttributes.addFlashAttribute("alert_success", "Product \"" + product.getName() + "\" was deleted.");
+        } catch (Exception ex) {
+            log.error("product "+id+" cannot be deleted (it is included in an order)");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
+            redirectAttributes.addFlashAttribute("alert_danger", "Product \"" + product.getName() + "\" cannot be deleted.");
+        }
         return "redirect:" + uriBuilder.path("/product/list").toUriString();
     }
 

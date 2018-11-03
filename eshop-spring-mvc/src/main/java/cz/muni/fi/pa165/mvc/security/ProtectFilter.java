@@ -7,12 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * Protects administrative part of application.
@@ -22,7 +27,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/order/*", "/user/*", "/product/*", "/category/*"})
 public class ProtectFilter implements Filter {
 
-    final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
+    private final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);
 
 
     @Override
@@ -42,7 +47,7 @@ public class ProtectFilter implements Filter {
         //get Spring context and UserFacade from it
         UserFacade userFacade = WebApplicationContextUtils.getWebApplicationContext(r.getServletContext()).getBean(UserFacade.class);
         UserDTO matchingUser = userFacade.findUserByEmail(logname);
-        if(matchingUser==null) {
+        if (matchingUser == null) {
             log.warn("no user with email {}", logname);
             response401(response);
             return;
@@ -66,7 +71,7 @@ public class ProtectFilter implements Filter {
 
 
     private String[] parseAuthHeader(String auth) {
-        return new String(DatatypeConverter.parseBase64Binary(auth.split(" ")[1])).split(":", 2);
+        return new String(Base64.getDecoder().decode(auth.split(" ")[1])).split(":", 2);
     }
 
     private void response401(HttpServletResponse response) throws IOException {
@@ -76,8 +81,8 @@ public class ProtectFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        log.info("Running in {}",filterConfig.getServletContext().getServerInfo());
+    public void init(FilterConfig filterConfig) {
+        log.info("Running in {}", filterConfig.getServletContext().getServerInfo());
     }
 
     @Override

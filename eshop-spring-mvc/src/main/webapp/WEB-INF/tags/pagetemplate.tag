@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
@@ -5,18 +6,16 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!DOCTYPE html>
 <html lang="${pageContext.request.locale}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><c:out value="${title}"/></title>
-    <!-- bootstrap loaded from content delivery network -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
+    <!-- bootstrap loaded from content delivery network -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <jsp:invoke fragment="head"/>
 </head>
 <body>
@@ -49,7 +48,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Javadocs</li>
                         <li><a href="http://docs.oracle.com/javase/8/docs/api/">JDK 8 API</a></li>
-                        <li><a href="http://docs.oracle.com/javaee/6/api/">Java EE 6 API</a></li>
+                        <li><a href="https://javaee.github.io/javaee-spec/javadocs/">Java EE API</a></li>
                         <li><a href="http://docs.spring.io/spring/docs/current/javadoc-api/">Spring API</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Other</li>
@@ -60,7 +59,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><f:message key="navigation.about"/><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="https://is.muni.cz/predmet/fi/podzim2015/PA165">PA165</a></li>
+                        <li><a href="https://is.muni.cz/predmet/fi/podzim2018/PA165">PA165</a></li>
                         <li><a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">SpringMVC</a></li>
                         <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
                         <li><a href="https://maven.apache.org/">Maven</a></li>
@@ -119,7 +118,7 @@
     </footer>
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
