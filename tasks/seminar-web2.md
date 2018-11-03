@@ -89,6 +89,6 @@ Create a controller and JSP pages which provide creation of new categories.
  
 Using the administration web pages, create a new category and a new product in that category.
  
-** Solution **
+**Solution**
 
 You can see the complete solution in the branch [seminar-web2](https://github.com/fi-muni/PA165/tree/seminar-web2).
