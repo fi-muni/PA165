@@ -4,7 +4,7 @@
 **Task 01 (project build)** 
 
 In a new folder, checkout the tag seminar-web2_step1 from https://github.com/fi-muni/PA165
-and build the whole project. Then run the eshop-spring-mvc subproject. The application needs some time to start, wait for the message "Starting ProtocolHandler" from Tomcat.
+and build the whole project. Then run the eshop-spring-mvc subproject. The application needs some time to start, wait for the messages "Tomcat 9.x started on port [8080], Press Ctrl-C to stop the container...".
 ```
 mkdir seminar-web2
 cd seminar-web2
