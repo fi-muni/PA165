@@ -103,18 +103,10 @@
         <!-- name of the produced war -->
         <finalName>eshop</finalName>
         <plugins>
-            <!--  embedded tomcat 8 -->
+            <!--  embedded Tomcat -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-            </plugin>
-            <!--  embedded tomcat 7 -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <path>/eshop</path>
-                </configuration>
             </plugin>
         </plugins>
     </build>

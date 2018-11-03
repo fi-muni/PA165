@@ -19,14 +19,6 @@
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
             </plugin>
-            <!--  embedded tomcat 7 -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <path>/eshop-rest</path>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
