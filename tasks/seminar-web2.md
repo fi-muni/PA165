@@ -23,6 +23,12 @@ Today web applications need to display correctly on a wide variety of devices, f
 
 On the eshop home page, click on the button *Go shopping*. Change the width of your browser screen to see all four sizes.  Notice what the top navigation menu does for extra small screen. Also notice how the product images rearrange to 1, 3, 4 and 6 columns respectively on the four screen sizes.
 
+
+You can stop the Tomcat by pressing CTRL+C, then rebuild and restart the application by issuing the command 
+```
+mvn clean package cargo:run
+```
+
 See the examples in the [Grid](https://getbootstrap.com/docs/3.3/css/#grid) section of Bootstrap 3 documentation. Edit the page *home.jsp* to display twelve buttons labelled Button1, ..., Button12, which rearrange themselves to 1 column on extra small screen, to 2 columns on small screen, to 6 columns on medium screen and to 12 columns on large screen. (Hint: you can use the JSTL tag `<c:forEach begin="1" end="12" var="i">` or a scriptlet to generate the buttons in a loop.)
 
 **Task 03 (example SpringMVC controller)** 
@@ -44,12 +50,7 @@ New files appeared:
 * controller OrderControler for managing orders
 * JSP pages in src/main/webapp/WEB-INF/jsp/order
  
-Stop the Tomcat by pressing CTRL+C. Rebuild and restart the application. 
-```
-mvn clean package cargo:run
-```
-
-Access the page [http://localhost:8080/eshop/order/list/all](http://localhost:8080/eshop/order/list/all) either through this link or through the menu item Administration - Orders.  Use email **`admin@eshop.com`** and password **`admin`** for authentication. (Users are defined in the subproject eshop-sample-data in the class SampleDataLoadingFacadeImpl.) Click on the various buttons. View an order in the state RECEIVED and ship it, then finish it. View another order in the state RECEIVED and cancel it. 
+Rebuild and restart the application. Access the page [http://localhost:8080/eshop/order/list/all](http://localhost:8080/eshop/order/list/all) either through this link or through the menu item Administration - Orders.  Use email **`admin@eshop.com`** and password **`admin`** for authentication. (Users are defined in the subproject eshop-sample-data in the class SampleDataLoadingFacadeImpl.) Click on the various buttons. View an order in the state RECEIVED and ship it, then finish it. View another order in the state RECEIVED and cancel it. 
 
 Inspect the source code for the controller to see how it is done.
  
