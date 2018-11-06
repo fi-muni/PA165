@@ -1,5 +1,21 @@
 ## Seminar Web 2 Tasks - Spring MVC
 
+**Warning** - OpenJDK version 8u181-b13-2 on Ubuntu/Debian Linux (released 2018-10-30) has applied a security patch 
+that causes Maven surefire plugin for unit tests to fail with 
+"SurefireBooterForkException: The forked VM terminated without properly saying goodbye. VM crash or System.exit called?". 
+A workaround is to use another JDK, like the one in room B130 activated by the command "module add jdk". 
+If this is not an option, another workaround is to add the following code to the parent pom.xml into &lt;project>&lt;build>&lt;pluginManagement>&lt;plugins>:
+```
+                <!-- workaround for broken OpenJDK 8u181-b13-2 on Debian/Ubuntu which causes
+                     unit tests to fail, see https://issues.apache.org/jira/browse/SUREFIRE-1588 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+                    </configuration>
+                </plugin>
+```
 
 **Task 01 (project build)** 
 
