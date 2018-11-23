@@ -9,7 +9,7 @@ mkdir seminar-javascript
 cd seminar-javascript
 git clone -b seminar-javascript_step1 https://github.com/fi-muni/PA165
 cd PA165/
-module add maven
+module add jdk maven
 mvn install
 cd eshop-angular
 mvn tomcat7:run
@@ -19,7 +19,7 @@ mvn tomcat7:run
 
 The application has a REST (Representational State Transfer) API (Application Programming Interface) available. The API conforms to the HATEOAS (Hypermedia as the Engine of Application State) principles seen in the previous seminar. Moreover, the JSON (JavaScript Object Notation) serialization of objects conforms to the **HAL (Hypertext Application Language)** format, which requires each object to have _links part linking to other resources, and collections of objects are serialized in _embedded part.
  
-To see it conveniently, we will need some tools in browser. If you use Chrome, install [JSONView for Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc). For Firefox up to version 56, install [JSONView for Firefox](https://jsonview.com/). For Firefox 57 and newer, visit URL **about:config** and change settings *network.http.accept.default* to value `text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8` which sets HTTP Accept: header to ask for JSON.
+To see it conveniently, we will need some tools in browser. If you use Chrome, install [JSONView for Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc). For Firefox, you may install [JSONView for Firefox](https://jsonview.com/) or use the default JSON viewer available since Firefox 57. 
 
 Visit the URL [http://localhost:8080/eshop/api/v1/categories/](http://localhost:8080/eshop/api/v1/categories/) which lists all eshop categories. Try following the links to see the HATEOAS principles in practise. 
 
