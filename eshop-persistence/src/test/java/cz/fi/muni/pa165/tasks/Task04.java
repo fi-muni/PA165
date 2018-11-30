@@ -116,7 +116,7 @@ public class Task04 extends AbstractTestNGSpringContextTests {
 	public void countProducts() {
 		Long count = em.createQuery("SELECT COUNT(p) FROM Product p",Long.class).getSingleResult();
 			
-		Assert.assertEquals(count, new Long(4));
+		Assert.assertEquals(count, Long.valueOf(4));
 	}
 	
 	/**
@@ -156,9 +156,9 @@ public class Task04 extends AbstractTestNGSpringContextTests {
 		
 		Assert.assertEquals(found.size(), 2);
 		Assert.assertEquals(((Color) found.get(0)[0]), Color.RED);
-		Assert.assertEquals(((Long) found.get(0)[1]), new Long(1));
+		Assert.assertEquals(((Long) found.get(0)[1]), Long.valueOf(1));
 		Assert.assertEquals(((Color) found.get(1)[0]), Color.WHITE);
-		Assert.assertEquals(((Long) found.get(1)[1]), new Long(3));
+		Assert.assertEquals(((Long) found.get(1)[1]), Long.valueOf(3));
 	}
 	
 	/**
@@ -170,9 +170,9 @@ public class Task04 extends AbstractTestNGSpringContextTests {
 		List<ColorCount> colorCounts = em.createQuery("SELECT NEW cz.fi.muni.pa165.tasks.ColorCount(p.color,count(p)) FROM Product p GROUP BY p.color ORDER BY p.color",ColorCount.class).getResultList();
 		
 		Assert.assertEquals(colorCounts.get(0).getColor(), Color.RED);
-		Assert.assertEquals(colorCounts.get(0).getCount(), new Long(1));
+		Assert.assertEquals(colorCounts.get(0).getCount(), Long.valueOf(1));
 		Assert.assertEquals(colorCounts.get(1).getColor(), Color.WHITE);
-		Assert.assertEquals(colorCounts.get(1).getCount(), new Long(3));
+		Assert.assertEquals(colorCounts.get(1).getCount(), Long.valueOf(3));
 	}
 	
 	/**
