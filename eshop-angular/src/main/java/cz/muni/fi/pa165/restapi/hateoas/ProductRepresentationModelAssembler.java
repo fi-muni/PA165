@@ -4,15 +4,16 @@ import cz.fi.muni.pa165.dto.ProductDTO;
 import cz.muni.fi.pa165.restapi.controllers.ProductsRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 /**
  * Converts ProductDTO instance into ProductResource, which is later rendered into HAL JSON format with _links.
@@ -21,19 +22,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  *
  */
 @Component
-public class ProductResourceAssembler extends ResourceAssemblerSupport<ProductDTO, ProductResource> {
+public class ProductRepresentationModelAssembler implements RepresentationModelAssembler<ProductDTO, EntityModel<ProductDTO>> {
 
-    private final static Logger log = LoggerFactory.getLogger(ProductResourceAssembler.class);
-
-    public ProductResourceAssembler() {
-        super(ProductsRestController.class, ProductResource.class);
-    }
-
+    private final static Logger log = LoggerFactory.getLogger(ProductRepresentationModelAssembler.class);
 
     @Override
-    public ProductResource toResource(ProductDTO productDTO) {
+    public EntityModel<ProductDTO> toModel(ProductDTO productDTO) {
         long id = productDTO.getId();
-        ProductResource productResource = new ProductResource(productDTO);
+        EntityModel<ProductDTO> productResource = new EntityModel<>(productDTO);
         try {
             productResource.add(linkTo(ProductsRestController.class).slash(productDTO.getId()).withSelfRel());
 

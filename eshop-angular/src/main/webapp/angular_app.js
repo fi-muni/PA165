@@ -48,7 +48,7 @@ pa165eshopApp.run(function ($rootScope,$http) {
 // helper procedure loading products to category
 function loadCategoryProducts($http, category, prodLink) {
     $http.get(prodLink).then(function (response) {
-        category.products = response.data['_embedded']['products'];
+        category.products = response.data['_embedded']['productDTOList'];
         console.log('AJAX loaded ' + category.products.length + ' products to category ' + category.name);
     });
 }
@@ -59,7 +59,7 @@ function loadCategoryProducts($http, category, prodLink) {
 eshopControllers.controller('ShoppingCtrl', function ($scope, $http) {
     console.log('calling  /eshop/api/v1/categories/');
     $http.get('/eshop/api/v1/categories/').then(function (response) {
-        var categories = response.data['_embedded']['categories'];
+        var categories = response.data['_embedded']['categoryDTOList'];
         console.log('AJAX loaded all categories');
         $scope.categories = categories;
         for (var i = 0; i < categories.length; i++) {
@@ -115,7 +115,7 @@ eshopControllers.controller('CategoryDetailCtrl', ['$scope', '$routeParams', '$h
  */
 function loadAdminProducts($http, $scope) {
     $http.get('/eshop/api/v1/products').then(function (response) {
-        $scope.products = response.data._embedded.products;
+        $scope.products = response.data['_embedded']['productDTOList'];
         console.log('AJAX loaded all products ');
     });
 }
@@ -161,7 +161,7 @@ eshopControllers.controller('AdminNewProductCtrl',
         $scope.currencies = ['CZK', 'EUR', 'USD'];
         //get categories from server
         $http.get('/eshop/api/v1/categories/').then(function (response) {
-            $scope.categories = response.data['_embedded']['categories'];
+            $scope.categories = response.data['_embedded']['categoryDTOList'];
         });
         //set object bound to form fields
         $scope.product = {
@@ -225,7 +225,7 @@ eshopControllers.controller('AdminCategoriesCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         //initial load of all categories
         $http.get('/eshop/api/v1/categories').then(function (response) {
-            $scope.categories = response.data._embedded.categories;
+            $scope.categories = response.data['_embedded']['categoryDTOList'];
         });
     });
 

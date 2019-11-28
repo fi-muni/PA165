@@ -6,13 +6,13 @@ import cz.fi.muni.pa165.facade.ProductFacade;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.restapi.exceptions.ServerProblemException;
-import cz.muni.fi.pa165.restapi.hateoas.ProductResource;
-import cz.muni.fi.pa165.restapi.hateoas.ProductResourceAssembler;
+import cz.muni.fi.pa165.restapi.hateoas.ProductRepresentationModelAssembler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 /**
  * SpringMVC controller for managing REST requests for the product resources. Conforms to HATEOAS principles.
@@ -41,34 +41,33 @@ public class ProductsRestController {
 
     private final static Logger log = LoggerFactory.getLogger(ProductsRestController.class);
 
-    public ProductsRestController(@Autowired ProductFacade productFacade,@Autowired ProductResourceAssembler productResourceAssembler) {
+    public ProductsRestController(@Autowired ProductFacade productFacade,@Autowired ProductRepresentationModelAssembler productRepresentationModelAssembler) {
         this.productFacade = productFacade;
-        this.productResourceAssembler = productResourceAssembler;
+        this.productRepresentationModelAssembler = productRepresentationModelAssembler;
     }
 
     private ProductFacade productFacade;
 
-    private ProductResourceAssembler productResourceAssembler;
+    private ProductRepresentationModelAssembler productRepresentationModelAssembler;
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public final HttpEntity<Resources<ProductResource>> getProducts() {
+    public final HttpEntity<CollectionModel<EntityModel<ProductDTO>>> getProducts() {
         log.debug("rest getProducts()");
-        List<ProductResource> resourceCollection = productResourceAssembler.toResources(productFacade.getAllProducts());
-        Resources<ProductResource> productsResources = new Resources<>(resourceCollection,
-                linkTo(ProductsRestController.class).withSelfRel(),
-                linkTo(ProductsRestController.class).slash("/create").withRel("create"));
-        return new ResponseEntity<>(productsResources, HttpStatus.OK);
+        CollectionModel<EntityModel<ProductDTO>> productsCollectionModel = productRepresentationModelAssembler.toCollectionModel(productFacade.getAllProducts());
+        productsCollectionModel.add(linkTo(ProductsRestController.class).withSelfRel());
+        productsCollectionModel.add(linkTo(ProductsRestController.class).slash("/create").withRel("create"));
+        return new ResponseEntity<>(productsCollectionModel, HttpStatus.OK);
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public final HttpEntity<ProductResource> getProduct(@PathVariable("id") long id) throws Exception {
+    public final HttpEntity<EntityModel<ProductDTO>> getProduct(@PathVariable("id") long id) throws Exception {
         log.debug("rest getProduct({})", id);
         ProductDTO productDTO = productFacade.getProductWithId(id);
         if (productDTO == null) throw new ResourceNotFoundException("product " + id + " not found");
-        ProductResource resource = productResourceAssembler.toResource(productDTO);
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+        EntityModel<ProductDTO> productModel = productRepresentationModelAssembler.toModel(productDTO);
+        return new ResponseEntity<>(productModel, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/image", method = RequestMethod.GET)
@@ -105,14 +104,14 @@ public class ProductsRestController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<ProductResource> createProduct(@RequestBody @Valid ProductCreateDTO product, BindingResult bindingResult) throws Exception {
+    public final HttpEntity<EntityModel<ProductDTO>> createProduct(@RequestBody @Valid ProductCreateDTO product, BindingResult bindingResult) throws Exception {
         log.debug("rest createProduct()");
         if (bindingResult.hasErrors()) {
             log.error("failed validation {}", bindingResult.toString());
             throw new InvalidRequestException("Failed validation");
         }
         Long id = productFacade.createProduct(product);
-        ProductResource resource = productResourceAssembler.toResource(productFacade.getProductWithId(id));
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+        EntityModel<ProductDTO> productModel = productRepresentationModelAssembler.toModel(productFacade.getProductWithId(id));
+        return new ResponseEntity<>(productModel, HttpStatus.OK);
     }
 }
