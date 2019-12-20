@@ -1,8 +1,8 @@
 language: java
-dist: xenial
+dist: bionic
 jdk:
-  - openjdk8
   - openjdk11
+  - openjdk13
 notifications:
   slack:
     secure: L7jJ99r+HooZNa/rUiHPcTEkliiBU3datZ46x0yy4zeUOKTXgYE6VoKwjnY4rxU1DX6nXen5rySFeRwVj+Hzr+ljYqlmnxkOn/TIKuL+lgjeBWuB1Y9yWvDEELtiIxhui6/+zdpDS5xS+3YBK1PKGTdbS7iwsuEJDegZoJnUcHuPqgqT3zs1Ds7dpGrSQH5mLZ7bWOG8PYWA5nGWk+6XrGSqeOD15CTfHIdVYFBDxA75fp2VvhI9EiOXbyKEgmce/gKjgW/+p042hHSEaX9nIyHxBCAL6rI/I6Q/oBoPm4Mf9l5jSXYednfD1f5bUaRMqggPKqsNq03tR2JPgf8CX1MUISo1Kpvf51gPGn+2Adixa1ZJ8oLEPAG2qvW2JNyyyOI0mgJxN5XmMlzXsUwLXJVZ7dFjv4YT8MAxWnQC7JUl8gxCoghNdPfn6xHN9ADtwWBFxEHMj6LbQ9ukbV/A9yR06qdRS8m0uSgU5g6nCmVL2bNRf27FRYK+AV6o4eS/Fll6kaTgKR+8rQoEo7wSAOpQLvaEGoMzIH+y2/i+Dmm/YvHhMxqIGw7NNsVPAkh/V7hk82FdoBd0sxD7ZUlx1Mjm+9xcpi0VWX/1rVH9nE9uKxs/cRGKJ1SAFK5P0XmwTh0ag0s+/ATJzTHpVSaoiSrM36LZw0p8mv/10p+zFXo=
