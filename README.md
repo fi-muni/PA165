@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/fi-muni/PA165.svg?branch=master)](https://travis-ci.com/fi-muni/PA165)
+![](https://github.com/fi-muni/PA165/workflows/Maven%20build/badge.svg)
 
 An open-sourced Java EE project created for teaching purposes of a subject PA165 at Faculty of Informatics, Masaryk University.
 
