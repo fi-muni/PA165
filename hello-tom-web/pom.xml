@@ -9,12 +9,14 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <tomcat.version>8.5.31</tomcat.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <tomcat.version>9.0.31</tomcat.version>
   </properties>
 
    <build>
     <plugins>
-      <!-- embedded Tomcat 8 plugin configuration, use "mvn cargo:run" to run -->
+      <!-- embedded Tomcat 9 plugin configuration, use "mvn cargo:run" to run -->
     
     </plugins>
   </build>
