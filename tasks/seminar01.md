@@ -1,15 +1,15 @@
 ## Seminar 01 Tasks 
 **Task 01** Open IDE. Main IDE for this course is IntelliJ IDEA. This IDE is installed in B130 and accessible through modules. Use the following commands to run IDE. Create hello world Java application and run it using the IDE.
 ```
-  module add idea-2018.2 maven-3.5
+  module add idea-2019.3
   idea.sh &
 ```
 The IntelliJ IDEA needs a licence. If you don't already have one, just visit https://www.jetbrains.com/student/ and create a new JetBrains account with an email from the domain @mail.muni.cz, you will get a student licence for all JetBrains products for one year.
 Note: its a good idea to put the `module add` command into your ~/.bashrc
 
-**Task 02** Find out which version of Maven is installed on your machine using `which mvn`. You MUST use terminal where you added the module from Task 01. Notes: Maven was covered on the lecture. The module from Task 01 adds the Maven on your system path. This means that you must add module from Task 01 in EVERY terminal that you will be using for running netbeans or for running any Maven commands. Other notes: your local maven repo is in `~/.m2`.
+**Task 02** Find out which version of Maven is installed on your machine using `which mvn`. There is a local installation of Maven on each machine. Notes: Maven was covered on the lecture. Your local maven repo is in `~/.m2`.
 
-**Task 03** Create hello world Java application using Maven from command line. Use "archetype" [look at documentation](https://maven.apache.org/archetype/maven-archetype-plugin/usage.html) plugin and goal "generate". With every maven plugin, including the arechetype, its beneficial to review [usage page of documentation](https://maven.apache.org/archetype/maven-archetype-plugin/usage.html#). Run this application from commandline using Maven exec plugin goal java [mvn exec:java](https://www.mojohaus.org/exec-maven-plugin/usage.html). Note that you must firstly compile the source code using `mvn compile`.
+**Task 03** Create hello world Java application using Maven from command line. Use "archetype" [look at documentation](https://maven.apache.org/archetype/maven-archetype-plugin/usage.html) plugin and goal "generate". With every maven plugin, including the archetype, its beneficial to review [usage page of documentation](https://maven.apache.org/archetype/maven-archetype-plugin/usage.html#). Run this application from commandline using Maven exec plugin goal java [mvn exec:java](https://www.mojohaus.org/exec-maven-plugin/usage.html). Note that you must firstly compile the source code using `mvn compile`.
 
 **Task 04** Create an acount on https://github.com/. Create a repository there. Import the hello world application from Task 03 to this repository. Hints: http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
 
