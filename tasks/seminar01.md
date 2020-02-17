@@ -23,21 +23,27 @@ git checkout seminar01
 
 **Task 06** Try to compile hello-java7 `mvn clean compile`. It will fail, because the default configuration of maven is not to use source and target level of Java 1.7. To fix that we need to configure compiler plugin in pom.xml so that target and source versions of java are at least 7. [See documentation and configure your the pom.xml](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html). After you successfully configure the pom.xml it should be able to compile the project with `mvn compile` 
 
-**Task 07** Now your task is to configure embedded Tomcat 8 using Cargo plugin in `hello-tom-web` project. After its configured, you will be able to start the embedded Tomcat 8 and hello-tom-web will be accessible through web browser. Import the project into your IDE and after that configure cargo-maven2-plugin in version 1.6.8 with configuration: 
+**Task 07** Now your task is to configure embedded Tomcat 9 using Cargo plugin in `hello-tom-web` project. After its configured, you will be able to start the embedded Tomcat 9 and the application will be accessible through web browser. Import the project into your IDE and after that configure cargo-maven2-plugin with configuration: 
 
 ```
+     <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <version>1.7.10</version>
+        <configuration>
           <container>
-            <containerId>tomcat8x</containerId>
+            <containerId>tomcat9x</containerId>
             <artifactInstaller>
               <groupId>org.apache.tomcat</groupId>
               <artifactId>tomcat</artifactId>
-              <version>8.5.31</version>
+              <version>${tomcat.version}</version>
             </artifactInstaller>
           </container>
-
+        </configuration>
+      </plugin>
 ```
 
-After that use `mvn clean install cargo:run` go to `http://localhost:8080/my-webapp/hello` and you should see "Hello world!". Next task is to make additional configuration to cargo-maven2-plugin to publish the app on different context `/my-different-context`. This is the configuration you need to add: 
+After that use `mvn clean install cargo:run` go to [http://localhost:8080/my-webapp/hello](http://localhost:8080/my-webapp/hello) and you should see "Hello world!". Next task is to make additional configuration to cargo-maven2-plugin to publish the app on different context `/my-different-context`. This is the configuration you need to add: 
 ```
           <deployables>
             <deployable>
