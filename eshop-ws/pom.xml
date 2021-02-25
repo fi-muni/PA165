@@ -84,10 +84,10 @@
 
     <build>
         <plugins>
-            <!--  embedded tomcat 8 -->
+            <!--  embedded tomcat -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
+                <artifactId>cargo-maven3-plugin</artifactId>
             </plugin>
 
             <!-- generation of sources from XSD schemas -->
