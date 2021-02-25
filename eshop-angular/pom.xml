@@ -109,10 +109,10 @@
         <!-- name of the produced war and the context path in URL -->
         <finalName>eshop</finalName>
         <plugins>
-            <!--  embedded tomcat 8 -->
+            <!--  embedded tomcat -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
+                <artifactId>cargo-maven3-plugin</artifactId>
             </plugin>
             <!-- try "mvn javadoc:javadoc" and see target/site/apidocs -->
             <plugin>

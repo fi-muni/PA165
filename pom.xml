@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- property used by spring-boot-starter-parent project to define maven.compiler.source and maven.compiler.target
 		     properties that in turn are used by maven-compiler-plugin to specify java source and target version -->
-        <java.version>8</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <!-- Spring Boot Starter Parent as parent project - this project inherits versions of dependencies and plugins -->
@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.4.RELEASE</version>
+        <version>2.4.3</version>
         <relativePath/>
     </parent>
 
@@ -75,8 +75,8 @@
                 <!-- embedded Tomcat 9 plugin configuration, use "mvn cargo:run" to run -->
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
-                    <artifactId>cargo-maven2-plugin</artifactId>
-                    <version>1.7.9</version>
+                    <artifactId>cargo-maven3-plugin</artifactId>
+                    <version>1.9.1</version>
                     <configuration>
                         <container>
                             <containerId>tomcat9x</containerId>
