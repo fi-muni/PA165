@@ -1,5 +1,5 @@
 ## Seminar 01 Tasks 
-**Task 01** Open IDE. Main IDE for this course is IntelliJ IDEA. This IDE is installed in B130 and accessible through modules. Use the following commands to run IDE. Create hello world Java application and run it using the IDE.
+**Task 01** Open IDE. Main IDE for this course is IntelliJ IDEA. This IDE is installed in B130 (or should be installed in your personal PC under school license (see below) in the case of virtual seminars) and accessible through modules. Use the following commands to run IDE. Create hello world Java application and run it using the IDE.
 ```
   module add idea
   idea.sh &
@@ -13,7 +13,7 @@ Note: its a good idea to put the `module add` command into your ~/.bashrc
 
 **Task 04** Create an acount on https://github.com/. Create a repository there. Import the hello world application from Task 03 to this repository. Hints: http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
 
-**Task 05** Checkout git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java7 and hello-tom-web. 
+**Task 05** Checkout git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java11 and hello-tom-web. 
 ```
 cd
 git clone https://github.com/fi-muni/PA165
@@ -21,7 +21,7 @@ cd PA165
 git checkout seminar01
 ```
 
-**Task 06** Try to compile hello-java7 `mvn clean compile`. It will fail, because the default configuration of maven is not to use source and target level of Java 1.7. To fix that we need to configure compiler plugin in pom.xml so that target and source versions of java are at least 7. [See documentation and configure your the pom.xml](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html). After you successfully configure the pom.xml it should be able to compile the project with `mvn compile` 
+**Task 06** Try to compile hello-java11 `mvn clean compile`. It will fail, because the default configuration of maven is not to use source and target level of Java 11. To fix that we need to configure compiler plugin in pom.xml so that target and source versions of java are at least 11. [See documentation and configure your the pom.xml](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html). After you successfully configure the pom.xml it should be able to compile the project with `mvn compile` 
 
 **Task 07** Now your task is to configure embedded Tomcat 9 using Cargo plugin in `hello-tom-web` project. After its configured, you will be able to start the embedded Tomcat 9 and the application will be accessible through web browser. Import the project into your IDE and after that configure cargo-maven3-plugin with configuration: 
 
