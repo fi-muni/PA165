@@ -13,7 +13,7 @@ Note: its a good idea to put the `module add` command into your ~/.bashrc
 
 **Task 04** Create an acount on https://github.com/. Create a repository there. Import the hello world application from Task 03 to this repository. Hints: http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
 
-**Task 05** Checkout git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java7 and hello-tom-web. 
+**Task 05** Checkout git branch seminar01 from https://github.com/fi-muni/PA165 (use git clone and then git checkout). Use https git URL. This branch contains 2 projects. hello-java11 and hello-tom-web. 
 ```
 cd
 git clone https://github.com/fi-muni/PA165
