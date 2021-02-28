@@ -14,8 +14,6 @@
     <name>WS Seminar</name>
 
     <dependencies>
-      
-	
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web-services</artifactId>

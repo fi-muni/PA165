@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- property used by spring-boot-starter-parent project to define maven.compiler.source and maven.compiler.target
 		     properties that in turn are used by maven-compiler-plugin to specify java source and target version -->
-        <java.version>8</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <!-- Spring Boot Starter Parent as parent project - this project inherits versions of dependencies and plugins -->
@@ -29,6 +29,11 @@
     <!-- specifies versions not defined by the Spring Boot Starter Parent -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>2.3.3</version>
+            </dependency>
             <dependency>
                 <groupId>net.sf.dozer</groupId>
                 <artifactId>dozer</artifactId>
