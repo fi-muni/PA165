@@ -9,13 +9,17 @@ import java.util.List;
  * Hello world!
  *
  */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
-    	List<String> messages = new ArrayList<>();
-    	messages.add("Hello" );
-    	messages.add("World" );
-        System.out.println( messages);
+
+        List<String> messages = new ArrayList<>();
+        messages.add("Hello" );
+        messages.add("World" );
+        for (String s : messages){
+            System.out.println(s);
+        }
+
     }
 }
