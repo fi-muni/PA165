@@ -1,7 +1,11 @@
 package cz.muni.fi.pa165.currency;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Currency;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -20,6 +24,9 @@ public class CurrencyConvertorImpl implements CurrencyConvertor {
 
     @Override
     public BigDecimal convert(Currency sourceCurrency, Currency targetCurrency, BigDecimal sourceAmount) {
+        Logger logger = LoggerFactory.getLogger(CurrencyConvertorImpl.class);
+        //logger.info("convert?");
+
         if (sourceCurrency == null || targetCurrency == null || sourceAmount == null) {
             throw new IllegalArgumentException();
         }
@@ -36,9 +43,7 @@ public class CurrencyConvertorImpl implements CurrencyConvertor {
             throw new UnknownExchangeRateException("Exchange rate not known");
         }
 
-
-
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
+        return rate.multiply(sourceAmount).setScale(2, RoundingMode.HALF_EVEN);
+    };
 
 }
