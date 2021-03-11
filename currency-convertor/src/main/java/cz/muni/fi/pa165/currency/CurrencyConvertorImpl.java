@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class CurrencyConvertorImpl implements CurrencyConvertor {
 
     private final ExchangeRateTable exchangeRateTable;
-    //private final Logger logger = LoggerFactory.getLogger(CurrencyConvertorImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(CurrencyConvertorImpl.class);
 
     public CurrencyConvertorImpl(ExchangeRateTable exchangeRateTable) {
         this.exchangeRateTable = exchangeRateTable;
@@ -25,9 +25,10 @@ public class CurrencyConvertorImpl implements CurrencyConvertor {
     @Override
     public BigDecimal convert(Currency sourceCurrency, Currency targetCurrency, BigDecimal sourceAmount) {
         Logger logger = LoggerFactory.getLogger(CurrencyConvertorImpl.class);
-        //logger.info("convert?");
 
         if (sourceCurrency == null || targetCurrency == null || sourceAmount == null) {
+            logger.trace("Convert() called with illegal argument. Source: {}, target: {}, amount: {}",
+                    sourceCurrency, targetCurrency, sourceAmount);
             throw new IllegalArgumentException();
         }
 
@@ -36,13 +37,23 @@ public class CurrencyConvertorImpl implements CurrencyConvertor {
         try {
             rate = this.exchangeRateTable.getExchangeRate(sourceCurrency, targetCurrency);
         } catch (ExternalServiceFailureException e) {
-            throw new UnknownExchangeRateException("Exchange rate not available");
+            logger.trace("Convert() called unsuccessful. Source: {}, target: {}, amount: {}",
+                    sourceCurrency, targetCurrency, sourceAmount);
+            logger.error("ExternalServiceFailureException. Source: {}, target: {}, amount: {}",
+                    sourceCurrency.getCurrencyCode(), targetCurrency.getCurrencyCode(), sourceAmount);
+            throw new UnknownExchangeRateException("External service failure");
         }
 
         if (rate == null) {
-            throw new UnknownExchangeRateException("Exchange rate not known");
+            logger.trace("Convert() called unsuccessful. Source: {}, target: {}, amount: {}",
+                    sourceCurrency, targetCurrency, sourceAmount);
+            logger.warn("Missing exchange rate for source: {} and target: {}",
+                    sourceCurrency.getCurrencyCode(), targetCurrency.getCurrencyCode());
+            throw new UnknownExchangeRateException("Exchange rate missing");
         }
 
+        logger.trace("Convert() called successful. Source: {}, target: {}, amount: {}, rate: {} ",
+                sourceCurrency.getCurrencyCode(), targetCurrency.getCurrencyCode(), sourceAmount, rate);
         return rate.multiply(sourceAmount).setScale(2, RoundingMode.HALF_EVEN);
     };
 

@@ -101,7 +101,7 @@ public class CurrencyConvertorImplTest {
         // Expected IllegalArgumentException()
         CurrencyConvertorImpl conv = new CurrencyConvertorImpl(table);
         Throwable thrownExc = catchThrowable(() -> {
-            conv.convert(source, null, new BigDecimal("1"));
+            conv.convert(source, null, new BigDecimal("13"));
         });
 
         assertThat(thrownExc).isInstanceOf(IllegalArgumentException.class);
@@ -123,7 +123,7 @@ public class CurrencyConvertorImplTest {
         // Expected UnknownExchangeRateException
         CurrencyConvertor conv = new CurrencyConvertorImpl(table);
         try {
-            when(table.getExchangeRate(source, target)).thenThrow(new ExternalServiceFailureException("External service fail"));
+            when(table.getExchangeRate(source, target)).thenReturn(null);
         } catch (ExternalServiceFailureException e) {
             e.printStackTrace();
         }
@@ -145,7 +145,7 @@ public class CurrencyConvertorImplTest {
 
         CurrencyConvertorImpl conv = new CurrencyConvertorImpl(table);
         Throwable thrownExc = catchThrowable(() -> {
-            conv.convert(source, target, new BigDecimal("2"));
+            conv.convert(source, target, new BigDecimal("22"));
         });
         assertThat(thrownExc).isInstanceOf(UnknownExchangeRateException.class);
 
