@@ -106,3 +106,5 @@ Run the web application **from the command line**, it is important to have it ru
 
 The home page now has an icon for logging in using Google Account, and a new servlet GoogleServlet for processing the authentication.
 Log in using Google account, the home page should display your name, email and picture. You can revoke the permission for the application at [Apps connected to your account](https://security.google.com/settings/security/permissions).
+
+ALL TASKS DONE
