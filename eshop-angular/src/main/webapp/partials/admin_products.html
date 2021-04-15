@@ -22,7 +22,7 @@
             <td>{{product.addedDate}}</td>
             <td>{{product.name}}</td>
             <td>{{product.color}}</td>
-            <td>{{product.price}} {{product.currency}}</td>
+            <td>{{product.currentPrice.value}} {{product.currentPrice.currency}}</td>
             <td>
               <button ng-click="deleteProduct(product)" type="submit" class="btn btn-primary">Delete</button>
             </td>
