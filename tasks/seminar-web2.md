@@ -1,22 +1,5 @@
 ## Seminar Web 2 Tasks - Spring MVC
 
-**Warning** - OpenJDK version 8u181-b13-2 on Ubuntu/Debian Linux (released 2018-10-30) has applied a security patch 
-that causes Maven surefire plugin for unit tests to fail with 
-"SurefireBooterForkException: The forked VM terminated without properly saying goodbye. VM crash or System.exit called?". 
-A workaround is to use another JDK, like the one in room B130 activated by the command "module add jdk". 
-If this is not an option, another workaround is to add the following code to the parent pom.xml into &lt;project>&lt;build>&lt;pluginManagement>&lt;plugins>:
-```
-                <!-- workaround for broken OpenJDK 8u181-b13-2 on Debian/Ubuntu which causes
-                     unit tests to fail, see https://issues.apache.org/jira/browse/SUREFIRE-1588 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-                    </configuration>
-                </plugin>
-```
-
 **Task 01 (project build)** 
 
 In a new folder, checkout the tag seminar-web2_step1 from https://github.com/fi-muni/PA165
@@ -35,7 +18,7 @@ mvn cargo:run
 
 Visit the web application at [http://localhost:8080/eshop/](http://localhost:8080/eshop/). 
 
-Today web applications need to display correctly on a wide variety of devices, from 3" smartphones to 30" desktop monitors, with which users interact by a mouse or a touchscreen. This provides a challenge for web design.  A solution is the so called *responsive web design* which adapts to various screen sizes. This example project uses the CSS framework [Bootstrap 3](http://getbootstrap.com/) for it. Bootstrap divides device screens into 4 categories: extra small (less then 768px wide), small (768px-992px), medium (992px-1200px) and large (>1200px). It also provides 12-column grid for positioning dependent on screen size.
+Today web applications need to display correctly on a wide variety of devices, from 3" smartphones to 75" desktop monitors, with which users interact by a mouse or a touchscreen. This provides a challenge for web design.  A solution is the so called *responsive web design* which adapts to various screen sizes. This example project uses the CSS framework [Bootstrap 3](http://getbootstrap.com/) for it. Bootstrap divides device screens into 4 categories: extra small (less then 768px wide), small (768px-992px), medium (992px-1200px) and large (>1200px). It also provides 12-column grid for positioning dependent on screen size.
 
 On the eshop home page, click on the button *Go shopping*. Change the width of your browser screen to see all four sizes.  Notice what the top navigation menu does for extra small screen. Also notice how the product images rearrange to 1, 3, 4 and 6 columns respectively on the four screen sizes.
 
