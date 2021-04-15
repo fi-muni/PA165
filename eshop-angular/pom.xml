@@ -124,8 +124,8 @@
                         <link>https://javaee.github.io/javaee-spec/javadocs/</link>
                         <link>https://docs.spring.io/spring/docs/current/javadoc-api/</link>
                         <link>https://docs.spring.io/spring-hateoas/docs/current/api/</link>
-                        <link>https://fasterxml.github.io/jackson-annotations/javadoc/2.8/</link>
-                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>https://fasterxml.github.io/jackson-annotations/javadoc/2.11/</link>
+                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                     </links>
                 </configuration>
             </plugin>

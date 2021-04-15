@@ -9,10 +9,9 @@ mkdir seminar-javascript
 cd seminar-javascript
 git clone -b seminar-javascript_step1 https://github.com/fi-muni/PA165
 cd PA165/
-module add jdk maven
-mvn install
+mvn clean install
 cd eshop-angular
-mvn tomcat7:run
+mvn cargo:run
 ```
 
 **Task 02 (browser tools)** 
