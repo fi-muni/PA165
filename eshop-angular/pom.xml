@@ -119,6 +119,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
+                    <release>${java.version}</release>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                     <detectLinks>false</detectLinks>
                     <links>
                         <link>https://javaee.github.io/javaee-spec/javadocs/</link>
