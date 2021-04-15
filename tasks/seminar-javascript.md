@@ -47,6 +47,11 @@ Visit the URL [http://localhost:8080/eshop/jquery_example.html](http://localhost
 
 In the same page, implement equivalent functionality for categories. Use the URL http://localhost:8080/eshop/api/v1/categories for getting the list of categories in JSON format.
 
+After making the changes, rebuild the eshop-angular module and restart Tomcat by issuing the command:
+```bash
+mvn package cargo:run
+```
+
 **Task 05 (AngularJS basics)** 
 
 You have already seen the URL  [http://localhost:8080/eshop/#!/shopping](http://localhost:8080/eshop/#!/shopping) in the Task 02.
