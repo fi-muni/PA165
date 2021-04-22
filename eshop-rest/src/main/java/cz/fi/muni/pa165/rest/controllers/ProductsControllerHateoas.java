@@ -10,9 +10,8 @@ import java.util.Collection;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import org.springframework.http.MediaType;
 
 /**
@@ -33,7 +32,6 @@ import org.springframework.http.MediaType;
  */
 @RestController
 @RequestMapping("/products_hateoas")
-@ExposesResourceFor(UserDTO.class)
 public class ProductsControllerHateoas {
 
     final static Logger logger = LoggerFactory.getLogger(ProductsControllerHateoas.class);
@@ -51,21 +49,21 @@ public class ProductsControllerHateoas {
      * @return HttpEntity<Resources<Resource<ProductDTO>>>
      */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<Resources<Resource<ProductDTO>>> getProducts() {
+    public final HttpEntity<CollectionModel<EntityModel<ProductDTO>>> getProducts() {
         
         logger.debug("rest getProducts({}) hateoas");
 
         Collection<ProductDTO> productsDTO = productFacade.getAllProducts();
-        Collection<Resource<ProductDTO>> productResourceCollection = new ArrayList();
+        Collection<EntityModel<ProductDTO>> productResourceCollection = new ArrayList();
 
         for (ProductDTO p : productsDTO) {
-            productResourceCollection.add(productResourceAssembler.toResource(p));
+            productResourceCollection.add(productResourceAssembler.toModel(p));
         }
 
-        Resources<Resource<ProductDTO>> productsResources = new Resources<Resource<ProductDTO>>(productResourceCollection);
+        CollectionModel<EntityModel<ProductDTO>> productsResources = new CollectionModel<>(productResourceCollection);
         productsResources.add(linkTo(ProductsControllerHateoas.class).withSelfRel());
 
-        return new ResponseEntity<Resources<Resource<ProductDTO>>>(productsResources, HttpStatus.OK);
+        return new ResponseEntity<>(productsResources, HttpStatus.OK);
 
     }
 
@@ -78,14 +76,14 @@ public class ProductsControllerHateoas {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<Resource<ProductDTO>> getProduct(@PathVariable("id") long id) throws Exception {
+    public final HttpEntity<EntityModel<ProductDTO>> getProduct(@PathVariable("id") long id) throws Exception {
         
         logger.debug("rest getProduct({}) hateoas", id);
 
         try {
         ProductDTO productDTO = productFacade.getProductWithId(id);
-            Resource<ProductDTO> resource = productResourceAssembler.toResource(productDTO);
-            return new ResponseEntity<Resource<ProductDTO>>(resource, HttpStatus.OK);    
+            EntityModel<ProductDTO> resource = productResourceAssembler.toModel(productDTO);
+            return new ResponseEntity<>(resource, HttpStatus.OK);
         } catch (Exception ex){
             throw new ResourceNotFoundException();
         }
