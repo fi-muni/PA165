@@ -1,8 +1,6 @@
 ## Seminar Spring REST Tasks
 
-You can see the complete solution in the branch [seminar-rest](https://github.com/fi-muni/PA165/tree/seminar-rest).
-
-**Task 01 (project build)** 
+**Task 01 (project build)**
 
 In a new folder, checkout the tag seminar-rest_step1 from https://github.com/fi-muni/PA165 and build the whole project. Then run the eshop-rest subproject.
 
@@ -11,10 +9,9 @@ mkdir seminar-rest
 cd seminar-rest
 git clone -b seminar-rest_step1 https://github.com/fi-muni/PA165
 cd PA165/
-module add maven
 mvn install
 cd eshop-rest
-mvn tomcat7:run
+mvn cargo:run
 ```
 
 Check that you can interact with the REST API. You can use [curl](http://curl.haxx.se/), an open source tool for this goal that is available on your machine. The exercise uses curl as it is usually available in Linux distributions and it is suggested to at least try it. There are more user-friendly alternatives, one is [Postman](https://www.getpostman.com), that can be used as a Google Chrome app. Using curl from the command line:
@@ -70,7 +67,7 @@ curl -i -X GET http://localhost:8080/eshop-rest/products/4
 
 Some of these responses might contain lots of useless data (for example image data), we will deal with this in another task.
 
-**Task 02 (Write a low maturity level REST Controller)** 
+**Task 02 (Write a low maturity level REST Controller)**
 
 Move to step2:
 ```
@@ -78,7 +75,7 @@ git checkout -f seminar-rest_step2
 ```
 As a second step, we will implement the simple REST controller that was used in the previous step. We follow here some lower REST maturity models (see lecture's slides), later we will create a more HATEOAS-oriented controller. In the eshop-rest module, open the class **ProductsController** in **package cz.fi.muni.pa165.rest.controllers** and follow the TODOs for implementation.
 
-**Task 03 (Testing the REST Controller)** 
+**Task 03 (Testing the REST Controller)**
 
 Move to step3:
 ```
@@ -89,7 +86,7 @@ We are going now to test the controller that has been created. Open the class **
 For testing, we are using [MockMvc](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/MockMvc.html) and [jsonPath](https://github.com/jayway/JsonPath) for parsing the JSON format. Follow the TODOs in the comments of the class for the implementation of the tests.
 
 
-**Task 04 (Dealing with Dates)** 
+**Task 04 (Dealing with Dates)**
 
 Move to step4:
 ```
@@ -106,7 +103,7 @@ To change the supported date format, configure the **Jackson Object Mapper** by 
 You can rebuild the application and test that dates are now in a more human-readable format.
 
 
-**Task 05 (Jackson Filtering)** 
+**Task 05 (Jackson Filtering)**
 
 Move to step5:
 ```
@@ -148,23 +145,20 @@ objectMapper.disable(com.fasterxml.jackson.databind.MapperFeature.DEFAULT_VIEW_I
 
 c) Approach iii
 
-Let's have a look at yet an alternative way to filter objects that will not modify the DTOs: using Jackson Mix-ins (see [http://wiki.fasterxml.com/JacksonMixInAnnotations](http://wiki.fasterxml.com/JacksonMixInAnnotations), note that some parts of the documentation might be outdated so you need to find the correct way to set the mixins in the mapper). In this case, we will not modify the DTOs but just filter entities based on properties at the REST module level. Let's filter out *"imageMimeType"* from the products.
+Let's have a look at yet an alternative way to filter objects that will not modify the DTOs: using Jackson Mix-ins (see [https://github.com/FasterXML/jackson-docs/wiki/JacksonMixInAnnotations](https://github.com/FasterXML/jackson-docs/wiki/JacksonMixInAnnotations), note that some parts of the documentation might be outdated so you need to find the correct way to set the mixins in the mapper). In this case, we will not modify the DTOs but just filter entities based on properties at the REST module level. Let's filter out *"imageMimeType"* from the products.
 
 * in the **eshop-rest** module, create a new package **cz.fi.muni.pa165.rest.mixin** with a new class **ProductDTOMixin**;
 * Annotate this class with either **@JsonIgnoreProperties** class-level annotation with indication of the fields or **@JsonIgnore** for the field(s) you want to ignore. In this mixin class, you need to provide the same signature for fields as in the original DTO and annotate the class/field(s) with one of the mentioned annotations;
 * configure the **objectMapper** by mapping the mixin just created to the **ProductDTO** class;
 
-There are also more ways to filter JSON responses (that we do not cover here), as using JSON Filters ( [http://wiki.fasterxml.com/JacksonFeatureJsonFilter](http://wiki.fasterxml.com/JacksonFeatureJsonFilter)).
-
-
-**Task 06 (Spring HATEOAS)** 
+**Task 06 (Spring HATEOAS)**
 
 Move to step6:
 ```
 git checkout -f seminar-rest_step6 
 ```
 
-We are now looking into building a real HATEOAS REST service. We will take the **Products** controller as an example for this process. What we would like to return are resources in a format that allows to "navigate" through different resources:
+We are now looking into building a real HATEOAS REST service. We will take the **Products** controller as an example for this process. What we would like to return are resources (EntityModels in the current Spring HATEOAS version) in a format that allows to "navigate" through different resources:
 
 ```
 {"links":[{"rel":"self","href":"http://localhost:8080/eshop-rest/products"}],"content":[{"id":1, ... "links":[{"rel":"self","href":"http://localhost:8080/eshop-rest/products/1"}]},{"id":2,....
@@ -185,35 +179,34 @@ We need first to add the Spring HATEOAS dependency in the eshop-rest module:
 
 Create a new class **ProductsControllerHateoas** in the controllers package that will mimic what done in the old **ProductsController** class. For the moment, you can just reuse the code of the previous class. Copy the code **just for three methods**: **getProducts()**, **getProduct()** and **deleteProduct()**. Remember also to **map the RestController to a different URI**, e.g. **"/products_hateoas"**.
 
-To create links among resources, we will use **org.springframework.hateoas.Resource** to take care of mapping our DTOs (in this case only **ProductDTO** ) and managing the links. For this, we will need to map our DTO to one resource with a **resource assembler** class.
+To create links among resources, we will use **org.springframework.hateoas.EntityModel** to take care of mapping our DTOs (in this case only **ProductDTO** ) and managing the links. For this, we will need to map our DTO to one resource with a class implementing a **RepresentationModelAssembler**.
 Create a new package **cz.fi.muni.pa165.rest.assemblers** and one class that will have the following signature. This will map the resource:
 
 ```
-public class ProductResourceAssembler implements ResourceAssembler<ProductDTO, 
-          Resource<ProductDTO>> {
+public class ProductResourceAssembler implements RepresentationModelAssembler<ProductDTO, EntityModel<ProductDTO>> {
           
           }
 ```
 
-Implement the needed abstract method **toResource**, that will map one **ProductDTO** to a **Resource<ProductDTO>**.
+Implement the needed abstract method **toModel**, that will map one **ProductDTO** to a **Resource<ProductDTO>**.
 Inside the method, you want to:
-* Create a new **Resource<ProductDTO>** by using in the constructor **ProductDTO**. Some line like ```Resource<ProductDTO> productResource = new Resource<ProductDTO>(productDTO);```: we are wrapping the original DTO in a resource that we will populate then with links to resources;
+* Create a new **EntityModel<ProductDTO>** by using in the constructor **ProductDTO**. Some line like ```EntityModel<ProductDTO> productResource = new EntityModel<>(productDTO);```: we are wrapping the original DTO in a entity model that we will populate then with links;
 * add a link to the main resource **withSelfRel** so that you will add to the resource something similar to ``` "links":[{"rel":"self","href":"http://localhost:8080/eshop-rest/products_hateoas/1"}] ``` (hint: you can get link to the base URI with **linkTo(ProductsControllerHateoas.class)** );
-* return the product resource;
-          
-After you have created the Assembler, you need now to change the controller. 
+* return the product entity model built;
 
-+ Your methods will return now: i) ```getProducts(): HttpEntity<Resources<Resource<ProductDTO>>>```, ii) ```getProduct(): HttpEntity<Resource<ProductDTO>> HttpEntity<Resource<ProductDTO>>```, we do not return anymore DTOs but the new resources with the mapped links.
+After you have created the Assembler, you need now to change the controller.
+
++ Your methods will return now: i) ```getProducts(): HttpEntity<CollectionModel<EntityModel<ProductDTO>>>```, ii) ```getProduct(): HttpEntity<EntityModel<ProductDTO>```, we do not return anymore DTOs but the new resources with the mapped links.
 + You need to use the assembler to convert between DTOs and resources;
 + In **getProducts()**, you will need to add a link to self also to the overall resources, so that the output will look similar to the following:  ``` {"links":[{"rel":"self","href":"http://localhost:8080/eshop-rest/products_hateoas"}],"content":[{"id":1,"name":"Amber",...```;
-                
+
 You can add in the same way more links such as for example to the next product, or other operations that are allowed on the resource. We will add a reference to the delete operation:
 
 + Add to the Assembler another link, this time using **withRel("DELETE")**;
 + you can use similar **linkTo()** construct as before;
 
 
-**Task 07 (Managing Exceptions)** 
+**Task 07 (Managing Exceptions)**
 
 Move to step7:
 ```
@@ -244,7 +237,7 @@ curl -X POST -i -H "Content-Type: application/json" --data '{"name":"test","desc
 
 ```
 
-At the second call, we should get 
+At the second call, we should get
 
 ```
 HTTP/1.1 422 Unprocessable Entity
@@ -254,7 +247,7 @@ HTTP/1.1 422 Unprocessable Entity
 * In the class, have a List of Strings with getters, setters and constructors for error messages;
 * If not already done in the code, comment the line **@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason="The resource already exists")**  in the **ResourceAlreadyExistingException** class;
 * Create a new class called **GlobalExceptionController** in **cz.fi.muni.pa165.rest.controllers** mark the class with **@ControllerAdvice**;
-* add a new method **ApiError handleException(ResourceAlreadyExistingException ex)** annotated with 
+* add a new method **ApiError handleException(ResourceAlreadyExistingException ex)** annotated with
   ```
   @ExceptionHandler
   @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -273,8 +266,8 @@ HTTP/1.1 422 Unprocessable Entity
 ```
 
 
-**Task 08 (REST Caching)** 
-We can see how you can cache HTTP responses in Spring either as alternative or in combination with caching at the persistence layer (see [here](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html) if interested). For reference on HTTP caching in Spring, you can see [http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-caching](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-caching). See also [http://www.baeldung.com/2013/01/11/etags-for-rest-with-spring/](http://www.baeldung.com/2013/01/11/etags-for-rest-with-spring/) for the flow of operations and typical usage of etags.
+**Task 08 (REST Caching)**
+We can see how you can cache HTTP responses in Spring either as alternative or in combination with caching at the persistence layer (see [here](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html) if interested). For reference on HTTP caching in Spring, you can see [https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-caching](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-caching). See also [http://www.baeldung.com/2013/01/11/etags-for-rest-with-spring/](http://www.baeldung.com/2013/01/11/etags-for-rest-with-spring/) for the flow of operations and typical usage of etags.
 
 Move to step8:
 ```
@@ -283,9 +276,9 @@ git checkout -f seminar-rest_step8
 
 We will try caching with one of the GET methods of the HATEOAS class we created in one of the previous steps. Open the **ProductsControllerHateoas** class and duplicate the method **getProducts()**. Rename the new method **getProductsCached()** and add as a mapping **"/cached"** so that we can call this metod with **"/products_hateoas/cached"** for testing purposes.
 
-Use the [documentation](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-caching) (in particular section 21.14.3).
+Use the [documentation](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-caching).
 
-* remember to add a **ShallowEtagHeaderFilter()** in the Initializer;
+* remember to add a **ShallowEtagHeaderFilter()** in the Initializer (if not already there);
 * add **org.springframework.web.context.request.WebRequest** as a parameter to your rest controller;
 * create an eTag based on **productsResources.hashCode()** (you will need to enclose in quotes, "\);
 * use **webRequest::checkNotModified()** to check if the eTag has been modified - see also [here](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/request/WebRequest.html#checkNotModified-java.lang.String-) for an example;
@@ -318,22 +311,4 @@ Server: Apache-Coyote/1.1
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 ETag: "0bec7dfe9b90af07345fc1337e0ebe7e4"
-```
-
-**Task 09 (Questions)** 
-
-```
-Q1. Given what seen in Task1: as implemented, can DELETE be considered an idempotent operation?
-```
-
-```
-Q2. In Spring MVC, what is the difference between the @Controller annotation seen the last week and the @RestController annotation? 
-```
-
-```
-Q3. Given the way in which etags have been supported in Spring, what is the advantage in using HTTP caching:
-i) you can spare resources by not running queries from the persistence layer;
-ii) you can spare network bandwidth with the cached response;
-iii) both of i) and ii);
-iiii) none of i) and ii); 
 ```
