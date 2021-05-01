@@ -1,7 +1,6 @@
 ## Seminar Spring-WS Tasks
 
 In this seminar we set-up a Spring-WS project and try the *"contract-first"* approach adopted in Spring for the development of webservices.
-You can see the complete solution in the branch [seminar-ws](https://github.com/fi-muni/PA165/tree/seminar-ws).
 
 **Task 01 (project build)** 
 
@@ -12,10 +11,9 @@ mkdir seminar-ws
 cd seminar-ws
 git clone -b seminar-ws_step1 https://github.com/fi-muni/PA165
 cd PA165/
-module add maven
 mvn clean install
 cd eshop-ws
-mvn tomcat7:run
+mvn cargo:run
 ```
 
 After running the module, you will find the published WSDL at the address http://localhost:8080/spring-ws-seminar/products.wsdl
@@ -167,7 +165,4 @@ With the validation interceptor you should get similar message as:
 ```
 
 You can rebuild the application without interceptor and you should get instead the expected response message.
-
-
-You can read more about different interceptors in Spring-WS documentation: [https://docs.spring.io/spring-ws/docs/current/reference/#server-endpoint-interceptor](https://docs.spring.io/spring-ws/docs/current/reference/#server-endpoint-interceptor)
 
