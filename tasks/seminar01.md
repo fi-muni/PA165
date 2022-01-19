@@ -1,4 +1,7 @@
+**This seminar is an old version and has been deprecated: please use the project on GitLab:** https://gitlab.fi.muni.cz/pa165/seminar-01
+
 ## Seminar 01 Tasks 
+
 **Task 01** Open IDE. Main IDE for this course is IntelliJ IDEA. This IDE is installed in B130 (or should be installed in your personal PC under school license (see below) in the case of virtual seminars) and accessible through modules. Use the following commands to run IDE. Create hello world Java application and run it using the IDE.
 ```
   module add idea
