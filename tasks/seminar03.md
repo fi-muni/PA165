@@ -1,3 +1,5 @@
+**This seminar is an old version and has been deprecated: please use the project on GitLab:** https://gitlab.fi.muni.cz/pa165/seminar-03
+
 ## Seminar 03 Tasks
 **Task 01** Checkout branch seminar03 from https://github.com/fi-muni/PA165 and
 open project currency-convertor. 
