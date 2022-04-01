@@ -31,7 +31,7 @@ public class CategoryRepresentationModelAssembler implements RepresentationModel
     @Override
     public EntityModel<CategoryDTO> toModel(CategoryDTO categoryDTO) {
         long id = categoryDTO.getId();
-        EntityModel<CategoryDTO> categoryResource = new EntityModel<>(categoryDTO);
+        EntityModel<CategoryDTO> categoryResource = EntityModel.of(categoryDTO);
         try {
             Link catLink = entityLinks.linkForItemResource(CategoryDTO.class, id).withSelfRel();
             categoryResource.add(catLink);

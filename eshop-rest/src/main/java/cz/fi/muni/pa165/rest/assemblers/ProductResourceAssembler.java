@@ -23,7 +23,7 @@ public class ProductResourceAssembler implements RepresentationModelAssembler<Pr
 
     @Override
     public EntityModel<ProductDTO> toModel(ProductDTO productDTO) {
-        EntityModel<ProductDTO> productResource = new EntityModel<>(productDTO);
+        EntityModel<ProductDTO> productResource = EntityModel.of(productDTO);
 
         try {
             productResource.add(linkTo(ProductsControllerHateoas.class).slash(productDTO.getId()).withSelfRel());

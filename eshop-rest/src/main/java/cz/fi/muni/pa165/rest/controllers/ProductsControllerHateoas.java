@@ -62,7 +62,7 @@ public class ProductsControllerHateoas {
             productResourceCollection.add(productResourceAssembler.toModel(p));
         }
 
-        CollectionModel<EntityModel<ProductDTO>> productsResources = new CollectionModel<>(productResourceCollection);
+        CollectionModel<EntityModel<ProductDTO>> productsResources = CollectionModel.of(productResourceCollection);
         productsResources.add(linkTo(ProductsControllerHateoas.class).withSelfRel());
 
         return new ResponseEntity<>(productsResources, HttpStatus.OK);
@@ -93,7 +93,7 @@ public class ProductsControllerHateoas {
             productResourceCollection.add(productResourceAssembler.toModel(p));
         }
 
-        CollectionModel<EntityModel<ProductDTO>> productsResources = new CollectionModel<>(productResourceCollection);
+        CollectionModel<EntityModel<ProductDTO>> productsResources = CollectionModel.of(productResourceCollection);
         productsResources.add(linkTo(ProductsControllerHateoas.class).withSelfRel());
 
         final StringBuffer eTag = new StringBuffer("\"");

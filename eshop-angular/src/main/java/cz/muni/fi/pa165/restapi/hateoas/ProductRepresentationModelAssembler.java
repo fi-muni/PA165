@@ -29,7 +29,7 @@ public class ProductRepresentationModelAssembler implements RepresentationModelA
     @Override
     public EntityModel<ProductDTO> toModel(ProductDTO productDTO) {
         long id = productDTO.getId();
-        EntityModel<ProductDTO> productResource = new EntityModel<>(productDTO);
+        EntityModel<ProductDTO> productResource = EntityModel.of(productDTO);
         try {
             productResource.add(linkTo(ProductsRestController.class).slash(productDTO.getId()).withSelfRel());
 
@@ -37,7 +37,7 @@ public class ProductRepresentationModelAssembler implements RepresentationModelA
             productResource.add(linkTo(deleteProduct.getDeclaringClass(),deleteProduct, id).withRel("delete"));
 
             Method productImage = ProductsRestController.class.getMethod("productImage", long.class, HttpServletRequest.class, HttpServletResponse.class);
-            Link imageLink = linkTo(productImage.getDeclaringClass(), productImage, id).withRel("image");
+            Link imageLink = linkTo(productImage.getDeclaringClass(), productImage, id, null, null).withRel("image");
             productResource.add(imageLink);
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);
