@@ -1,0 +1,30 @@
+# every value can be changed from command line by preceding the option with --
+# see https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-command-line-args
+# example:
+#   target/eshop-angular.jar --server.port=8100 --server.ssl.key-store=mykeystore.p12
+
+server:
+  port: 8080
+  servlet:
+    context-path: /eshop
+
+
+logging:
+#  pattern:
+#    console: '%clr(%d{HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(%logger){blue} %clr(:){red} %clr(%m){faint}%n'
+  level:
+    cz.muni.fi.pa165: WARN
+    cz.muni: DEBUG
+    cz.muni.fi.pa165.sampledata: INFO
+    cz.muni.fi.pa165.restapi: DEBUG
+    org: INFO
+    org.hibernate.tool.hbm2ddl.SchemaExport: OFF
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: OFF
+    org.hibernate: ERROR
+    org.dozer: ERROR
+    org.springframework: ERROR
+    org.springframework.web: WARN
+
+spring:
+  main:
+    allow-bean-definition-overriding: true

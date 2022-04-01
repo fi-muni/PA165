@@ -36,7 +36,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
  */
 @RestController
 @ExposesResourceFor(ProductDTO.class)
-@RequestMapping("/products")
+@RequestMapping("/api/v1/products")
 public class ProductsRestController {
 
     private final static Logger log = LoggerFactory.getLogger(ProductsRestController.class);
